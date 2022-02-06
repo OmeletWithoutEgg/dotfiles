@@ -1,0 +1,9 @@
+set nu bs=2 et sts=4 sw=4 hls acd sc cin belloff=all mouse=a
+set termguicolors
+syntax on
+color desert
+
+inoremap {<CR> {<CR>}<ESC>O
+nnoremap <F8> :w<bar>!./run.sh<CR>
+nnoremap <F9> :w<bar>!g++ % -o %:r -Dlocal -std=c++17 -Wall -Wextra -Wfatal-errors<CR>
+nnoremap <F10> :!./%:r<CR>
