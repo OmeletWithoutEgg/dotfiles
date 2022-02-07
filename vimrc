@@ -29,6 +29,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'zirrostig/vim-jack-syntax'
 Plug 'petRUShka/vim-sage'
+Plug 'vim-latex/vim-latex'
 
 Plug 'tpope/vim-commentary' " gc for comment
 Plug 'tpope/vim-surround' " s for surrounding text object. e.g. cs'" for changing surrounding ' to "
@@ -37,15 +38,15 @@ Plug 'tpope/vim-surround' " s for surrounding text object. e.g. cs'" for changin
 " Plug 'Yggdroot/indentLine'
 Plug 'editorconfig/editorconfig-vim'
 
-" Plug 'kevinhwang91/vim-ibus-sw'
+Plug 'kevinhwang91/vim-ibus-sw'
 
 call plug#end() 
 
 if has('gui_running')
-    au GUIEnter * simalt ~x " maximize window
     set guioptions-=m guioptions-=e guioptions-=T guioptions-=L guioptions-=R guioptions-=l guioptions-=r
     " menu | tab page | toolbar | left scrollbar | right scrollbar | left scrollbar (split) | right scrollbar (split)
     if has('win32')
+        au GUIEnter * simalt ~x " maximize window
         set guifont=Microsoft\ Yahei\ Mono:h14 " for Windows
     else
         set guifont=Dejavu\ Sans\ Mono\ 16

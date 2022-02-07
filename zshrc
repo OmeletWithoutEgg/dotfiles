@@ -57,4 +57,4 @@ function l.() {
 }
 
 set -o vi
-source /usr/share/doc/pkgfile/command-not-found.zsh
+source /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
