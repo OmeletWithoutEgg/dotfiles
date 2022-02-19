@@ -17,17 +17,12 @@ HISTFILE=~/.zsh_history
 
 # zplug plugins
 zplug "romkatv/powerlevel10k", as:theme, depth:1
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"
-# zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zdharma-continuum/fast-syntax-highlighting"
 zplug "zpm-zsh/ls"
-# zplug "plugins/docker", from:oh-my-zsh
-# zplug "plugins/docker-compose", from:oh-my-zsh
-zplug "plugins/extract", from:oh-my-zsh
-# zplug "lib/completion", from:oh-my-zsh
+zplug "le0me55i/zsh-extract"
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
@@ -44,7 +39,7 @@ zplug load
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export EDITOR=vim
-export PATH=$HOME/.local/bin:$PATH
+# export PATH=$HOME/.local/bin:$PATH
 alias rm='trash'
 # alias open='xdg-open'
 alias regmount='sudo mount -o gid=users,fmask=113,dmask=002'
