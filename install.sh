@@ -17,3 +17,4 @@ done
 # cat ibus-env >> /etc/environment
 # cp .config.py ~/.config/qutebrowser/
 # cp ibus-daemon.desktop ~/.config/autostart/
+# chmod +x ~/.config/autostart/ibus-daemon.desktop
