@@ -48,5 +48,13 @@ function l.() {
     ls $@ -d .*
 }
 
+function latex-template() {
+    if [[ -z $1 ]]; then
+        echo "usage: latex-template <dirname>"
+        return 1
+    fi
+    cp -r ~/Templates/LaTeX $1
+}
+
 set -o vi
 source /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u

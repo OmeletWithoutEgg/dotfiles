@@ -10,9 +10,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
-Plug 'junegunn/goyo.vim'
 
-Plug 'skywind3000/asyncrun.vim' " :AsyncRun -mode=os -cwd=$(VIM_FILEDIR) command
 Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
 Plug 'tpope/vim-fugitive' " :G [option] for git commands
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
@@ -29,13 +27,13 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'zirrostig/vim-jack-syntax'
 Plug 'petRUShka/vim-sage'
-Plug 'vim-latex/vim-latex'
+" Plug 'vim-latex/vim-latex'
 
 Plug 'tpope/vim-commentary' " gc for comment
 Plug 'tpope/vim-surround' " s for surrounding text object. e.g. cs'" for changing surrounding ' to "
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
-" Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'kevinhwang91/vim-ibus-sw'
@@ -56,9 +54,13 @@ endif
 
 let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
 let g:tex_conceal=''
+
+" let Tex_FoldedSections=''
+" let Tex_FoldedEnvironments=''
+" let Tex_FoldedMisc=''
+
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
 let g:startify_bookmarks = ['~/.vimrc']
-" :h g:lightline.colorscheme
 let g:lightline = {
     \   'colorscheme': 'materia',
     \   'active': {
@@ -69,7 +71,6 @@ let g:lightline = {
     \       'gitbranch': 'FugitiveHead',
     \   },
     \ }
-let g:asyncrun_open = 4
 
 set background=dark
 color vim-material
@@ -110,7 +111,6 @@ endfunction
 function s:CppMapping()
     " nnoremap <F8> :w<bar>!./run.sh<CR>
     nnoremap <leader>b :w<bar>!g++ % -o %:r -std=c++17 -Dlocal -Ofast -Wfatal-errors -fsanitize=undefined -fsanitize=address<CR>
-    " nnoremap <silent><leader>b :w<bar>AsyncRun! -post=cclose g++ % -o %:r -std=c++17 -Dlocal -Ofast -Wfatal-errors -fsanitize=undefined -fsanitize=address<CR>
     nnoremap <leader>r :!./%:r<CR>
 endfunction
 
@@ -127,7 +127,7 @@ function s:VimrcMapping()
 endfunction
 
 function s:LaTeXMapping()
-    nnoremap <leader>b :w<bar>!./compile_xelatex.sh<CR>
+    nnoremap <leader>b :w<bar>!make<CR>
     nnoremap <leader>r :!okular --unique main.pdf &<CR>
     inoremap <leader>bm \begin{bmatrix}<CR>\end{bmatrix}<ESC>O
     inoremap <leader>bee \begin{enumerate}<CR>\end{enumerate}<ESC>O
@@ -156,9 +156,6 @@ augroup mappingHandler
     au BufEnter *.hdl call <SID>hdlMapping()
 augroup END
 
-noremap <F9> <leader>b
-noremap <F10> <leader>r
-
 function s:JSFormat()
     set sts=2 sw=2 cc=100
 endfunction
@@ -166,4 +163,3 @@ endfunction
 au BufEnter *.js call<SID>JSFormat()
 
 noh
-" cd ~/CompetitiveProgramming/
