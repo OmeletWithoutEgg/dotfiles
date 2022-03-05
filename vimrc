@@ -133,15 +133,12 @@ function s:LaTeXMapping()
     inoremap <leader>bee \begin{enumerate}<CR>\end{enumerate}<ESC>O
     inoremap <leader>bei \begin{itemize}<CR>\end{itemize}<ESC>O
     inoremap <leader>bea \begin{align*}<CR>\end{align*}<ESC>O
+    inoremap <leader>e <ESC>^"pc$\begin{<C-o>"pp}<CR>\end{<C-o>"pp}<ESC>O
 endfunction
 
 function s:HaskellMapping()
     nnoremap <leader>b :w<bar>!ghc % -o %:r -dynamic<CR>
     nnoremap <leader>r :!./%:r<CR>
-endfunction
-
-function s:hdlMapping()
-    nnoremap <leader>b :w<bar>:!~/nand2tetris/tools/HardwareSimulator.sh %:r.tst<CR>
 endfunction
 
 augroup mappingHandler
@@ -153,7 +150,6 @@ augroup mappingHandler
     au BufEnter *.sage call <SID>SageMapping()
     au BufEnter *.vim,_vimrc,.vimrc call <SID>VimrcMapping()
     au BufEnter *.tex call <SID>LaTeXMapping()
-    au BufEnter *.hdl call <SID>hdlMapping()
 augroup END
 
 function s:JSFormat()
