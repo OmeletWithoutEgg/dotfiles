@@ -21,7 +21,7 @@ vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
 
 chsh -s /usr/bin/zsh
 if [[ ! -d ~/.zplug ]]; then
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+    git clone https://github.com/zplug/zplug.git ~/.zplug
 fi
 
 for f in $FILES; do
