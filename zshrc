@@ -6,13 +6,6 @@ function @include() {
     done
 }
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-@include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-
-@include /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
-
 @include ~/.zplug/init.zsh || return
 
 # zplug plugins
@@ -34,6 +27,13 @@ if ! zplug check --verbose; then
     fi
 fi
 zplug load
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+@include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+
+@include /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
 
 # History config
 HISTSIZE=10000
