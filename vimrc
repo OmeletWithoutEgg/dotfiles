@@ -156,6 +156,9 @@ function s:JSFormat()
     set sts=2 sw=2 cc=100
 endfunction
 
+nmap <F9> <leader>b
+nmap <F10> <leader>r
+
 au BufEnter *.js call<SID>JSFormat()
 
 noh
