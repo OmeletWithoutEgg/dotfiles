@@ -1,16 +1,19 @@
+function @include() {
+    for file in $@; do
+        if [[ -r $file ]]; then
+            source $file
+        fi
+    done
+}
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+@include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
-source ~/.zplug/init.zsh
+@include /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
 
-# History config
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
+@include ~/.zplug/init.zsh || return
 
 # zplug plugins
 zplug "romkatv/powerlevel10k", as:theme, depth:1
@@ -32,22 +35,23 @@ if ! zplug check --verbose; then
 fi
 zplug load
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# History config
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
 
+# Aliases & functions
 export EDITOR=vim
-# export PATH=$HOME/.local/bin:$PATH
-alias rm='trash'
-# alias open='xdg-open'
-alias regmount='sudo mount -o gid=users,fmask=113,dmask=002'
-# mount -o gid=users,fmask=113,dmask=002 /dev/sda1 /mnt/toshiba
+export PATH=$HOME/.local/bin:$PATH
+
+alias rm="trash"
+alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
 function open() {
     xdg-open $@ 2>/dev/null && sleep 1
 }
 function l.() {
     ls $@ -d .*
 }
-
 function latex-template() {
     if [[ -z $1 ]]; then
         echo "usage: latex-template <dirname>"
@@ -57,4 +61,6 @@ function latex-template() {
 }
 
 set -o vi
-source /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+@include ~/.p10k.zsh
