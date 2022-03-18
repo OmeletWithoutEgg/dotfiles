@@ -7,4 +7,4 @@ for f in $FILES; do
 done
 
 # cat ibus-env >> /etc/environment
-cp ~/.config/qutebrowser/config.py .
+cp ~/.config/qutebrowser/config.py qutebrowser/config.py
