@@ -46,6 +46,8 @@ export PATH=$HOME/.local/bin:$PATH
 
 alias rm="trash"
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
+alias du="dust"
+alias df="duf"
 function open() {
     xdg-open $@ 2>/dev/null && sleep 1
 }

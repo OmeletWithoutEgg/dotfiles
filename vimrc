@@ -1,4 +1,4 @@
-" source ~/.simple-vimrc | finish
+" source ~/vir/.vimrc | finish
 
 set nocompatible
 set encoding=utf8
