@@ -133,7 +133,7 @@ function s:LaTeXMapping()
     inoremap <leader>bee \begin{enumerate}<CR>\end{enumerate}<ESC>O
     inoremap <leader>bei \begin{itemize}<CR>\end{itemize}<ESC>O
     inoremap <leader>bea \begin{align*}<CR>\end{align*}<ESC>O
-    inoremap <leader>e <ESC>^"pc$\begin{<C-o>"pp}<CR>\end{<C-o>"pp}<ESC>O
+    inoremap <leader>env <ESC>^"pc$\begin{<C-o>"pp}<CR>\end{<C-o>"pp}<ESC>O
 endfunction
 
 function s:HaskellMapping()
