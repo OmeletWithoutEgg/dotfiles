@@ -15,6 +15,7 @@ c.zoom.default = '125%'
 
 config.unbind('ZQ')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
+config.bind('<Ctrl-Alt-P>', 'spawn --userscript qute-pass', 'insert')
 config.bind('zl', 'spawn --userscript qute-pass')
 config.bind('zpl', 'spawn --userscript qute-pass --password-only')
 config.bind('zul', 'spawn --userscript qute-pass --username-only')
