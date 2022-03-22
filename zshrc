@@ -5,6 +5,11 @@ function @include() {
         fi
     done
 }
+function @replace() {
+    if command -v $2 >/dev/null 2>/dev/null; then
+        alias $1=$2
+    fi
+}
 
 @include ~/.zplug/init.zsh || return
 
@@ -44,10 +49,12 @@ HISTFILE=~/.zsh_history
 export EDITOR=vim
 export PATH=$HOME/.local/bin:$PATH
 
-alias rm="trash"
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
-alias du="dust"
-alias df="duf"
+
+@replace rm "trash"
+@replace du "dust"
+@replace df "duf"
+
 function open() {
     xdg-open $@ 2>/dev/null && sleep 1
 }
