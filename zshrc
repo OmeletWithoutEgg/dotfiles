@@ -1,14 +1,22 @@
-function @include() {
+# Environment variables
+export EDITOR=vim
+export PATH=$HOME/.local/bin:$PATH
+
+function @include {
     for file in $@; do
         if [[ -r $file ]]; then
             source $file
         fi
     done
 }
-function @replace() {
-    if command -v $2 >/dev/null 2>/dev/null; then
-        alias $1=$2
-    fi
+function @replace {
+    local lhs=$1; shift
+    while (( $# > 0 )); do
+        local rhs=$1; shift
+        if command -v $rhs >/dev/null 2>/dev/null; then
+            alias $lhs=$rhs
+        fi
+    done
 }
 
 @include ~/.zplug/init.zsh || return
@@ -46,22 +54,21 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # Aliases & functions
-export EDITOR=vim
-export PATH=$HOME/.local/bin:$PATH
 
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
 
-@replace rm "trash"
+@replace rm "trash" "rm -i"
 @replace du "dust"
 @replace df "duf"
 
-function open() {
+
+function open {
     xdg-open $@ 2>/dev/null && sleep 1
 }
-function l.() {
+function l. {
     ls $@ -d .*
 }
-function latex-template() {
+function latex-template {
     if [[ -z $1 ]]; then
         echo "usage: latex-template <dirname>"
         return 1
