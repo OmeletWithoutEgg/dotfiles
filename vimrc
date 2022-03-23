@@ -38,7 +38,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 Plug 'kevinhwang91/vim-ibus-sw'
 
-call plug#end() 
+call plug#end()
 
 if has('gui_running')
     set guioptions-=m guioptions-=e guioptions-=T guioptions-=L guioptions-=R guioptions-=l guioptions-=r
