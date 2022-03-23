@@ -2,6 +2,7 @@
 export EDITOR=vim
 export PATH=$HOME/.local/bin:$PATH
 
+# Helper function
 function @include {
     for file in $@; do
         if [[ -r $file ]]; then
@@ -13,8 +14,9 @@ function @replace {
     local lhs=$1; shift
     while (( $# > 0 )); do
         local rhs=$1; shift
-        if command -v $rhs >/dev/null 2>/dev/null; then
+        if command -v ${rhs%% *} >/dev/null 2>/dev/null; then
             alias $lhs=$rhs
+            return 0
         fi
     done
 }
@@ -54,14 +56,10 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # Aliases & functions
-
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
-
 @replace rm "trash" "rm -i"
 @replace du "dust"
 @replace df "duf"
-
-
 function open {
     xdg-open $@ 2>/dev/null && sleep 1
 }
