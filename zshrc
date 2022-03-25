@@ -21,27 +21,42 @@ function @replace {
     done
 }
 
-@include ~/.zplug/init.zsh || return
-
-# zplug plugins
-zplug "romkatv/powerlevel10k", as:theme, depth:1
-zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zdharma-continuum/fast-syntax-highlighting"
-zplug "zpm-zsh/ls"
-zplug "le0me55i/zsh-extract"
-
-# Install packages that have not been installed yet
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    else
-        echo
-    fi
+# ZI plugin manager
+if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
+  command mkdir -p "$HOME/.zi" && command chmod g-rwX "$HOME/.zi"
+  command git clone -q --depth=1 --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
-zplug load
+source "$HOME/.zi/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
+# ZI cheatsheet:
+### zi update / zi self-update / zi delete --clean
+### zi ice OPTIONS / zi load / zi light / zi OPTIONS for
+
+zi ice as:theme depth:1
+zi load "romkatv/powerlevel10k"
+
+zi load "zpm-zsh/ls"
+zi load "le0me55i/zsh-extract"
+
+zi wait lucid for \
+    "zdharma-continuum/fast-syntax-highlighting" \
+    atload="_zsh_autosuggest_start" \
+    "zsh-users/zsh-autosuggestions" \
+    blockf atpull"zi creinstall -q ." atinit"zicompinit; zicdreplay" \
+    "zsh-users/zsh-completions"
+# zi wait lucid for z-shell/zui z-shell/zi-console
+
+zi snippet OMZ::lib/completion.zsh
+zi snippet OMZ::lib/history.zsh
+# zinit snippet OMZ::lib/key-bindings.zsh
+zi snippet OMZ::lib/theme-and-appearance.zsh
+zi snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
+# autoload -Uz compinit
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -72,6 +87,10 @@ function latex-template {
         return 1
     fi
     cp -r ~/Templates/LaTeX $1
+}
+function ipinfo {
+    echo "Wireless :: IP => $( ip -4 -o a show wlo1 | awk '{ print $4 }' )"
+    echo "External :: IP => $( curl --silent https://ifconfig.me )"
 }
 
 set -o vi
