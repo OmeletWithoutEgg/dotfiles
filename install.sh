@@ -20,8 +20,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
 
 chsh -s /usr/bin/zsh
-if [[ ! -d ~/.zplug ]]; then
-    git clone https://github.com/zplug/zplug.git ~/.zplug
+if [[ ! -d ~/.zi ]]; then
+    mkdir -p "$HOME/.zi" && chmod g-rwX "$HOME/.zi"
+    git clone -q --depth=1 \
+        --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin"
 fi
 
 for f in $FILES; do
