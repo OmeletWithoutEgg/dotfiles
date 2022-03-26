@@ -39,22 +39,20 @@ autoload -Uz _zi
 zi ice as:theme depth:1
 zi load "romkatv/powerlevel10k"
 
-zi load "zpm-zsh/ls"
-zi load "le0me55i/zsh-extract"
 
 zi wait lucid for \
     "zdharma-continuum/fast-syntax-highlighting" \
-    atload="_zsh_autosuggest_start" \
+    atload:"_zsh_autosuggest_start" \
     "zsh-users/zsh-autosuggestions" \
-    blockf atpull"zi creinstall -q ." atinit"zicompinit; zicdreplay" \
-    "zsh-users/zsh-completions"
+    blockf atpull:"zi creinstall -q ." atinit:"zicompinit; zicdreplay" \
+    "zsh-users/zsh-completions" \
+    "zpm-zsh/ls" \
+    "le0me55i/zsh-extract" \
 # zi wait lucid for z-shell/zui z-shell/zi-console
 
-zi snippet OMZ::lib/completion.zsh
 zi snippet OMZ::lib/history.zsh
-# zinit snippet OMZ::lib/key-bindings.zsh
-zi snippet OMZ::lib/theme-and-appearance.zsh
-zi snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+# zi snippet OMZ::lib/completion.zsh
+# zi snippet OMZ::lib/theme-and-appearance.zsh
 
 # autoload -Uz compinit
 
@@ -65,10 +63,10 @@ zi snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
 @include /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
 
-# History config
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
+# # History config
+# HISTSIZE=10000
+# SAVEHIST=10000
+# HISTFILE=~/.zsh_history
 
 # Aliases & functions
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
