@@ -35,12 +35,13 @@ zi load "romkatv/powerlevel10k"
 
 zi wait lucid for \
     "zdharma-continuum/fast-syntax-highlighting" \
-    atload:"_zsh_autosuggest_start" \
-    "zsh-users/zsh-autosuggestions" \
     blockf atpull:"zi creinstall -q ." atinit:"zicompinit; zicdreplay" \
     "zsh-users/zsh-completions" \
+    atload:"_zsh_autosuggest_start" \
+    "zsh-users/zsh-autosuggestions" \
     "zpm-zsh/ls" \
     "le0me55i/zsh-extract" \
+
 # zi wait lucid for z-shell/zui z-shell/zi-console
 
 zi snippet OMZ::lib/history.zsh
