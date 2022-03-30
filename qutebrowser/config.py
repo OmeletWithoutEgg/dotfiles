@@ -15,12 +15,14 @@ c.zoom.default = '125%'
 
 config.unbind('ZQ')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
+config.bind('gs', 'greasemonkey-reload')
 config.bind('<Ctrl-Alt-P>', 'spawn --userscript qute-pass', 'insert')
 config.bind('zl', 'spawn --userscript qute-pass')
 config.bind('zpl', 'spawn --userscript qute-pass --password-only')
 config.bind('zul', 'spawn --userscript qute-pass --username-only')
 
 ## YT blocking
+### https://www.reddit.com/r/qutebrowser/comments/n6mcsa/did_anything_change_to_youtube_ads_not_blocked/
 from qutebrowser.api import interceptor
 
 def filter_yt(info: interceptor.Request):
