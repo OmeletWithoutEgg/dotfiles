@@ -4,11 +4,7 @@ export PATH=$HOME/.local/bin:$PATH
 
 # Helper function
 function @include {
-    for file in $@; do
-        if [[ -r $file ]]; then
-            source $file
-        fi
-    done
+    [[ -r $1 ]] && source $1
 }
 function @replace {
     local lhs=$1; shift
@@ -22,7 +18,7 @@ function @replace {
 }
 
 # ZI plugin manager
-@include "$HOME/.zi/bin/zi.zsh" || return
+@include "$HOME/.zi/bin/zi.zsh"
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 # ZI cheatsheet:
@@ -32,21 +28,26 @@ autoload -Uz _zi
 zi ice as:theme depth:1
 zi load "romkatv/powerlevel10k"
 
-
 zi wait lucid for \
-    "zdharma-continuum/fast-syntax-highlighting" \
-    blockf atpull:"zi creinstall -q ." atinit:"zicompinit; zicdreplay" \
-    "zsh-users/zsh-completions" \
-    atload:"_zsh_autosuggest_start" \
-    "zsh-users/zsh-autosuggestions" \
-    "zpm-zsh/ls" \
-    "le0me55i/zsh-extract" \
+    atinit:"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+        "z-shell/fast-syntax-highlighting" \
+    blockf atpull:"zi creinstall -q ."\
+        "zsh-users/zsh-completions" \
+    atload:"!_zsh_autosuggest_start" \
+        "zsh-users/zsh-autosuggestions" \
+        "zpm-zsh/ls" \
+        "le0me55i/zsh-extract" \
 
 # zi wait lucid for z-shell/zui z-shell/zi-console
 
 zi snippet OMZ::lib/history.zsh
-# zi snippet OMZ::lib/completion.zsh
-# zi snippet OMZ::lib/theme-and-appearance.zsh
+
+# https://github.com/ThiefMaster/zsh-config/blob/master/zshrc.d/completion.zsh
+# Use ls-colors for path completions
+if [[ -z "$LS_COLORS" ]]; then
+    (( $+commands[dircolors] )) && eval "$(dircolors -b)"
+fi
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # autoload -Uz compinit
 
@@ -83,6 +84,15 @@ function latex-template {
 function ipinfo {
     echo "Wireless :: IP => $( ip -4 -o a show wlo1 | awk '{ print $4 }' )"
     echo "External :: IP => $( curl --silent https://ifconfig.me )"
+}
+function cpp-precompile {
+    echo "Note: needs permission of header dirs"
+    local cppflags=("-std=c++17" "-Dlocal" "-Ofast" "-Wfatal-errors" "-fsanitize=undefined,address")
+    for header in "bits/stdc++.h" "bits/extc++.h"; do
+        local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
+        echo "precompile $p"
+        g++ $p $cppflags
+    done
 }
 
 set -o vi
