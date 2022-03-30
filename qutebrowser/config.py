@@ -10,13 +10,18 @@ c.fonts.web.family.fixed = 'Hack'
 c.new_instance_open_target = 'tab-silent'
 c.url.default_page = 'https://google.com'
 c.url.start_pages = 'https://codeforces.com'
-c.url.searchengines = {'DEFAULT': 'https://google.com/search?q={}'}
+c.url.searchengines = {
+    'DEFAULT': 'https://google.com/search?q={}',
+    'archpkg': 'https://archlinux.org/packages/?q={}',
+    'archwiki': 'https://wiki.archlinux.org/index.php?search={}'
+}
 c.zoom.default = '125%'
 
 config.unbind('ZQ')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
-config.bind('gs', 'greasemonkey-reload')
+config.bind('<Alt-ESC>', 'fake-key <esc>')
 config.bind('<Ctrl-Alt-P>', 'spawn --userscript qute-pass', 'insert')
+config.bind('gs', 'greasemonkey-reload')
 config.bind('zl', 'spawn --userscript qute-pass')
 config.bind('zpl', 'spawn --userscript qute-pass --password-only')
 config.bind('zul', 'spawn --userscript qute-pass --username-only')
