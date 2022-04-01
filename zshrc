@@ -47,7 +47,7 @@ zi snippet OMZ::lib/history.zsh
 if [[ -z "$LS_COLORS" ]]; then
     (( $+commands[dircolors] )) && eval "$(dircolors -b)"
 fi
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
 
 # autoload -Uz compinit
 
