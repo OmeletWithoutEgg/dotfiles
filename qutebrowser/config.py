@@ -23,8 +23,9 @@ config.bind('<Alt-ESC>', 'fake-key <esc>')
 config.bind('<Ctrl-Alt-P>', 'spawn --userscript qute-pass', 'insert')
 config.bind('gs', 'greasemonkey-reload')
 config.bind('zl', 'spawn --userscript qute-pass')
-config.bind('zpl', 'spawn --userscript qute-pass --password-only')
-config.bind('zul', 'spawn --userscript qute-pass --username-only')
+config.bind('zm', 'spawn passmenu -fn "Noto-16.0"')
+# config.bind('zpl', 'spawn --userscript qute-pass --password-only')
+# config.bind('zul', 'spawn --userscript qute-pass --username-only')
 
 ## YT blocking
 ### https://www.reddit.com/r/qutebrowser/comments/n6mcsa/did_anything_change_to_youtube_ads_not_blocked/
