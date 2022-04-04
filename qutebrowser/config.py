@@ -19,11 +19,11 @@ c.zoom.default = '125%'
 
 config.unbind('ZQ')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
-config.bind('<Alt-ESC>', 'fake-key <esc>')
+config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Ctrl-Alt-P>', 'spawn --userscript qute-pass', 'insert')
-config.bind('gs', 'greasemonkey-reload')
+config.bind('gs', 'greasemonkey-reload ;; reload')
 config.bind('zl', 'spawn --userscript qute-pass')
-config.bind('zm', 'spawn passmenu -fn "Noto-16.0"')
+config.bind('zm', 'spawn --userscript qute-pass --unfiltered -d "dmenu -fn Noto-16.0"')
 # config.bind('zpl', 'spawn --userscript qute-pass --password-only')
 # config.bind('zul', 'spawn --userscript qute-pass --username-only')
 
