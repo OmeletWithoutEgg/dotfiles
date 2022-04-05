@@ -9,18 +9,30 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
+let g:lightline = {
+    \   'colorscheme': 'materia',
+    \   'active': {
+    \       'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'gitbranch' ], ],
+    \       'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ],
+    \   },
+    \   'component_function': {
+    \       'gitbranch': 'FugitiveHead',
+    \   },
+    \ }
 Plug 'mhinz/vim-startify'
+let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
+let g:startify_bookmarks = ['~/.vimrc']
 
 Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
 Plug 'tpope/vim-fugitive' " :G [option] for git commands
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 Plug 'mhinz/vim-signify'
+let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
 
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
 
 " Plug 'sheerun/vim-polyglot'
-Plug 'joker1007/vim-markdown-quote-syntax'
 Plug 'cespare/vim-toml' " TOML syntax highlight
 Plug 'itchyny/vim-haskell-indent'
 Plug 'pangloss/vim-javascript'
@@ -29,8 +41,20 @@ Plug 'zirrostig/vim-jack-syntax'
 Plug 'petRUShka/vim-sage'
 " Plug 'vim-latex/vim-latex'
 
-Plug 'tpope/vim-commentary' " gc for comment
-Plug 'tpope/vim-surround' " s for surrounding text object. e.g. cs'" for changing surrounding ' to "
+Plug 'preservim/vim-markdown'
+Plug 'godlygeek/tabular'
+" Plug 'joker1007/vim-markdown-quote-syntax'
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+" let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_frontmatter = 1 " YAML
+let g:tex_conceal=''
+let g:vim_markdown_math = 1
+
+" Plug 'tpope/vim-commentary' " gc for comment
+" Plug 'tpope/vim-surround' " s for surrounding text object. e.g. cs'" for changing surrounding ' to "
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
@@ -51,26 +75,6 @@ if has('gui_running')
     endif
     " set guifontwide=DFKai-SB
 endif
-
-let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
-let g:tex_conceal=''
-
-" let Tex_FoldedSections=''
-" let Tex_FoldedEnvironments=''
-" let Tex_FoldedMisc=''
-
-let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
-let g:startify_bookmarks = ['~/.vimrc']
-let g:lightline = {
-    \   'colorscheme': 'materia',
-    \   'active': {
-    \       'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'gitbranch' ], ],
-    \       'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ],
-    \   },
-    \   'component_function': {
-    \       'gitbranch': 'FugitiveHead',
-    \   },
-    \ }
 
 set background=dark
 color vim-material
@@ -141,6 +145,10 @@ function s:HaskellMapping()
     nnoremap <leader>r :!./%:r<CR>
 endfunction
 
+function s:MarkdownMapping()
+    nnoremap <leader>t :TableFormat<CR>
+endfunction
+
 augroup mappingHandler
     au!
     au BufEnter *.c call <SID>CMapping()
@@ -150,6 +158,7 @@ augroup mappingHandler
     au BufEnter *.sage call <SID>SageMapping()
     au BufEnter *.vim,_vimrc,.vimrc call <SID>VimrcMapping()
     au BufEnter *.tex call <SID>LaTeXMapping()
+    au BufEnter *.md call <SID>MarkdownMapping()
 augroup END
 
 function s:JSFormat()
