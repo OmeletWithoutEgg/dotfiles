@@ -91,7 +91,7 @@ function cpp-precompile {
     for header in "bits/stdc++.h" "bits/extc++.h"; do
         local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
         echo "precompile $p"
-        g++ $p $cppflags
+        sudo g++ $p $cppflags
     done
 }
 
