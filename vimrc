@@ -9,25 +9,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
-let g:lightline = {
-    \   'colorscheme': 'materia',
-    \   'active': {
-    \       'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'gitbranch' ], ],
-    \       'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ],
-    \   },
-    \   'component_function': {
-    \       'gitbranch': 'FugitiveHead',
-    \   },
-    \ }
 Plug 'mhinz/vim-startify'
-let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
-let g:startify_bookmarks = ['~/.vimrc']
 
 Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
 Plug 'tpope/vim-fugitive' " :G [option] for git commands
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 Plug 'mhinz/vim-signify'
-let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
 
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
@@ -44,14 +31,6 @@ Plug 'petRUShka/vim-sage'
 Plug 'preservim/vim-markdown'
 Plug 'godlygeek/tabular'
 " Plug 'joker1007/vim-markdown-quote-syntax'
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_no_default_key_mappings = 1
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-" let g:vim_markdown_toml_frontmatter = 1
-let g:vim_markdown_frontmatter = 1 " YAML
-let g:tex_conceal=''
-let g:vim_markdown_math = 1
 
 " Plug 'tpope/vim-commentary' " gc for comment
 " Plug 'tpope/vim-surround' " s for surrounding text object. e.g. cs'" for changing surrounding ' to "
@@ -64,6 +43,38 @@ Plug 'kevinhwang91/vim-ibus-sw'
 
 call plug#end()
 
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+" let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_frontmatter = 1 " YAML
+let g:tex_conceal=''
+let g:vim_markdown_math = 1
+
+let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
+
+let g:lightline = {
+    \   'colorscheme': 'materia',
+    \   'active': {
+    \       'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'gitbranch' ], ],
+    \       'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ],
+    \   },
+    \   'component_function': {
+    \       'gitbranch': 'FugitiveHead',
+    \   },
+    \ }
+let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
+let g:startify_bookmarks = ['~/.vimrc']
+
+set background=dark
+color vim-material
+au ColorScheme * hi Comment cterm=NONE gui=NONE | hi Search ctermfg=yellow guifg=yellow
+" disable italic comment and enable highlight search color
+au ColorScheme * hi CursorLine term=NONE cterm=NONE | hi CursorLineNr cterm=NONE
+" disable cursorline and cursorline number underline
+" au ColorScheme * hi Normal guibg=NONE
+
 if has('gui_running')
     set guioptions-=m guioptions-=e guioptions-=T guioptions-=L guioptions-=R guioptions-=l guioptions-=r
     " menu | tab page | toolbar | left scrollbar | right scrollbar | left scrollbar (split) | right scrollbar (split)
@@ -75,14 +86,6 @@ if has('gui_running')
     endif
     " set guifontwide=DFKai-SB
 endif
-
-set background=dark
-color vim-material
-au ColorScheme * hi Comment cterm=NONE gui=NONE | hi Search ctermfg=yellow guifg=yellow
-" disable italic comment and enable highlight search color
-au ColorScheme * hi CursorLine term=NONE cterm=NONE | hi CursorLineNr cterm=NONE
-" disable cursorline and cursorline number underline
-" au ColorScheme * hi Normal guibg=NONE
 
 syntax on
 set nu rnu cin bs=2 et sw=4 sts=4 hls

@@ -17,12 +17,19 @@ c.url.searchengines = {
 }
 c.zoom.default = '125%'
 
+# config.set('colors.webpage.darkmode.enabled', True)
+# config.set('colors.webpage.darkmode.enabled', False, '*://youtube.com/**')
+
+## TODO
+# - [ ] set dark mode to all sites except youtube?
+# - [x] set a hotkey to auto focus on certain field and run qute-pass
+
 config.unbind('ZQ')
-config.bind(';v', 'hint links spawn mpv {hint-url}')
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
-config.bind('<Ctrl-Alt-P>', 'spawn --userscript qute-pass', 'insert')
-config.bind('gs', 'greasemonkey-reload ;; reload')
+config.bind(';v', 'hint links spawn mpv {hint-url}')
+config.bind('gs', 'greasemonkey-reload ;; later 1 reload')
 config.bind('zl', 'spawn --userscript qute-pass')
+config.bind('zb', 'hint inputs tab-bg --first ;; later 1 spawn --userscript qute-pass') ## A little hacky: hint inputs tab-bg
 config.bind('zm', 'spawn --userscript qute-pass --unfiltered -d "dmenu -fn Noto-16.0"')
 # config.bind('zpl', 'spawn --userscript qute-pass --password-only')
 # config.bind('zul', 'spawn --userscript qute-pass --username-only')
@@ -40,3 +47,6 @@ def filter_yt(info: interceptor.Request):
 		info.block()
 
 interceptor.register(filter_yt)
+
+# config.source('qutebrowser-themes/themes/onedark.py')
+# config.source('qutebrowser-themes/themes/gruvbox.py')
