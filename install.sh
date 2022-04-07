@@ -35,5 +35,5 @@ if [[ -d ~/.config/qutebrowser/ ]]; then
     cp ./qutebrowser/* ~/.config/qutebrowser/
 fi
 # cat ibus-env >> /etc/environment
-# cp ibus-daemon.desktop ~/.config/autostart/
-# chmod +x ~/.config/autostart/ibus-daemon.desktop
+# install ibus-daemon.desktop ~/.config/autostart/
+# cp reflector.conf /etc/xdg/reflector/reflector.conf
