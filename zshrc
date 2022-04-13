@@ -94,8 +94,19 @@ function cpp-precompile {
         sudo g++ $p $cppflags
     done
 }
+function nvm-enable {
+    export NVM_DIR="$HOME/.nvm"
+    @include "$NVM_DIR/nvm.sh" # This loads nvm
+    @include "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
 
 set -o vi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 @include ~/.p10k.zsh
+
+bindkey -M vicmd '^[' undefined-key
+bindkey -rM viins '^X'
+bindkey -M viins '^X,' _history-complete-newer \
+                 '^X/' _history-complete-older \
+                 '^X`' _bash_complete-word
