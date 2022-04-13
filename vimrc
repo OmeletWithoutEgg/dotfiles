@@ -11,6 +11,9 @@ Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 
+Plug 'isobit/vim-caddyfile'
+Plug 'posva/vim-vue'
+
 Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
 Plug 'tpope/vim-fugitive' " :G [option] for git commands
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
@@ -167,7 +170,7 @@ augroup END
 function s:JSFormat()
     set sts=2 sw=2 cc=100
 endfunction
-au BufEnter *.js call<SID>JSFormat()
+au BufEnter *.js,*.vue call<SID>JSFormat()
 
 nmap <F9> <leader>b
 nmap <F10> <leader>r
