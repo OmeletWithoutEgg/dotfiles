@@ -32,7 +32,7 @@ for f in $FILES; do
 done
 
 if [[ -d ~/.config/qutebrowser/ ]]; then
-    cp ./qutebrowser/* ~/.config/qutebrowser/
+    cp ./qutebrowser/* ~/.config/qutebrowser/ -r
 fi
 # cat ibus-env >> /etc/environment
 # install ibus-daemon.desktop ~/.config/autostart/
