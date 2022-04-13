@@ -31,7 +31,7 @@ zi load "romkatv/powerlevel10k"
 zi wait lucid for \
     atinit:"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
         "z-shell/fast-syntax-highlighting" \
-    blockf atpull:"zi creinstall -q ."\
+    blockf atpull:"zi creinstall zsh-users/zsh-completions"\
         "zsh-users/zsh-completions" \
     atload:"!_zsh_autosuggest_start" \
         "zsh-users/zsh-autosuggestions" \
