@@ -17,6 +17,10 @@ c.url.searchengines = {
 }
 c.zoom.default = '125%'
 
+# c.content.headers.accept_language = 'en-US,en'
+with config.pattern('*://*.wikipedia.org/**') as p:
+    p.content.headers.accept_language = 'en-US,zh-TW,ja-JP,ja,en'
+
 # config.set('colors.webpage.darkmode.enabled', True)
 # config.set('colors.webpage.darkmode.enabled', False, '*://youtube.com/**')
 
