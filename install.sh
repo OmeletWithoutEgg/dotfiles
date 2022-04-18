@@ -37,3 +37,4 @@ fi
 # cat ibus-env >> /etc/environment
 # install ibus-daemon.desktop ~/.config/autostart/
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
+# cp redshift.conf ~/.config/redshift/redshift.conf
