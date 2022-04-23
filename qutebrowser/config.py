@@ -16,6 +16,7 @@ c.url.searchengines = {
     'archwiki': 'https://wiki.archlinux.org/index.php?search={}'
 }
 c.zoom.default = '125%'
+c.colors.webpage.preferred_color_scheme = 'dark'
 
 # c.content.headers.accept_language = 'en-US,en'
 with config.pattern('*://*.wikipedia.org/**') as p:
