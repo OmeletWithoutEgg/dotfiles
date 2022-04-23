@@ -170,7 +170,12 @@ augroup END
 function s:JSFormat()
     set sts=2 sw=2 cc=100
 endfunction
-au BufEnter *.js,*.vue call<SID>JSFormat()
+
+augroup formattingHandler
+    au!
+    au BufEnter *.js,*.vue call<SID>JSFormat()
+    au FileType vue,c,cpp,html,markdown syntax sync fromstart
+augroup END
 
 nmap <F9> <leader>b
 nmap <F10> <leader>r
