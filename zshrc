@@ -108,5 +108,8 @@ set -o vi
 bindkey -M vicmd '^[' undefined-key
 bindkey -rM viins '^X'
 bindkey -M viins '^X,' _history-complete-newer \
-                 '^X/' _history-complete-older \
-                 '^X`' _bash_complete-word
+    '^X/' _history-complete-older \
+    '^X`' _bash_complete-word
+
+# module_path+=( /home/qqbx/.zi/zmodules/zpmod/Src )
+# zmodload zi/zpmod
