@@ -94,6 +94,9 @@ function cpp-precompile {
         sudo g++ $p $cppflags
     done
 }
+function tls-check {
+    echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -dates
+}
 function nvm-enable {
     export NVM_DIR="$HOME/.nvm"
     @include "$NVM_DIR/nvm.sh" # This loads nvm
@@ -105,11 +108,11 @@ set -o vi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 @include ~/.p10k.zsh
 
-bindkey -M vicmd '^[' undefined-key
-bindkey -rM viins '^X'
-bindkey -M viins '^X,' _history-complete-newer \
-    '^X/' _history-complete-older \
-    '^X`' _bash_complete-word
+# bindkey -M vicmd '^[' undefined-key
+# bindkey -rM viins '^X'
+# bindkey -M viins '^X,' _history-complete-newer \
+#     '^X/' _history-complete-older \
+#     '^X`' _bash_complete-word
 
 # module_path+=( /home/qqbx/.zi/zmodules/zpmod/Src )
 # zmodload zi/zpmod
