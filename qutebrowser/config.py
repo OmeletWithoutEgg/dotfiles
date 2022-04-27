@@ -12,6 +12,7 @@ c.url.default_page = 'https://google.com'
 c.url.start_pages = 'https://codeforces.com'
 c.url.searchengines = {
     'DEFAULT': 'https://google.com/search?q={}',
+    'translate': 'https://translate.google.com/?sl=auto&tl=en&&text={}',
     'archpkg': 'https://archlinux.org/packages/?q={}',
     'archwiki': 'https://wiki.archlinux.org/index.php?search={}'
 }
