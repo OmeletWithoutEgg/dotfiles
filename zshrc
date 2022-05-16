@@ -87,7 +87,7 @@ function ipinfo {
 }
 function cpp-precompile {
     echo "Note: needs permission of header dirs"
-    local cppflags=("-std=c++17" "-Dlocal" "-Ofast" "-Wfatal-errors" "-fsanitize=undefined,address")
+    local cppflags=("-g" "-std=c++17" "-Dlocal" "-Ofast" "-Wfatal-errors" "-fsanitize=undefined,address")
     for header in "bits/stdc++.h" "bits/extc++.h"; do
         local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
         echo "precompile $p"
@@ -107,6 +107,7 @@ set -o vi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 @include ~/.p10k.zsh
+@include /etc/profile.d/google-cloud-sdk.sh
 
 # bindkey -M vicmd '^[' undefined-key
 # bindkey -rM viins '^X'
