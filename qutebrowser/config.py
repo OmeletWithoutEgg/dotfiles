@@ -32,6 +32,7 @@ with config.pattern('*://*.wikipedia.org/**') as p:
 
 config.unbind('ZQ')
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
+config.bind(';c', 'hint links spawn google-chrome-stable {hint-url}')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
 config.bind('gs', 'greasemonkey-reload ;; later 1 reload')
 config.bind('zl', 'spawn --userscript qute-pass')
