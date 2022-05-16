@@ -52,6 +52,8 @@ let g:tex_conceal='' " tabular
 Plug 'Yggdroot/indentLine'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kevinhwang91/vim-ibus-sw'
+" Plug 'lilydjwg/fcitx.vim'
+" let g:fcitx5_remote = 'fcitx5-remote'
 
 call plug#end()
 
@@ -112,13 +114,13 @@ command Codeforces %d<bar>r ~/CompetitiveProgramming/templates/main.cpp<bar>1d<b
 nnoremap <silent> <F2> :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
 
 function s:CMapping()
-    nnoremap <leader>b :w<bar>!gcc % -o %:r -Dlocal -Ofast -Wfatal-errors -Wall -Wextra -fsanitize=undefined,address<CR>
+    nnoremap <leader>b :w<bar>!gcc % -o %:r -g -Dlocal -Ofast -Wfatal-errors -Wall -Wextra -fsanitize=undefined,address<CR>
     nnoremap <leader>r :!./%:r<CR>
 endfunction
 
 function s:CppMapping()
     " nnoremap <F8> :w<bar>!./run.sh<CR>
-    nnoremap <leader>b :w<bar>!g++ % -o %:r -std=c++17 -Dlocal -Ofast -Wfatal-errors -fsanitize=undefined,address<CR>
+    nnoremap <leader>b :w<bar>!g++ % -o %:r -std=c++17 -g -Dlocal -Ofast -Wfatal-errors -fsanitize=undefined,address<CR>
     nnoremap <leader>r :!./%:r<CR>
 endfunction
 
@@ -169,10 +171,16 @@ function s:JSFormat()
     set sts=2 sw=2 cc=100
 endfunction
 
+function s:TeXFormat()
+    set foldmethod=marker
+    set cc=100
+endfunction
+
 augroup formattingHandler
     au!
     au BufEnter *.js,*.vue call<SID>JSFormat()
     au FileType vue,c,cpp,html,markdown syntax sync fromstart
+    au BufEnter *.tex call<SID>TeXFormat()
 augroup END
 
 nmap <F9> <leader>b
