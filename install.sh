@@ -38,3 +38,5 @@ fi
 # install ibus-daemon.desktop ~/.config/autostart/
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
 # cp redshift.conf ~/.config/redshift/redshift.conf
+# cp tmux.conf ~/.tmux.conf && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
