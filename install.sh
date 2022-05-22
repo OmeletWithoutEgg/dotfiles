@@ -23,7 +23,7 @@ echo "chsh /usr/bin/zsh"
 chsh -s /usr/bin/zsh
 if [[ ! -d "$HOME/.zi" ]]; then
     mkdir -p "$HOME/.zi" && chmod g-rwX "$HOME/.zi"
-    git clone -q --depth=1 \
+    git clone --depth=1 \
         --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin"
 fi
 
@@ -39,4 +39,4 @@ fi
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
 # cp redshift.conf ~/.config/redshift/redshift.conf
 # cp tmux.conf ~/.tmux.conf && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
+# cp fonts.conf ~/.config/fontconfit/fonts.conf
