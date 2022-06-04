@@ -39,4 +39,5 @@ fi
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
 # cp redshift.conf ~/.config/redshift/redshift.conf
 # cp tmux.conf ~/.tmux.conf && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-# cp fonts.conf ~/.config/fontconfit/fonts.conf
+# cp fonts.conf ~/.config/fontconfig/fonts.conf
+# cp gpg-agent.conf ~/.gnupg/gpg-agent.conf
