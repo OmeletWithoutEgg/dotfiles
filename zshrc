@@ -87,7 +87,7 @@ function ipinfo {
 }
 function cpp-precompile {
     echo "Note: needs permission of header dirs"
-    local cppflags=("-g" "-std=c++17" "-Dlocal" "-Ofast" "-Wfatal-errors" "-fsanitize=undefined,address")
+    local cppflags=("-g" "-std=c++17" "-Dlocal" "-Ofast" "-Wall" "-Wextra" "-Wshadow" "-Wconversion" "-Wfatal-errors" "-fsanitize=undefined,address")
     for header in "bits/stdc++.h" "bits/extc++.h"; do
         local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
         echo "precompile $p"
@@ -98,9 +98,7 @@ function tls-check {
     echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -dates
 }
 function nvm-enable {
-    export NVM_DIR="$HOME/.nvm"
-    @include "$NVM_DIR/nvm.sh" # This loads nvm
-    @include "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    @include /usr/share/nvm/init-nvm.sh # yay -S nvm
 }
 
 set -o vi
