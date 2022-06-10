@@ -22,6 +22,8 @@ c.colors.webpage.preferred_color_scheme = 'dark'
 # c.content.headers.accept_language = 'en-US,en'
 with config.pattern('*://*.wikipedia.org/**') as p:
     p.content.headers.accept_language = 'en-US,zh-TW,ja-JP,ja,en'
+with config.pattern('*://ani.gamer.com.tw/**') as p:
+    p.content.blocking.enabled = False
 
 # config.set('colors.webpage.darkmode.enabled', True)
 # config.set('colors.webpage.darkmode.enabled', False, '*://youtube.com/**')
@@ -35,11 +37,10 @@ config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind(';c', 'hint links spawn google-chrome-stable {hint-url}')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
 config.bind('gs', 'greasemonkey-reload ;; later 1 reload')
-config.bind('zl', 'spawn --userscript qute-pass')
 config.bind('zb', 'hint inputs tab-bg --first ;; later 1 spawn --userscript qute-pass') ## A little hacky: hint inputs tab-bg
 config.bind('zm', 'spawn --userscript qute-pass --unfiltered -d "dmenu -fn Noto-16.0"')
-# config.bind('zpl', 'spawn --userscript qute-pass --password-only')
-# config.bind('zul', 'spawn --userscript qute-pass --username-only')
+config.bind('zp', 'spawn --userscript qute-pass --password-only')
+config.bind('zu', 'spawn --userscript qute-pass --username-only')
 
 ## YT blocking
 ### https://www.reddit.com/r/qutebrowser/comments/n6mcsa/did_anything_change_to_youtube_ads_not_blocked/
