@@ -6,4 +6,4 @@ for f in $FILES; do
 	cp ~/.$f $f
 done
 
-cp ~/.config/qutebrowser/config.py qutebrowser/config.py
+cp ~/.config/qutebrowser/config.py config/qutebrowser/config.py
