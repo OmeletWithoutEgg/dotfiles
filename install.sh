@@ -7,9 +7,8 @@ FILES=(
     config/redshift/redshift.conf
     config/fontconfig/fonts.conf
     config/autostart/ibus-daemon.desktop
-)
-DIRS=(
-    config/qutebrowser
+    config/qutebrowser/config.py
+    config/qutebrowser/greasemonkey/youtube-autoskip.user.js
 )
 
 echo "SHELL=$SHELL"
@@ -44,14 +43,6 @@ for f in ${FILES[@]}; do
         cp --interactive --preserve=mode $f ~/.$f
     else
         echo "Parent directory $(dirname $HOME/.$f) does not exist"
-    fi
-done
-
-for d in ${DIRS[@]}; do
-    if [ -d "$HOME/.$d" ]; then
-        cp --interactive --preserve=mode --recursive $d/* ~/.$d
-    else
-        echo "Parent directory $HOME/.$d does not exist"
     fi
 done
 
