@@ -19,6 +19,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 Plug 'mhinz/vim-signify'
 let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
+Plug 'mileszs/ack.vim'
 
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
@@ -168,7 +169,8 @@ augroup mappingHandler
 augroup END
 
 function s:JSFormat()
-    set sts=2 sw=2 cc=100
+    set cc=100
+    " set sts=2 sw=2 cc=100
 endfunction
 
 function s:TeXFormat()
