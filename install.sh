@@ -2,6 +2,7 @@
 
 FILES=(
     vimrc zshrc gitconfig
+    p10k.zsh
     tmux.conf
     gnupg/gpg-agent.conf
     config/redshift/redshift.conf
