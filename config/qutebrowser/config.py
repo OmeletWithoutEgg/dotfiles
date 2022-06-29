@@ -14,7 +14,8 @@ c.url.searchengines = {
     'DEFAULT': 'https://google.com/search?q={}',
     'translate': 'https://translate.google.com/?sl=auto&tl=en&&text={}',
     'archpkg': 'https://archlinux.org/packages/?q={}',
-    'archwiki': 'https://wiki.archlinux.org/index.php?search={}'
+    'archwiki': 'https://wiki.archlinux.org/index.php?search={}',
+    'aurpkg': 'https://aur.archlinux.org/packages?O=0&K={}',
 }
 c.zoom.default = '125%'
 c.colors.webpage.preferred_color_scheme = 'dark'
@@ -36,7 +37,7 @@ config.unbind('ZQ')
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind(';c', 'hint links spawn google-chrome-stable {hint-url}')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
-config.bind('gs', 'greasemonkey-reload ;; later 1 reload')
+config.bind('gs', 'greasemonkey-reload ;; later 1 reload --force')
 config.bind('zb', 'hint inputs tab-bg --first ;; later 1 spawn --userscript qute-pass') ## A little hacky: hint inputs tab-bg
 config.bind('zm', 'spawn --userscript qute-pass --unfiltered -d "dmenu -fn Noto-16.0"')
 config.bind('zp', 'spawn --userscript qute-pass --password-only')
