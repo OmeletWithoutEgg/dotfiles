@@ -1,9 +1,12 @@
 #!/bin/bash
 
-FILES="vimrc zshrc gitconfig"
+FILES=(
+    vimrc zshrc gitconfig
+    p10k.zsh
+    tmux.conf
+    config/qutebrowser/config.py
+)
 
-for f in $FILES; do
-	cp ~/.$f $f
+for f in ${FILES[@]}; do
+    cp --interactive --preserve=mode ~/.$f $f
 done
-
-cp ~/.config/qutebrowser/config.py config/qutebrowser/config.py
