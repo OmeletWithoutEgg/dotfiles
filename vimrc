@@ -5,7 +5,7 @@ set encoding=utf8
 set fileencoding=utf8
 set fileformat=unix
 
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
@@ -21,9 +21,10 @@ Plug 'mhinz/vim-signify'
 let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
 Plug 'mileszs/ack.vim'
 
+
+Plug 'ap/vim-css-color'
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
-
 " Plug 'sheerun/vim-polyglot'
 Plug 'cespare/vim-toml' " TOML syntax highlight
 Plug 'itchyny/vim-haskell-indent'
@@ -189,3 +190,14 @@ nmap <F9> <leader>b
 nmap <F10> <leader>r
 
 noh
+
+" vim hardcodes background color erase even if the terminfo file does
+" not contain bce (not to mention that libvte based terminals
+" incorrectly contain bce in their terminfo files). This causes
+" incorrect background rendering when using a color theme with a
+" background color.
+" let &t_ut='' " kitty
+
+if (&term == "alacritty" || &term == "kitty")
+  let &term = "xterm-256color"
+endif
