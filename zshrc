@@ -105,7 +105,7 @@ set -o vi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 @include ~/.p10k.zsh
-@include /etc/profile.d/google-cloud-sdk.sh
+# @include /etc/profile.d/google-cloud-sdk.sh
 
 # bindkey -M vicmd '^[' undefined-key
 # bindkey -rM viins '^X'
