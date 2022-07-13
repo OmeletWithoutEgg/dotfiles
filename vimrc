@@ -16,7 +16,7 @@ Plug 'Yggdroot/indentLine'
 """ File browser & git tools
 Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'bryanmylee/vim-colorscheme-icons'
 Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 Plug 'mhinz/vim-signify'
