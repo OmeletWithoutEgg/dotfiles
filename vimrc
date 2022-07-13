@@ -7,21 +7,23 @@ set fileformat=unix
 
 call plug#begin()
 
+""" Appearance
 Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
+Plug 'Yggdroot/indentLine'
 
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_global_ext = 0
-
+""" File browser & git tools
 Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 Plug 'mhinz/vim-signify'
-let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
-Plug 'mileszs/ack.vim'
+" let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
+" Plug 'mileszs/ack.vim'
 
-
+""" Language-specific
 Plug 'ap/vim-css-color'
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
@@ -38,27 +40,35 @@ Plug 'posva/vim-vue'
 Plug 'preservim/vim-markdown'
 Plug 'godlygeek/tabular'
 " Plug 'joker1007/vim-markdown-quote-syntax'
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_no_default_key_mappings = 1
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
-" let g:vim_markdown_toml_frontmatter = 1
-let g:vim_markdown_frontmatter = 1 " YAML
-let g:vim_markdown_math = 1
-let g:tex_conceal='' " tabular
 
+""" Functional
+Plug 'vimwiki/vimwiki'
 " Plug 'tpope/vim-commentary' " gc for comment
 " Plug 'tpope/vim-surround'
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
-Plug 'Yggdroot/indentLine'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kevinhwang91/vim-ibus-sw'
 " Plug 'lilydjwg/fcitx.vim'
 " let g:fcitx5_remote = 'fcitx5-remote'
 
+Plug 'sirver/ultisnips'
+    let g:UltiSnipsExpandTrigger = '<tab>'
+    let g:UltiSnipsJumpForwardTrigger = '<tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
 call plug#end()
 
+""" <Plug> vim-material
+au ColorScheme *
+            \ hi Comment cterm=NONE gui=NONE |
+            \ hi Search ctermfg=yellow guifg=yellow |
+            \ hi CursorLine term=NONE cterm=NONE |
+            \ hi CursorLineNr cterm=NONE
+            " \ au ColorScheme * hi Normal guibg=NONE " make transparent
+set background=dark
+color vim-material
+""" <Plug> lightline
 let g:lightline = {
     \   'colorscheme': 'materia',
     \   'active': {
@@ -69,36 +79,43 @@ let g:lightline = {
     \       'gitbranch': 'FugitiveHead',
     \   },
     \ }
+""" <Plug> startify
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
 let g:startify_bookmarks = ['~/.vimrc']
+""" <Plug> indentLine
+let g:indentLine_fileTypeExclude = ['startify', 'vimwiki']
+let g:indentLine_leadingSpaceEnabled = 0
+let g:indentLine_bufTypeExclude = ['help', 'terminal', 'vimwiki']
+" <Plug> vim-markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+" let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_frontmatter = 1 " YAML
+let g:vim_markdown_math = 1
+""" <Plug> vim-tabular
+let g:tex_conceal='' " tabular
+""" <Plug> vimwiki
+let g:vimwiki_global_ext = 0
+let g:vimwiki_url_maxsave = 0
+au ColorScheme *
+            \ hi VimwikiHeader1 guifg=#89DDFF |
+            \ hi VimwikiHeader2 guifg=#C3E88D |
+            \ hi VimwikiHeader3 guifg=#FFCB6B |
+            \ hi VimwikiHeader4 guifg=#F07178 |
+au FileType vimwiki setlocal nowrap concealcursor=
+" let wiki = {}
+" let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
 
-set background=dark
-color vim-material
-au ColorScheme * hi Comment cterm=NONE gui=NONE | hi Search ctermfg=yellow guifg=yellow
-" disable italic comment and enable highlight search color
-au ColorScheme * hi CursorLine term=NONE cterm=NONE | hi CursorLineNr cterm=NONE
-" disable cursorline and cursorline number underline
-" au ColorScheme * hi Normal guibg=NONE
-
-if has('gui_running')
-    set guioptions-=m guioptions-=e guioptions-=T guioptions-=L guioptions-=R guioptions-=l guioptions-=r
-    """ menu | tab page | toolbar | left scrollbar | right scrollbar | left scrollbar (split) | right scrollbar (split)
-    if has('win32')
-        au GUIEnter * simalt ~x " maximize window
-        set guifont=Microsoft\ Yahei\ Mono:h14 " for Windows
-    else
-        set guifont=Dejavu\ Sans\ Mono\ 16
-    endif
-    " set guifontwide=DFKai-SB
-endif
-
+""" Basic
 syntax on
 set nu rnu cin bs=2 et sw=4 sts=4 hls
 set belloff=all laststatus=2 mouse=a cino=j1
 set cursorline noshowmode lazyredraw termguicolors autochdir showcmd
 set ttimeoutlen=0
-set listchars=trail:␣,eol:$,tab:►\ ,extends:⟩,precedes:⟨,space:·
-" set listchars=tab:→\ ,trail:•
+" set listchars=trail:␣,eol:$,tab:►\ ,extends:⟩,precedes:⟨,space:·,trail:•
+
 augroup rnutoggle
     au!
     au InsertEnter * set nornu
@@ -115,75 +132,84 @@ command Codeforces %d<bar>r ~/CompetitiveProgramming/templates/main.cpp<bar>1d<b
 
 nnoremap <silent> <F2> :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
 
+let g:gcc_compile_flag = '-g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address'
+
 function s:CMapping()
-    nnoremap <leader>b :w<bar>!gcc % -o %:r -g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address<CR>
-    nnoremap <leader>r :!./%:r<CR>
+    nnoremap <buffer> <leader>b :w<bar>execute '!gcc % -o %:r ' . g:gcc_compile_flag<CR>
+    nnoremap <buffer> <leader>r :!./%:r<CR>
 endfunction
 
 function s:CppMapping()
     " nnoremap <F8> :w<bar>!./run.sh<CR>
-    nnoremap <leader>b :w<bar>!g++ % -o %:r -std=c++17 -g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address<CR>
-    nnoremap <leader>r :!./%:r<CR>
+    nnoremap <buffer> <leader>b :w<bar>execute '!g++ % -o %:r -std=c++17 ' . g:gcc_compile_flag<CR>
+    nnoremap <buffer> <leader>r :!./%:r<CR>
 endfunction
 
 function s:PythonMapping()
-    nnoremap <silent> <leader>r :w<bar>!python3 %<CR>
+    nnoremap <buffer> <leader>r :w<bar>!python3 %<CR>
 endfunction
 
 function s:SageMapping()
-    nnoremap <silent> <leader>r :w<bar>!sage %<CR>
+    nnoremap <buffer> <leader>r :w<bar>!sage %<CR>
 endfunction
 
 function s:VimrcMapping()
-    nnoremap <silent> <leader>r :w<bar>so %<CR>
+    nnoremap <buffer> <leader>r :w<bar>so %<CR>
 endfunction
 
 function s:LaTeXMapping()
-    nnoremap <leader>b :w<bar>!make<CR>
-    nnoremap <leader>r :!okular --unique main.pdf &<CR>
-    inoremap <leader>bm \begin{bmatrix}<CR>\end{bmatrix}<ESC>O
-    inoremap <leader>bee \begin{enumerate}<CR>\end{enumerate}<ESC>O
-    inoremap <leader>bei \begin{itemize}<CR>\end{itemize}<ESC>O
-    inoremap <leader>bea \begin{align*}<CR>\end{align*}<ESC>O
-    inoremap <leader>env <ESC>^"pc$\begin{<C-o>"pp}<CR>\end{<C-o>"pp}<ESC>O
+    nnoremap <buffer> <leader>b :w<bar>!make<CR>
+    nnoremap <buffer> <leader>r :!okular --unique main.pdf &<CR>
+    inoremap <buffer> <leader>bm \begin{bmatrix}<CR>\end{bmatrix}<ESC>O
+    inoremap <buffer> <leader>bee \begin{enumerate}<CR>\end{enumerate}<ESC>O
+    inoremap <buffer> <leader>bei \begin{itemize}<CR>\end{itemize}<ESC>O
+    inoremap <buffer> <leader>bea \begin{align*}<CR>\end{align*}<ESC>O
+    inoremap <buffer> <leader>bf \begin{frame}{}<CR>\end{frame}<ESC>O
+    inoremap <buffer> <leader>bb \begin{block}{}<CR>\end{block}<ESC>O
+    inoremap <buffer> <leader>env <ESC>^"pc$\begin{<C-o>"pp}<CR>\end{<C-o>"pp}<ESC>O
 endfunction
 
 function s:HaskellMapping()
-    nnoremap <leader>b :w<bar>!ghc % -o %:r -dynamic<CR>
-    nnoremap <leader>r :!./%:r<CR>
+    nnoremap <buffer> <leader>b :w<bar>!ghc % -o %:r -dynamic<CR>
+    nnoremap <buffer> <leader>r :!./%:r<CR>
 endfunction
 
 function s:MarkdownMapping()
-    nnoremap <leader>t :TableFormat<CR>
+    nnoremap <buffer> <leader>t :TableFormat<CR>
+endfunction
+
+function s:VimwikiMapping()
+    nnoremap <buffer> <leader>wc <Plug>VimwikiToggleListItem
 endfunction
 
 augroup mappingHandler
     au!
-    au BufEnter *.c call <SID>CMapping()
-    au BufEnter *.cpp call <SID>CppMapping()
-    au BufEnter *.hs call <SID>HaskellMapping()
-    au BufEnter *.py call <SID>PythonMapping()
-    au BufEnter *.sage call <SID>SageMapping()
-    au BufEnter *.vim,_vimrc,.vimrc call <SID>VimrcMapping()
-    au BufEnter *.tex call <SID>LaTeXMapping()
-    au BufEnter *.md call <SID>MarkdownMapping()
+    au FileType c call <SID>CMapping()
+    au FileType cpp call <SID>CppMapping()
+    au FileType haskell call <SID>HaskellMapping()
+    au FileType python call <SID>PythonMapping()
+    au FileType sage call <SID>SageMapping()
+    au FileType vim call <SID>VimrcMapping()
+    au FileType tex,plaintex call <SID>LaTeXMapping()
+    au FileType markdown call <SID>MarkdownMapping()
+    au FileType vimwiki call <SID>VimwikiMapping()
 augroup END
 
 function s:JSFormat()
-    set cc=100
-    " set sts=2 sw=2 cc=100
+    setlocal cc=100
+    " setlocal sts=2 sw=2 cc=100
 endfunction
 
 function s:TeXFormat()
-    set foldmethod=marker
-    set cc=100
+    setlocal foldmethod=marker
+    setlocal cc=100
 endfunction
 
 augroup formattingHandler
     au!
-    au BufEnter *.js,*.vue call<SID>JSFormat()
+    au FileType javascript,vue call<SID>JSFormat()
     au FileType vue,c,cpp,html,markdown syntax sync fromstart
-    au BufEnter *.tex call<SID>TeXFormat()
+    au FileType tex,plaintex call<SID>TeXFormat()
 augroup END
 
 nmap <F9> <leader>b
@@ -199,5 +225,6 @@ noh
 " let &t_ut='' " kitty
 
 if (&term == "alacritty" || &term == "kitty")
-  let &term = "xterm-256color"
+    let &term = "xterm-256color"
 endif
+autocmd FileType nerdtree setlocal nolist
