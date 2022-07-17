@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "$(dirname "$0")"
 
 FILES=(
     vimrc zshrc gitconfig
@@ -7,6 +8,12 @@ FILES=(
     config/qutebrowser/config.py
 )
 
+if [[ -n `git status -s -uall` ]]; then
+    git status
+    exit
+fi
+
 for f in ${FILES[@]}; do
-    cp --interactive --preserve=mode ~/.$f $f
+    echo "cp ~/.$f $f"
+    cp --preserve=mode ~/.$f $f
 done
