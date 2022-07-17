@@ -6,6 +6,7 @@ FILES=(
     p10k.zsh
     tmux.conf
     config/qutebrowser/config.py
+    vim/UltiSnips/tex.snippets
 )
 
 if [[ -n `git status -s -uall` ]]; then
