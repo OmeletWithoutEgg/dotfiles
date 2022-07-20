@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=Ibus
-Type=Application
-Terminal=false
-Exec=/usr/bin/ibus-daemon -drx

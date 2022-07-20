@@ -8,7 +8,7 @@ FILES=(
     gnupg/gpg-agent.conf
     config/redshift/redshift.conf
     config/fontconfig/fonts.conf
-    config/autostart/ibus-daemon.desktop
+    config/systemd/user/ibus.service
     config/qutebrowser/config.py
     config/qutebrowser/greasemonkey/youtube-autoskip.user.js
 )
