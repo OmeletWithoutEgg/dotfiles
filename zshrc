@@ -36,7 +36,7 @@ zi wait lucid for \
     atload:"!_zsh_autosuggest_start" \
         "zsh-users/zsh-autosuggestions" \
         "zpm-zsh/ls" \
-        "le0me55i/zsh-extract" \
+        "le0me55i/zsh-extract"
 
 # zi wait lucid for z-shell/zui z-shell/zi-console
 
@@ -57,6 +57,9 @@ zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
 @include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
 @include /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
+
+@include /usr/share/fzf/key-bindings.zsh
+### usage: Ctrl+T / Alt+C / Ctrl+R
 
 # # History config
 # HISTSIZE=10000
@@ -105,13 +108,3 @@ set -o vi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 @include ~/.p10k.zsh
-# @include /etc/profile.d/google-cloud-sdk.sh
-
-# bindkey -M vicmd '^[' undefined-key
-# bindkey -rM viins '^X'
-# bindkey -M viins '^X,' _history-complete-newer \
-#     '^X/' _history-complete-older \
-#     '^X`' _bash_complete-word
-
-# module_path+=( /home/qqbx/.zi/zmodules/zpmod/Src )
-# zmodload zi/zpmod
