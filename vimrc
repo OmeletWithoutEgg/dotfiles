@@ -52,10 +52,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'kevinhwang91/vim-ibus-sw'
 " Plug 'lilydjwg/fcitx.vim'
 " let g:fcitx5_remote = 'fcitx5-remote'
-Plug 'sirver/ultisnips'
-    let g:UltiSnipsExpandTrigger = '<space>'
-    let g:UltiSnipsJumpForwardTrigger = '<tab>'
-    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
 
 call plug#end()
 
@@ -111,6 +108,11 @@ au ColorScheme *
 au FileType vimwiki setlocal nowrap concealcursor=
 " let wiki = {}
 " let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+""" <Plug> ultisnips
+let g:UltiSnipsExpandTrigger = '<space>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+" let g:UltiSnipsListSnippets = '<C-H>'
 
 """ Basic
 syntax on
@@ -211,9 +213,9 @@ endfunction
 
 augroup formattingHandler
     au!
-    au FileType javascript,vue call<SID>JSFormat()
+    au FileType javascript,vue call <SID>JSFormat()
     au FileType vue,c,cpp,html,markdown syntax sync fromstart
-    au FileType tex,plaintex call<SID>TeXFormat()
+    au FileType tex,plaintex call <SID>TeXFormat()
 augroup END
 
 nmap <F9> <leader>b
