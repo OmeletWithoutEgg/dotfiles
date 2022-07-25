@@ -61,6 +61,25 @@ zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
 @include /usr/share/fzf/key-bindings.zsh
 ### usage: Ctrl+T / Alt+C / Ctrl+R
 
+export FZF_PREVIEW_COMMAND=' [[ ! -r {} ]] && echo {} || \
+    ([[ $(file --mime {}) =~ binary ]] \
+        && (catimg -w 180 {} 2>/dev/null || echo {} is a binary file) \
+        || bat --style=numbers -f {}) '
+# export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
+export COPY_COMMAND="xclip -sel c"
+export FZF_DEFAULT_OPTS="--multi --preview='$FZF_PREVIEW_COMMAND' --preview-window='right:hidden:60%:wrap' \
+    --bind='f2:toggle-preview,ctrl-y:execute(echo {+} | $COPY_COMMAND && echo {+})+abort' \
+    --bind='ctrl-d:half-page-down,ctrl-u:half-page-up' \
+    --bind='ctrl-n:preview-page-down,ctrl-p:preview-page-up'"
+# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+#     --color=fg:#CCCCCC,bg:#18191E,hl:#FFFF00
+#     --color=fg+:#FFEE79,bg+:#21252D,hl+:#ED722E
+#     --color=info:#D68EB2,prompt:#50C16E,pointer:#FFFF00
+#     --color=marker:#FC2929,spinner:#FF4D00,header:#1D918B'
+# export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
+
 # # History config
 # HISTSIZE=10000
 # SAVEHIST=10000
