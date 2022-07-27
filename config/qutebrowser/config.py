@@ -45,7 +45,8 @@ config.bind(';c', 'hint links spawn google-chrome-stable {hint-url}')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
-config.bind('zb', 'hint inputs tab-bg --first ;; later 1 spawn --userscript qute-pass') ## A little hacky: hint inputs tab-bg
+config.bind('zb', 'hint inputs tab-bg --first \
+        ;; later 1 spawn --userscript qute-pass -d "dmenu -fn Noto-16.0"')
 config.bind('zm', 'spawn --userscript qute-pass --unfiltered -d "dmenu -fn Noto-16.0"')
 config.bind('zp', 'spawn --userscript qute-pass --password-only')
 config.bind('zu', 'spawn --userscript qute-pass --username-only')
