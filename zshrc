@@ -67,7 +67,7 @@ export FZF_PREVIEW_COMMAND=' [[ ! -r {} ]] && echo {} || \
         || bat --style=numbers -f {}) '
 # export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
 export COPY_COMMAND="xclip -sel c"
-export FZF_DEFAULT_OPTS="--multi --preview='$FZF_PREVIEW_COMMAND' --preview-window='right:hidden:60%:wrap' \
+export FZF_DEFAULT_OPTS="--reverse --multi --preview='$FZF_PREVIEW_COMMAND' --preview-window='right:hidden:60%:wrap' \
     --bind='f2:toggle-preview,ctrl-y:execute(echo {+} | $COPY_COMMAND && echo {+})+abort' \
     --bind='ctrl-d:half-page-down,ctrl-u:half-page-up' \
     --bind='ctrl-n:preview-page-down,ctrl-p:preview-page-up'"
