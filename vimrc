@@ -43,16 +43,21 @@ Plug 'godlygeek/tabular'
 
 """ Functional
 Plug 'vimwiki/vimwiki'
-" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-" Plug 'tpope/vim-commentary' " gc for comment
-" Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary' " gc for comment
+Plug 'inkarkat/vim-ReplaceWithRegister' " gr for replace
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kevinhwang91/vim-ibus-sw'
 " Plug 'lilydjwg/fcitx.vim'
 " let g:fcitx5_remote = 'fcitx5-remote'
 Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
+
+Plug 'junegunn/fzf.vim'
+" let g:fzf_command_prefix = 'Fzf'
 
 call plug#end()
 
@@ -106,6 +111,9 @@ au ColorScheme *
             \ hi VimwikiHeader3 guifg=#FFCB6B |
             \ hi VimwikiHeader4 guifg=#F07178 |
 au FileType vimwiki setlocal nowrap concealcursor=
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.wiki'}]
+
 " let wiki = {}
 " let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
 """ <Plug> ultisnips
@@ -136,7 +144,7 @@ vnoremap <silent> K :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <C-g> 1<C-g>
-command Codeforces %d<bar>r ~/CompetitiveProgramming/templates/main.cpp<bar>1d<bar>15,101fo<bar>111
+command Codeforces %d_<bar>0r ~/CompetitiveProgramming/templates/main.cpp<bar>15,101fo<bar>111
 
 let g:gcc_compile_flag = '-g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address'
 
@@ -186,6 +194,11 @@ endfunction
 
 function s:VimwikiMapping()
     nnoremap <buffer> <space> <Plug>VimwikiToggleListItem
+    nnoremap <buffer> = <nop>
+    nnoremap <buffer> - <nop>
+    nnoremap <buffer> # <Plug>VimwikiAddHeaderLevel
+    nnoremap <buffer> L <Plug>VimwikiFollowLink
+    nnoremap <buffer> H <Plug>VimwikiGoBackLink
 endfunction
 
 augroup mappingHandler
@@ -214,7 +227,7 @@ endfunction
 augroup formattingHandler
     au!
     au FileType javascript,vue call <SID>JSFormat()
-    au FileType vue,c,cpp,html,markdown syntax sync fromstart
+    au FileType vue,c,cpp,html,markdown,vimwiki syntax sync fromstart
     au FileType tex,plaintex call <SID>TeXFormat()
 augroup END
 
