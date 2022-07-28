@@ -4,6 +4,7 @@ Documentation=man:ibus-daemon(1)
 Conflicts=fcitx.service
 
 [Service]
+ExecStartPre=/usr/bin/sleep 2
 ExecStart=/usr/bin/ibus-daemon --replace --xim
 ExecReload=/usr/bin/ibus restart
 ExecStop=/usr/bin/ibus exit
@@ -11,6 +12,5 @@ ExecStop=/usr/bin/ibus exit
 
 [Install]
 WantedBy=default.target
-#[Install]
 #Alias=input-method.service
 #https://github.com/terlar/dotfiles/blob/master/systemd/.config/systemd/user/ibus.service
