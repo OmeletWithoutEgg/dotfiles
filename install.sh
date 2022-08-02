@@ -2,10 +2,11 @@
 cd "$(dirname "$0")"
 
 FILES=(
-    vimrc zshrc gitconfig
+    vimrc zshrc zshenv
     p10k.zsh
     tmux.conf
     gnupg/gpg-agent.conf
+    config/git/config
     config/redshift/redshift.conf
     config/fontconfig/fonts.conf
     config/systemd/user/ibus.service

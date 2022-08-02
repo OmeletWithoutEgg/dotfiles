@@ -1,11 +1,8 @@
-# Environment variables
-export EDITOR=vim
-export PATH=$HOME/.local/bin:$PATH
-
 # Helper function
 function @include {
     [[ -r $1 ]] && source $1
 }
+
 function @replace {
     local lhs=$1; shift
     while (( $# > 0 )); do
@@ -24,6 +21,8 @@ autoload -Uz _zi
 # ZI cheatsheet:
 ### zi update / zi self-update / zi delete --clean
 ### zi ice OPTIONS / zi load / zi light / zi OPTIONS for
+
+source /usr/share/fzf/completion.zsh
 
 zi ice as:theme depth:1
 zi load "romkatv/powerlevel10k"
@@ -48,8 +47,7 @@ if [[ -z "$LS_COLORS" ]]; then
     (( $+commands[dircolors] )) && eval "$(dircolors -b)"
 fi
 zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
-
-# autoload -Uz compinit
+unset LS_COLORS
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -61,25 +59,6 @@ zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}
 @include /usr/share/fzf/key-bindings.zsh
 ### usage: Ctrl+T / Alt+C / Ctrl+R
 
-export FZF_PREVIEW_COMMAND=' [[ ! -r {} ]] && echo {} || \
-    ([[ $(file --mime {}) =~ binary ]] \
-        && (catimg -w 180 {} 2>/dev/null || echo {} is a binary file) \
-        || bat --style=numbers -f {}) '
-# export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
-export COPY_COMMAND="xclip -sel c"
-export FZF_DEFAULT_OPTS="--reverse --multi --preview='$FZF_PREVIEW_COMMAND' --preview-window='right:hidden:60%:wrap' \
-    --bind='f2:toggle-preview,ctrl-y:execute(echo {+} | $COPY_COMMAND && echo {+})+abort' \
-    --bind='ctrl-d:half-page-down,ctrl-u:half-page-up' \
-    --bind='ctrl-n:preview-page-down,ctrl-p:preview-page-up'"
-# export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-#     --color=fg:#CCCCCC,bg:#18191E,hl:#FFFF00
-#     --color=fg+:#FFEE79,bg+:#21252D,hl+:#ED722E
-#     --color=info:#D68EB2,prompt:#50C16E,pointer:#FFFF00
-#     --color=marker:#FC2929,spinner:#FF4D00,header:#1D918B'
-# export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-# export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
-
 # # History config
 # HISTSIZE=10000
 # SAVEHIST=10000
@@ -90,37 +69,57 @@ alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
 @replace rm "trash" "rm -i"
 @replace du "dust"
 @replace df "duf"
+
 function open {
     xdg-open $@ 2>/dev/null && sleep 1
 }
+
 function l. {
-    ls $@ -d .*
+    setopt no_nomatch
+    ls -dl .* $@
 }
+
 function latex-template {
-    if [[ -z $1 ]]; then
+    if [[ $# -ne 1 || -z $1 ]]; then
         echo "usage: latex-template <dirname>"
         return 1
+    elif [[ -d $1 ]] then
+        echo "$1 exists"
+        return 1
     fi
-    cp -r ~/Templates/LaTeX $1
+    cp -r ~/Templates/LaTeX $1 && echo $1 generated
 }
+
 function ipinfo {
     echo "Wireless :: IP => $( ip -4 -o a show wlo1 | awk '{ print $4 }' )"
     echo "External :: IP => $( curl --silent https://ifconfig.me )"
 }
+
 function cpp-precompile {
     echo "Note: needs permission of header dirs"
-    local cppflags=("-g" "-std=c++17" "-Dlocal" "-Ofast" "-Wall" "-Wextra" "-Wshadow" "-Wconversion" "-Wfatal-errors" "-fsanitize=undefined,address")
+    local cppflags=(-g -std=c++17 -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address)
     for header in "bits/stdc++.h" "bits/extc++.h"; do
         local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
         echo "precompile $p"
         sudo g++ $p $cppflags
     done
 }
+
 function tls-check {
-    echo | openssl s_client -connect $1:443 2>/dev/null | openssl x509 -noout -dates
+    curl --no-progress-meter $@ >/dev/null || return
+    for u in $@; do
+        echo $u; echo | openssl s_client -connect $u:443 2>/dev/null \
+            | openssl x509 -noout -dates
+    done
 }
+
 function nvm-enable {
-    @include /usr/share/nvm/init-nvm.sh # yay -S nvm
+    export NVM_DIR="$XDG_DATA_HOME"/nvm
+    source /usr/share/nvm/init-nvm.sh # yay -S nvm
+}
+
+function pacman-history {
+    history -i | grep -P "(pacman|yay) (-S|-Rs)" | sed "s/sudo //g" | vim -
 }
 
 set -o vi

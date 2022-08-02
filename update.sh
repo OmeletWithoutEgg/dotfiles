@@ -2,9 +2,10 @@
 cd "$(dirname "$0")"
 
 FILES=(
-    vimrc zshrc gitconfig
+    vimrc zshrc zshenv
     p10k.zsh
     tmux.conf
+    config/git/config
     config/qutebrowser/config.py
     vim/UltiSnips/tex.snippets
 )
