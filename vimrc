@@ -6,6 +6,8 @@ set fileencoding=utf8
 set fileformat=unix
 
 call plug#begin()
+Plug 'msuperdock/vim-agda'
+let g:agda_args = ['--local-interfaces']
 
 """ Appearance
 Plug 'hzchirs/vim-material'
@@ -57,7 +59,17 @@ Plug 'kevinhwang91/vim-ibus-sw'
 Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
 
 Plug 'junegunn/fzf.vim'
-" let g:fzf_command_prefix = 'Fzf'
+let g:fzf_command_prefix = 'Fzf'
+
+" function! s:RipgrepFzf(query, fullscreen)
+"   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+"   let initial_command = printf(command_fmt, shellescape(a:query))
+"   let reload_command = printf(command_fmt, '{q}')
+"   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+"   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+" endfunction
+" 
+" command! -nargs=* -bang RG call <SID>RipgrepFzf(<q-args>, <bang>0)
 
 call plug#end()
 
@@ -186,6 +198,7 @@ endfunction
 function s:HaskellMapping()
     nnoremap <buffer> <leader>b :w<bar>!ghc % -o %:r -dynamic<CR>
     nnoremap <buffer> <leader>r :!./%:r<CR>
+    nnoremap <buffer> <leader>i :w<bar>!ghci %<CR>
 endfunction
 
 function s:MarkdownMapping()
