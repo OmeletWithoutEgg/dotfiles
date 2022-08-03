@@ -1,10 +1,10 @@
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
 
-# export PATH=$HOME/.config/emacs/bin:$PATH
 export EDITOR=vim
+# export PATH=$HOME/.config/emacs/bin:$PATH
 
 # Configuration of fd & fzf
 export FZF_PREVIEW_COMMAND=' [[ ! -r {} ]] && echo {} || \
@@ -28,7 +28,12 @@ export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
 
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export GHCUP_USE_XDG_DIRS=true
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
+
+# export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export XCURSOR_PATH=${XCURSOR_PATH}:~/.local/share/icons
