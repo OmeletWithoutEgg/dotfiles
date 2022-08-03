@@ -34,6 +34,12 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
+export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
+export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
 
-# export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
-export XCURSOR_PATH=${XCURSOR_PATH}:~/.local/share/icons
+export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons
+
+# ibus environment variable
+export GTK_IM_MODULE="ibus"
+export QT_IM_MODULE="ibus"
+export XMODIFIERS="@im=ibus"

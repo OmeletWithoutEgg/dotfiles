@@ -1,12 +1,18 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
+DIRS=(
+    config/git
+    config/python
+)
+
 FILES=(
     vimrc zshrc zshenv
     p10k.zsh
     tmux.conf
     gnupg/gpg-agent.conf
     config/git/config
+    config/python/pythonrc
     config/redshift/redshift.conf
     config/fontconfig/fonts.conf
     config/systemd/user/ibus.service
@@ -41,6 +47,11 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
+for d in ${DIRS[@]}; do
+    echo "mkdir -p ~/.$d"
+    mkdir -p ~/.$d
+done
+
 for f in ${FILES[@]}; do
     if [ -d `dirname $HOME/.$f` ]; then
         cp --interactive --preserve=mode $f ~/.$f
@@ -49,5 +60,4 @@ for f in ${FILES[@]}; do
     fi
 done
 
-# cat environment/ibus >> /etc/environment
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
