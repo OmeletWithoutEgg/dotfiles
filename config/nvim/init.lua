@@ -4,6 +4,14 @@ local o = vim.opt
 o.guicursor = ''
 o.termguicolors = true
 o.background = 'dark'
+vim.cmd[[
+au ColorScheme *
+            \ hi Comment cterm=NONE gui=NONE |
+            \ hi Search ctermfg=yellow guifg=yellow |
+            \ hi CursorLine term=NONE cterm=NONE |
+            \ hi CursorLineNr cterm=NONE
+            " \ au ColorScheme * hi Normal guibg=NONE " make transparent
+]]
 vim.cmd[[colorscheme vim-material]]
 
 o.number = true
@@ -24,6 +32,16 @@ o.autochdir = true
 o.showcmd = true
 o.ttimeoutlen = 0
 
+require('lsp')
+-- require('lualine').setup({
+--     options = { theme = 'material' },
+-- })
+require('nvim-tree').setup()
+
+require('goto-preview').setup {}
+
+vim.g.airline_theme = 'onedark'
+
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
 
@@ -31,11 +49,5 @@ local function map(mode, lhs, rhs, opts)
 
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-
-require('lsp')
-require('lualine').setup({
-    options = { theme = 'material' },
-})
-require('nvim-tree').setup()
 
 map('n', '<f2>', ':NvimTreeToggle<CR>', { silent = true })

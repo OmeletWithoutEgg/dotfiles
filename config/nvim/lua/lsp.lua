@@ -23,41 +23,91 @@ vim.opt.signcolumn = "yes:1"
 --     })
 -- }
 
+
+local function preview_location_callback(_, result, _)
+  if result == nil or vim.tbl_isempty(result) then
+    vim.notify('No definition found.')
+    return nil
+  end
+  if vim.tbl_islist(result) then
+    vim.lsp.util.preview_location(result[1])
+  else
+    vim.lsp.util.preview_location(result)
+  end
+end
+
+local function peek_definition()
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
+end
+
 -- You may want to reference the nvim-cmp documentation for further
 -- configuration of completion: https://github.com/hrsh7th/nvim-cmp#recommended-configuration
 
 -- Configure the language server:
 
--- You may want to reference the nvim-lspconfig documentation, found at:
--- https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
--- The below is just a simple initial set of mappings which will be bound
--- within Lean files.
-local function on_attach(_, bufnr)
-    local function cmd(mode, lhs, rhs)
-      vim.keymap.set(mode, lhs, rhs, { noremap = true, buffer = true })
-    end
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Autocomplete using the Lean language server
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  -- vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 
-    -- gd in normal mode will jump to definition
-    cmd('n', 'gd', vim.lsp.buf.definition)
-    -- K in normal mode will show the definition of what's under the cursor
-    cmd('n', 'K', vim.lsp.buf.hover)
+  vim.keymap.set('n', '<leader>n', function() vim.diagnostic.goto_next{popup_opts = {show_header = false}} end)
+  vim.keymap.set('n', '<leader>N', function() vim.diagnostic.goto_prev{popup_opts = {show_header = false}} end)
 
-    -- <leader>n will jump to the next Lean line with a diagnostic message on it
-    -- <leader>N will jump backwards
-    cmd('n', '<leader>n', function() vim.lsp.diagnostic.goto_next{popup_opts = {show_header = false}} end)
-    cmd('n', '<leader>N', function() vim.lsp.diagnostic.goto_prev{popup_opts = {show_header = false}} end)
-
-    -- <leader>K will show all diagnostics for the current line in a popup window
-    cmd('n', '<leader>K', function() vim.lsp.diagnostic.show_line_diagnostics{show_header = false} end)
-
-    -- <leader>q will load all errors in the current lean file into the location list
-    -- (and then will open the location list)
-    -- see :h location-list if you don't generally use it in other vim contexts
-    cmd('n', '<leader>q', vim.lsp.diagnostic.set_loclist)
+  -- <leader>K will show all diagnostics for the current line in a popup window
+  vim.keymap.set('n', '<leader>K', function() vim.lsp.diagnostic.show_line_diagnostics{show_header = false} end)
 end
+
+local lsps = { 'sumneko_lua', 'texlab', 'hls' }
+
+require('nvim-lsp-installer').setup{
+    ensure_installed = lsps
+}
+
+local lspconfig = require('lspconfig')
+
+--- for _, lsp in pairs(lsps) do
+---     lspconfig[lsp].setup{}
+--- end
+lspconfig['sumneko_lua'].setup{
+
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+}
+lspconfig['texlab'].setup{}
+lspconfig['hls'].setup{}
+
+-- lspconfig.lua.setup{
+-- }
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "rounded",
+})
 
 -- Enable lean.nvim, and enable abbreviations and mappings
 require('lean').setup{
@@ -69,10 +119,10 @@ require('lean').setup{
 }
 
 -- Update error messages even while you're typing in insert mode
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = false,
     virtual_text = { spacing = 4 },
     update_in_insert = true,
-  }
+}
 )
