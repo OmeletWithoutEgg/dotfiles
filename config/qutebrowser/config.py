@@ -14,7 +14,8 @@ c.url.start_pages = 'https://codeforces.com'
 c.url.searchengines = {
     'DEFAULT': 'https://duckduckgo.com/?q={}',
     'google': 'https://google.com/search?q={}',
-    'translate': 'https://translate.google.com/?sl=auto&tl=en&&text={}',
+    'toen': 'https://translate.google.com/?sl=auto&tl=en&&text={}',
+    'tozh': 'https://translate.google.com/?sl=auto&tl=zh-tw&&text={}',
     'archpkg': 'https://archlinux.org/packages/?q={}',
     'archwiki': 'https://wiki.archlinux.org/index.php?search={}',
     'aurpkg': 'https://aur.archlinux.org/packages?O=0&K={}',
