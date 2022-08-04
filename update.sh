@@ -8,6 +8,10 @@ FILES=(
     config/git/config
     config/qutebrowser/config.py
     vim/UltiSnips/tex.snippets
+
+    config/nvim/init.lua
+    config/nvim/lua/lsp.lua
+    config/nvim/lua/plugins.lua
 )
 
 if [[ -n `git status -s -uall` ]]; then
