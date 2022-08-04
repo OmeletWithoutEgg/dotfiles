@@ -12,6 +12,12 @@ FILES=(
     config/nvim/init.lua
     config/nvim/lua/lsp.lua
     config/nvim/lua/plugins.lua
+
+    config/doom/config.el
+    config/doom/custom.el
+    config/doom/init.el
+    config/doom/lisp/markdown-agda-mode.el
+    config/doom/packages.el
 )
 
 if [[ -n `git status -s -uall` ]]; then
