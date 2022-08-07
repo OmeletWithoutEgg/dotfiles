@@ -1,9 +1,15 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-DIRS=(
+CREATE_DIRS=(
     config/git
     config/python
+    vim/UltiSnips
+)
+
+COPY_DIRS=(
+    config/nvim/
+    config/doom/
 )
 
 FILES=(
@@ -18,6 +24,7 @@ FILES=(
     config/systemd/user/ibus.service
     config/qutebrowser/config.py
     config/qutebrowser/greasemonkey/youtube-autoskip.user.js
+    vim/UltiSnips/tex.snippets
 )
 
 echo "SHELL=$SHELL"
@@ -47,9 +54,14 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
-for d in ${DIRS[@]}; do
+for d in ${CREATE_DIRS[@]}; do
     echo "mkdir -p ~/.$d"
     mkdir -p ~/.$d
+done
+
+for d in ${COPY_DIRS[@]}; do
+    echo "rsync -r $d ~/.$d"
+    rsync -r -v $d ~/.$d
 done
 
 for f in ${FILES[@]}; do

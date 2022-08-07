@@ -1,7 +1,7 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-DIRS=(
+COPY_DIRS=(
     config/nvim/
     config/doom/
 )
@@ -26,7 +26,7 @@ for f in ${FILES[@]}; do
     cp --preserve=mode ~/.$f $f
 done
 
-for d in ${DIRS[@]}; do
+for d in ${COPY_DIRS[@]}; do
     echo "rsync -r -v ~/.$d $d"
-    rsync -r ~/.$d $d
+    rsync -r -v ~/.$d $d
 done
