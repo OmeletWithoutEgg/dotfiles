@@ -10,10 +10,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-(set-frame-font "Hack Nerd Font 14" nil t)
-
-(add-to-list 'load-path "~/.config/doom/lisp/")
-(load "markdown-agda-mode")
