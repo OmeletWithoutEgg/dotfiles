@@ -6,33 +6,7 @@ require('config.cmp')
 require('config.evil_lualine')
 require('config.dashboard')
 
-require('onedark').setup { style = 'dark' }
-require('onedark').load()
 -- vim.g.airline_theme = 'onedark'
-
-require('nvim-tree').setup()
--- require('telescope').load_extension('media_files')
-local find_command = { 'rg', '--hidden', '--files' }
-require('telescope').setup{
-    defaults = {
-        layout_config = {
-            prompt_position = 'top',
-        },
-        sorting_strategy = 'ascending',
-    },
-    pickers = {
-        oldfiles = { find_command = find_command },
-        find_files = { find_command = find_command },
-        live_grep = { find_command = find_command },
-    }
-}
-
-vim.g.vimwiki_global_ext = 0
-vim.g.vimwiki_url_maxsave = 0
-vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki'} }
-vim.cmd[[
-    autocmd FileType vimwiki setlocal nowrap concealcursor=
-]]
 
 vim.g.mapleader = '\\'
 
