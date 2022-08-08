@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-;;; (setq user-full-name "John Doe"
-;;;       user-mail-address "john@doe.com")
+;; (setq user-full-name "John Doe"
+;;       user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -76,13 +76,13 @@
 ;; they are implemented.
 
 
-;; (add-to-list 'default-frame-alist '(maximized))
+(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+;; (toggle-full-screen)
 
-
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
-(setq doom-font (font-spec :family "Hack Nerd Font" :size 14)
+(setq doom-font (font-spec :family "Hack Nerd Font" :size 16))
 
 (add-load-path! "~/.config/doom/lisp/")
 (load "markdown-agda-mode")
