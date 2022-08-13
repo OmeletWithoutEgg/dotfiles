@@ -13,6 +13,7 @@ FILES=(
     config/git/config
     config/fontconfig/fonts.conf
     config/qutebrowser/config.py
+    config/wezterm/wezterm.lua
     vim/UltiSnips/tex.snippets
 )
 
