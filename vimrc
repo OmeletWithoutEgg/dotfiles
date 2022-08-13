@@ -6,8 +6,6 @@ set fileencoding=utf8
 set fileformat=unix
 
 call plug#begin()
-Plug 'msuperdock/vim-agda'
-let g:agda_args = ['--local-interfaces']
 
 """ Appearance
 Plug 'hzchirs/vim-material'
