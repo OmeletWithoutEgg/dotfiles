@@ -12,9 +12,17 @@ local lsps = {
     hls = {},
 }
 
+local function get_table_keys(tab)
+    local keyset = {}
+    for k, _ in pairs(tab) do
+        keyset[#keyset + 1] = k
+    end
+    return keyset
+end
+
 -- require('mason').setup{}
 require('nvim-lsp-installer').setup({
-    ensure_installed = lsps,
+    ensure_installed = get_table_keys(lsps),
     automatic_installation = true,
 })
 -- require('lsp_signature').setup{}
@@ -23,30 +31,30 @@ local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Mappings.
+    local wk = require('which-key')
+    wk.register({
+        ['gd']         = { vim.lsp.buf.definition     , 'lsp::definition' },
+        ['gD']         = { vim.lsp.buf.declaration    , 'lsp::declaration' },
+        ['K']          = { vim.lsp.buf.hover          , 'lsp::hover' },
+        ['gi']         = { vim.lsp.buf.implementation , 'lsp::implementation' },
+        ['<leader>D']  = { vim.lsp.buf.type_definition, 'lsp::type definition' },
+        ['<leader>rn'] = { vim.lsp.buf.rename         , 'lsp::rename variable' },
+        ['<leader>fm'] = { vim.lsp.buf.formatting     , 'lsp::code formatting' },
+        ['<leader>n']  = { vim.diagnostic.goto_next   , 'lsp::next diagnostic' },
+        ['<leader>N']  = { vim.diagnostic.goto_prev   , 'lsp::prev diagnostic' },
+    }, { buffer = bufnr })
+
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workleader_folder, bufopts)
     -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workleader_folder, bufopts)
-    vim.keymap.set('n', '<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
-    end, bufopts)
-    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
-
-    vim.keymap.set('n', '<leader>n', function() vim.diagnostic.goto_next{popup_opts = {show_header = false}} end)
-    vim.keymap.set('n', '<leader>N', function() vim.diagnostic.goto_prev{popup_opts = {show_header = false}} end)
-
-    -- <leader>K will show all diagnostics for the current line in a popup window
-    vim.keymap.set('n', '<leader>K', function() vim.diagnostic.show_line_diagnostics{show_header = false} end)
+    ---- vim.keymap.set('n', '<leader>wl', function()
+    ----     print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
+    ---- end, bufopts)
+    ---- <leader>K will show all diagnostics for the current line in a popup window
+    ---- vim.keymap.set('n', '<leader>K', vim.diagnostic.open_float)
 end
 
 local capabilities = require('cmp_nvim_lsp')
@@ -57,7 +65,12 @@ local handlers = {
     ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
 }
 
-vim.diagnostic.config{ float = { border = 'rounded' } }
+vim.diagnostic.config {
+    float = {
+        border = 'rounded',
+        header = false
+    },
+}
 
 local lspconfig = require('lspconfig')
 
@@ -72,7 +85,7 @@ for lsp, opts in pairs(lsps) do
 end
 
 -- Enable lean.nvim, and enable abbreviations and mappings
-require('lean').setup{
+require('lean').setup {
     abbreviations = { builtin = true },
     lsp = lsp_opts,
     lsp3 = lsp_opts,
@@ -90,7 +103,7 @@ require('lean').setup{
 --- )
 
 --- local lint = require('lint')
---- 
+---
 --- lint.linters.mathlib = {
 ---   cmd = 'scripts/lint-style.py',
 ---   stdin = true,
@@ -99,7 +112,7 @@ require('lean').setup{
 ---   ignore_exitcode = true,
 ---   parser = require('lint.parser').from_errorformat('::%trror file=%f\\,line=%l\\,code=ERR_%[A-Z]%\\+::ERR_%[A-Z]\\*:%m'),
 --- }
---- 
+---
 --- lint.linters_by_ft = {
 ---   lean3 = { 'mathlib' };
 ---   python = { 'flake8' };

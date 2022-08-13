@@ -16,13 +16,8 @@ local function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-map('n', '<f2>', ':NvimTreeToggle<CR>')
-map('n', '<leader>rl', ':source $MYVIMRC<CR>')
+map('n', '<f2>', '<Cmd>NvimTreeToggle<CR>')
+map('n', '<leader>rl', '<Cmd>source $MYVIMRC <bar> ' ..
+    'lua require("plenary.reload").reload_module("config.plugins", false)<CR>')
 
--- map('n', '<space>sl', ':SessionLoad')
-map('n', '<space>fr', ':Telescope oldfiles<CR>')
-map('n', '<space>ff', ':Telescope find_files<CR>')
-map('n', '<space>fw', ':Telescope live_grep<CR>')
-map('n', '<space>nc', ':Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>')
-
-vim.cmd[[nohlsearch]]
+vim.cmd [[nohlsearch]]

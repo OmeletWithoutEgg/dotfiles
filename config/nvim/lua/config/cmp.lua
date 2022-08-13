@@ -3,8 +3,8 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'preview' }
 -- You may want to reference the nvim-cmp documentation for further
 -- configuration of completion: https://github.com/hrsh7th/nvim-cmp#recommended-configuration
 local cmp = require('cmp')
--- TODO set up keybinds
-cmp.setup{
+-- TODO set up keybinds, both for normal setup and ":" setup
+cmp.setup {
     window = {
         -- completion = cmp.config.window.bordered(),
         -- documentation = cmp.config.window.bordered(),
@@ -22,11 +22,11 @@ cmp.setup{
     })
 }
 
--- TODO lazy enable cmdline cmp
 cmp.setup.cmdline(':', {
+    completion = { autocomplete = false },
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
         { name = 'path' },
-        -- { name = 'cmdline' }
+        { name = 'cmdline' }
     })
 })

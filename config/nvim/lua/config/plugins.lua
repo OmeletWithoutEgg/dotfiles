@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
-    -- use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/cmp-cmdline'
     -- use 'hrsh7th/cmp-omni'
     -- use {
     --     'ray-x/lsp_signature.nvim',
@@ -45,7 +45,7 @@ return require('packer').startup(function(use)
         config = function()
             -- require('telescope').load_extension('media_files')
             local find_command = { 'rg', '--hidden', '--files' }
-            require('telescope').setup{
+            require('telescope').setup {
                 defaults = {
                     layout_config = {
                         prompt_position = 'top',
@@ -61,6 +61,20 @@ return require('packer').startup(function(use)
         end
     }
 
+    use {
+        'folke/which-key.nvim',
+        config = function()
+            require('which-key').setup {
+                plugins = {
+                    marks = false, -- shows a list of your marks on ' and `
+                    registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+                }
+            }
+        end
+    }
+
+    use 'tommcdo/vim-lion'
+
     -- use {
     --     'nvim-treesitter/nvim-treesitter',
     --     run = function()
@@ -73,8 +87,8 @@ return require('packer').startup(function(use)
         config = function()
             vim.g.vimwiki_global_ext = 0
             vim.g.vimwiki_url_maxsave = 0
-            vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki'} }
-            vim.cmd[[
+            vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki' } }
+            vim.cmd [[
                 autocmd FileType vimwiki setlocal nowrap concealcursor=
             ]]
         end
