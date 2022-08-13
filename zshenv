@@ -4,7 +4,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 export EDITOR=vim
-export PATH=$HOME/.config/emacs/bin:$PATH
+export PATH="$XDG_CONFIG_HOME"/emacs/bin:$PATH
 
 # Configuration of fd & fzf
 export FZF_PREVIEW_COMMAND=' [[ ! -r {} ]] && echo {} || \
