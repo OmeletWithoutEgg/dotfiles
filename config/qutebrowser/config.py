@@ -6,7 +6,7 @@ c.content.blocking.method = 'both'
 c.content.javascript.can_access_clipboard = True
 c.editor.command = ['konsole', '-e', 'vim', '{}'] 
 c.fonts.default_size = '14pt'
-c.fonts.web.family.fixed = 'Hack'
+c.fonts.web.family.fixed = 'Hack Nerd Font'
 # c.new_instance_open_target = 'tab-silent'
 
 c.url.default_page = 'https://google.com'
