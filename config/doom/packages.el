@@ -48,5 +48,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(package! evil-snipe :disable t)
+
 (package! polymode)
 (package! poly-markdown)

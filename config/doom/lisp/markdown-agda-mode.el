@@ -30,7 +30,7 @@
   :innermodes '(poly-markdown-agda-innermode)
   (set-input-method "Agda"))
 
-;; (assq-delete-all 'background agda2-highlight-faces)
+;; (assq-delete-all 'background 'agda2-highlight-faces)
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.lagda.md" . poly-markdown-agda-mode))

@@ -33,6 +33,7 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-solarized-light)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -75,10 +76,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-
-(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 ;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 ;; (toggle-full-screen)
 
@@ -86,3 +84,11 @@
 
 (add-load-path! "~/.config/doom/lisp/")
 (load "markdown-agda-mode")
+
+;;; (setq evil-normal-state-cursor '(box "orange")
+;;;  evil-insert-state-cursor '(box "orange")
+;;;  evil-visual-state-cursor '(box "orange"))
+
+(custom-set-faces
+ '(highlight ((t (:background "violet"))))
+)
