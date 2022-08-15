@@ -60,8 +60,8 @@ for d in ${CREATE_DIRS[@]}; do
 done
 
 for d in ${COPY_DIRS[@]}; do
-    echo "rsync -r $d ~/.$d"
-    rsync -r -v $d ~/.$d
+    # rm $d/ -r
+    cp -r --interactive --preserve=mode ~/.$d/ $d/
 done
 
 for f in ${FILES[@]}; do
