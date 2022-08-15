@@ -8,8 +8,8 @@ CREATE_DIRS=(
 )
 
 COPY_DIRS=(
-    config/nvim/
-    config/doom/
+    config/nvim
+    config/doom
 )
 
 FILES=(
@@ -61,7 +61,7 @@ done
 
 for d in ${COPY_DIRS[@]}; do
     # rm $d/ -r
-    cp -r --interactive --preserve=mode ~/.$d/ $d/
+    cp -r --interactive --preserve=mode $d/ ~/.$d/ 
 done
 
 for f in ${FILES[@]}; do
