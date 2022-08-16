@@ -1,31 +1,17 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-CREATE_DIRS=(
-    config/git
-    config/python
-    vim/UltiSnips
-)
+warn() {
+    printf "\033[33m"
+    printf "$@"
+    printf "\033[0m\n"
+}
 
-COPY_DIRS=(
-    config/nvim
-    config/doom
-)
-
-FILES=(
-    vimrc zshrc zshenv
-    p10k.zsh
-    tmux.conf
-    gnupg/gpg-agent.conf
-    config/git/config
-    config/python/pythonrc
-    config/redshift/redshift.conf
-    config/fontconfig/fonts.conf
-    config/systemd/user/ibus.service
-    config/qutebrowser/config.py
-    config/qutebrowser/greasemonkey/youtube-autoskip.user.js
-    vim/UltiSnips/tex.snippets
-)
+if [[ -n `git status -s -uall` ]]; then
+    git status
+    warn "GIT STATUS IS NOT CLEAN :("
+    exit
+fi
 
 echo "SHELL=$SHELL"
 for f in "vim zsh git curl"; do
@@ -41,8 +27,11 @@ if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
     vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
 fi
 
-echo "chsh /usr/bin/zsh"
-chsh -s /usr/bin/zsh
+if [[ $SHELL  != "/usr/bin/zsh" ]]; then
+    echo "chsh /usr/bin/zsh"
+    chsh -s /usr/bin/zsh
+fi
+
 if [[ ! -d "$HOME/.zi" ]]; then
     mkdir -p "$HOME/.zi" && chmod g-rwX "$HOME/.zi"
     git clone --depth=1 \
@@ -54,14 +43,20 @@ if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
 
+CREATE_DIRS=(
+    config/git
+    config/python
+    vim/UltiSnips
+)
+
+FILES=(
+    $(find -type f -not -path '*/\.git*' -printf '%P\n' \
+        | grep -v -P "(install\\.sh|update\\.sh|reflector\\.conf|README\\.md)")
+)
+
 for d in ${CREATE_DIRS[@]}; do
     echo "mkdir -p ~/.$d"
     mkdir -p ~/.$d
-done
-
-for d in ${COPY_DIRS[@]}; do
-    # rm $d/ -r
-    cp -r --interactive --preserve=mode $d/ ~/.$d/ 
 done
 
 for f in ${FILES[@]}; do

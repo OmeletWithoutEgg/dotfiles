@@ -1,26 +1,35 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
+warn() {
+    printf "\033[33m"
+    printf "$@"
+    printf "\033[0m\n"
+}
+
+if [[ -n `git status -s -uall` ]]; then
+    git status
+    warn "GIT STATUS IS NOT CLEAN :("
+
+    while true; do
+        read -p "CONTINUE? [y/n]: " yn
+        case $yn in
+            [Yy]* ) break;;
+            [Nn]* ) exit;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+fi
+
 COPY_DIRS=(
     config/nvim
     config/doom
 )
 
 FILES=(
-    vimrc zshrc zshenv
-    p10k.zsh
-    tmux.conf
-    config/git/config
-    config/fontconfig/fonts.conf
-    config/qutebrowser/config.py
-    config/wezterm/wezterm.lua
-    vim/UltiSnips/tex.snippets
+    $(find -type f -not -path '*/\.git*' -printf '%P\n' \
+        | grep -v -P "(install\\.sh|update\\.sh|reflector\\.conf|README\\.md)")
 )
-
-if [[ -n `git status -s -uall` ]]; then
-    git status
-    exit
-fi
 
 for f in ${FILES[@]}; do
     echo "cp ~/.$f $f"
