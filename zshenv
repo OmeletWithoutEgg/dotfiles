@@ -29,6 +29,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
 
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export GOPATH="$XDG_DATA_HOME"/go
 export GHCUP_USE_XDG_DIRS=true
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
@@ -43,3 +44,5 @@ export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons
 export GTK_IM_MODULE="ibus"
 export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
+
+# export QT_QPA_PLATFORM="wayland"
