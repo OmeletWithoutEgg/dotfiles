@@ -17,7 +17,9 @@ local function map(mode, lhs, rhs, opts)
 end
 
 map('n', '<f2>', '<Cmd>NvimTreeToggle<CR>')
-map('n', '<leader>rl', '<Cmd>source $MYVIMRC <bar> ' ..
+map('n', '<leader>rl', '<Cmd>wall <bar> source $MYVIMRC <bar> ' ..
     'lua require("plenary.reload").reload_module("config.plugins", false)<CR>')
 
 vim.cmd [[nohlsearch]]
+
+-- TODO map packersync and gitdiff

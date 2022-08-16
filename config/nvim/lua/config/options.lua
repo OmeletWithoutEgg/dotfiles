@@ -21,4 +21,4 @@ o.autochdir = true
 o.showcmd = true
 o.ttimeoutlen = 0
 
-o.signcolumn = 'number'
+o.signcolumn = 'yes:1'

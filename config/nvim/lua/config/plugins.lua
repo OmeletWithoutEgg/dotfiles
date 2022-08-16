@@ -94,4 +94,15 @@ return require('packer').startup(function(use)
         end
     }
     use 'Julian/lean.nvim'
+
+    use 'edluffy/hologram.nvim'
+    -- use '~/Repos/hologram.nvim'
+    use 'sindrets/diffview.nvim'
+    use 'editorconfig/editorconfig-vim'
+    use {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup()
+        end
+    }
 end)

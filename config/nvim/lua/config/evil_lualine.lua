@@ -158,8 +158,8 @@ ins_left {
 ins_left {
   -- Lsp server name .
   function()
-    local msg = 'No Active Lsp'
     local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+    local msg = 'No Active Lsp' .. ' : ' .. buf_ft
     local clients = vim.lsp.get_active_clients()
     if next(clients) == nil then
       return msg

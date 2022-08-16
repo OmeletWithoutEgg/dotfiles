@@ -13,8 +13,8 @@ if [[ -n `git status -s -uall` ]]; then
     exit
 fi
 
-echo "SHELL=$SHELL"
-for f in "vim zsh git curl"; do
+echo "SHELL = $SHELL"
+for f in vim zsh git curl; do
     if ! command -v $f; then
         echo "Please remember to install $f"
         exit
@@ -27,8 +27,8 @@ if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
     vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
 fi
 
-if [[ $SHELL  != "/usr/bin/zsh" ]]; then
-    echo "chsh /usr/bin/zsh"
+if [[ $SHELL != "/usr/bin/zsh" ]]; then
+    echo "chsh -s /usr/bin/zsh"
     chsh -s /usr/bin/zsh
 fi
 
@@ -60,7 +60,7 @@ for d in ${CREATE_DIRS[@]}; do
 done
 
 for f in ${FILES[@]}; do
-    if [ -d `dirname $HOME/.$f` ]; then
+    if [ -d $(dirname $HOME/.$f) ]; then
         cp --interactive --preserve=mode $f ~/.$f
     else
         echo "Parent directory $(dirname $HOME/.$f) does not exist"

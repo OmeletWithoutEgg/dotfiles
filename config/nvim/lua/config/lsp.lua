@@ -10,6 +10,9 @@ local lsps = {
     },
     texlab = {},
     hls = {},
+    gopls = {},
+    bashls = {},
+    -- pylsp = {},
 }
 
 local function get_table_keys(tab)
@@ -21,10 +24,10 @@ local function get_table_keys(tab)
 end
 
 -- require('mason').setup{}
-require('nvim-lsp-installer').setup({
+require('nvim-lsp-installer').setup {
     ensure_installed = get_table_keys(lsps),
     automatic_installation = true,
-})
+}
 -- require('lsp_signature').setup{}
 
 local on_attach = function(client, bufnr)
@@ -37,24 +40,25 @@ local on_attach = function(client, bufnr)
         ['gD']         = { vim.lsp.buf.declaration    , 'lsp::declaration' },
         ['K']          = { vim.lsp.buf.hover          , 'lsp::hover' },
         ['gi']         = { vim.lsp.buf.implementation , 'lsp::implementation' },
-        ['<leader>D']  = { vim.lsp.buf.type_definition, 'lsp::type definition' },
-        ['<leader>rn'] = { vim.lsp.buf.rename         , 'lsp::rename variable' },
-        ['<leader>fm'] = { vim.lsp.buf.formatting     , 'lsp::code formatting' },
-        ['<leader>n']  = { vim.diagnostic.goto_next   , 'lsp::next diagnostic' },
-        ['<leader>N']  = { vim.diagnostic.goto_prev   , 'lsp::prev diagnostic' },
+        ['<leader>D']  = { vim.lsp.buf.type_definition, 'lsp::type_definition' },
+        ['<leader>rn'] = { vim.lsp.buf.rename         , 'lsp::rename_variable' },
+        ['<leader>fm'] = { vim.lsp.buf.formatting     , 'lsp::code_formatting' },
+        ['<leader>n']  = { vim.diagnostic.goto_next   , 'lsp::next_diagnostic' },
+        ['<leader>N']  = { vim.diagnostic.goto_prev   , 'lsp::prev_diagnostic' },
+        ['<leader>ca'] = { vim.lsp.buf.code_action    , 'lsp::code_action' },
+        ['gR']         = { vim.lsp.buf.references     , 'lsp::references' },
+        ['<C-k>']      = { vim.lsp.buf.signature_help , 'lsp::signature_help' },
+        ['<leader>K']  = { vim.diagnostic.open_float  , 'lsp::line_diagnostic' },
+    ---- vim.keymap.set('n', '<leader>K', vim.diagnostic.open_float)
     }, { buffer = bufnr })
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workleader_folder, bufopts)
     -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workleader_folder, bufopts)
     ---- vim.keymap.set('n', '<leader>wl', function()
     ----     print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
     ---- end, bufopts)
     ---- <leader>K will show all diagnostics for the current line in a popup window
-    ---- vim.keymap.set('n', '<leader>K', vim.diagnostic.open_float)
 end
 
 local capabilities = require('cmp_nvim_lsp')
