@@ -15,22 +15,25 @@ return require('packer').startup(function(use)
     -- use {
     --     'ray-x/lsp_signature.nvim',
     -- }
+    use 'hrsh7th/vim-vsnip'
 
-    -- use 'hzchirs/vim-material'
     -- use 'projekt0n/github-nvim-theme'
     use {
         'navarasu/onedark.nvim',
         config = function()
-            local onedark = require('onedark')
-            onedark.setup { style = 'dark' }
-            onedark.load()
+            require('onedark').setup {
+                style = 'warm',
+                -- toggle_style_key = '<Plug>(onedark-toggle-style)',
+                code_style = { comments = 'none' },
+            }
+            require('onedark').load()
         end
     }
     use 'kyazdani42/nvim-web-devicons'
     use {
         'kyazdani42/nvim-tree.lua',
         config = function()
-            require('nvim-tree').setup()
+            require('nvim-tree').setup {}
         end
     }
     -- use 'vim-airline/vim-airline'
@@ -38,7 +41,6 @@ return require('packer').startup(function(use)
     use 'nvim-lualine/lualine.nvim'
     use 'glepnir/dashboard-nvim'
 
-    use 'tpope/vim-surround'
     use {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.0',
@@ -73,8 +75,6 @@ return require('packer').startup(function(use)
         end
     }
 
-    use 'tommcdo/vim-lion'
-
     -- use {
     --     'nvim-treesitter/nvim-treesitter',
     --     run = function()
@@ -89,20 +89,48 @@ return require('packer').startup(function(use)
             vim.g.vimwiki_url_maxsave = 0
             vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki' } }
             vim.cmd [[
-                autocmd FileType vimwiki setlocal nowrap concealcursor=
+            autocmd FileType vimwiki setlocal nowrap concealcursor=
             ]]
         end
     }
     use 'Julian/lean.nvim'
 
-    use 'edluffy/hologram.nvim'
-    -- use '~/Repos/hologram.nvim'
-    use 'sindrets/diffview.nvim'
+    use {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require('indent_blankline').setup {}
+        end
+    }
+    use 'tpope/vim-surround'
+    use 'tommcdo/vim-lion'
+    use 'tpope/vim-repeat'
     use 'editorconfig/editorconfig-vim'
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup {}
+        end
+    }
+
+    use 'sindrets/diffview.nvim'
     use {
         'lewis6991/gitsigns.nvim',
         config = function()
-            require('gitsigns').setup()
+            require('gitsigns').setup {}
         end
     }
+
+    -- use 'edluffy/hologram.nvim'
+    -- use '~/Repos/hologram.nvim'
+    -- use {
+    --     'bfredl/nvim-luadev',
+    --     config = function()
+    --         vim.cmd [[
+    --             nmap <leader>ll <Plug>(Luadev-RunLine)
+    --             nmap <leader>lr <Plug>(Luadev-Run)
+    --             nmap <leader>lw <Plug>(Luadev-RunWord)
+    --             nmap <leader>lc <Plug>(Luadev-Complete)
+    --         ]]
+    --     end
+    -- }
 end)

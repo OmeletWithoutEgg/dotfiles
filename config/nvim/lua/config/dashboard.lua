@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 db.hide_statusline = false
 
-db.header_pad = 10
+db.header_pad = 5
 db.custom_header = {
     ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
     ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
@@ -33,39 +33,68 @@ db.custom_header = {
     ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
 }
 
-local icon_fg = '#e86671'
+string.rpad = function(str, len, char)
+    if char == nil then char = ' ' end
+    return str .. string.rep(char, len - #str)
+end
+
+local make_shortcut = function(opts)
+    local icon_fg = '#e86671'
+    local desc_padding = 30
+    if opts.source then
+        local mapping = require('config.mappings')[opts.source]
+        return {
+            icon = opts.icon,
+            icon_hl = { fg = icon_fg },
+            action = mapping.action,
+            desc = mapping.desc:rpad(desc_padding),
+            shortcut = mapping.shortcut,
+        }
+    else
+        return {
+            icon = opts.icon,
+            icon_hl = { fg = icon_fg },
+            action = opts.action,
+            desc = opts.desc:rpad(desc_padding),
+            shortcut = opts.shortcut
+        }
+    end
+end
 
 db.custom_center = {
-    {
+    make_shortcut {
+        icon = '  ',
+        source = 'packer_sync'
+    },
+    make_shortcut {
         icon = '  ',
-        icon_hl = { fg = icon_fg },
-        desc = 'Find Recent Files                       ',
-        -- action =  'Telescope oldfiles',
-        shortcut = 'SPC f r',
+        source = 'recent_files'
     },
-    {
+    make_shortcut {
         icon = '  ',
-        icon_hl = { fg = icon_fg },
-        desc = 'Find Files                              ',
-        -- action = 'Telescope find_files find_command=rg,--hidden,--files',
-        shortcut = 'SPC f f',
+        source = 'find_files'
     },
-    {
+    make_shortcut {
         icon = '  ',
-        icon_hl = { fg = icon_fg },
-        desc = 'Find Word                               ',
-        -- action = 'Telescope live_grep',
-        shortcut = 'SPC f w',
+        source = 'live_grep'
     },
-    {
-        icon = '  ',
-        icon_hl = { fg = icon_fg },
-        desc = 'Find Config Files                       ',
-        -- action = 'Telescope find_files find_command=rg,--hidden,--files cwd=' .. vim.fn.stdpath('config'),
-        shortcut = 'SPC f c',
+    make_shortcut {
+        icon = '  ',
+        source = 'config_files'
+    },
+    make_shortcut {
+        icon = '  ',
+        source = 'colorschemes'
+    },
+    make_shortcut {
+        icon = '  ',
+        desc = 'Open Vimwiki Index',
+        shortcut = 'LEA w w',
+        -- source = 'vimwiki_index'
     },
 }
 
+-- string right padding https://snipplr.com/view/13091/strrpad--pad-string-to-the-right
 db.custom_footer = function()
     local default_footer = { '', ' Have fun with neovim' }
     if packer_plugins ~= nil then
@@ -74,15 +103,3 @@ db.custom_footer = function()
     end
     return default_footer
 end
-
--- TODO Do not Repeat Yourself
-local wk = require('which-key')
-wk.register({
-    ['<space>f'] = {
-        name = 'file',
-        r = { '<Cmd>Telescope oldfiles<CR>',                                          'Find recent files'    },
-        f = { '<Cmd>Telescope find_files<CR>',                                        'Find files'           },
-        w = { '<Cmd>Telescope live_grep<CR>',                                         'Find word'           },
-        c = { '<Cmd>Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>', 'Find config files'    },
-    }
-})
