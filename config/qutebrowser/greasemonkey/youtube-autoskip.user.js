@@ -9,7 +9,7 @@
 
 let main = new MutationObserver(() => {
 	// Get skip button and click it
-	let btn = document.getElementsByClassName("ytp-ad-skip-button ytp-button").item(0)
+	let btn = document.getElementsByClassName('ytp-ad-skip-button ytp-button').item(0)
 	if (btn) {
 		btn.click()
 	}
@@ -23,4 +23,4 @@ let main = new MutationObserver(() => {
 	}
 })
 
-main.observe(document.getElementsByClassName("video-ads ytp-ad-module").item(0), {attributes: true, characterData: true, childList: true})
+main.observe(document.getElementsByClassName('video-ads ytp-ad-module').item(0), {attributes: true, characterData: true, childList: true})
