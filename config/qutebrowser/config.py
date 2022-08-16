@@ -44,6 +44,7 @@ config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Alt-f>', 'fake-key f')
 config.bind(';c', 'hint links spawn google-chrome-stable {hint-url}')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
+config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
 config.bind('zb', 'hint inputs tab-bg --first \

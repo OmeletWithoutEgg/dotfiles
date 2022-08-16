@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+
+from urllib.parse import urlparse
+import os
+import argparse
+
+argument_parser = argparse.ArgumentParser()
+argument_parser.add_argument('url', nargs='?', default=os.getenv('QUTE_URL'))
+
+def qute_command(command):
+    with open(os.environ['QUTE_FIFO'], 'w') as fifo:
+        fifo.write(command + '\n')
+        fifo.flush()
+
+args = argument_parser.parse_args()
+path = urlparse(args.url).path.lstrip('/')
+
+qute_command(f'yank inline {path}')
