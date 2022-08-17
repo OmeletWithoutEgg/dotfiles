@@ -4,19 +4,12 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 export EDITOR=vim
-export PATH="$XDG_CONFIG_HOME"/emacs/bin:$PATH
+export PATH="$HOME"/.local/bin:"$XDG_CONFIG_HOME"/emacs/bin:$PATH
 
 # Configuration of fd & fzf
-export FZF_PREVIEW_COMMAND=' [[ ! -r {} ]] && echo {} || \
-    ([[ $(file --mime {}) =~ binary ]] \
-        && (catimg -w 150 {} 2>/dev/null || echo {} is a binary file) \
-        || bat --style=numbers -f {}) '
-
 export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
-export COPY_COMMAND="xclip -sel c"
-
-export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='$FZF_PREVIEW_COMMAND' --preview-window='right:hidden:60%:wrap' \
-    --bind='f2:toggle-preview,ctrl-y:execute(echo {+} | $COPY_COMMAND && echo {+})+abort' \
+export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='fzf-preview.sh {}' --preview-window='right:hidden:60%:wrap' \
+    --bind='f2:toggle-preview,ctrl-y:execute(echo {+} | copy.sh)+abort' \
     --bind='ctrl-d:half-page-down,ctrl-u:half-page-up' \
     --bind='ctrl-n:preview-page-down,ctrl-p:preview-page-up'"
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
