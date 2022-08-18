@@ -2,32 +2,31 @@ local M = {}
 
 vim.g.mapleader = '\\'
 
-local function abbr(s)
-    local key_labels = {
-        ['<space>'] = 'SPC',
-        -- ['<leader>'] = 'LEA',
-    }
-    local keys = require('which-key.util')
-        .parse_keys(s).notation
+local function join(list)
     local first = true
     local res = ''
-    for _, key in ipairs(keys) do
+    for _, key in ipairs(list) do
         if not first then res = res .. ' ' end
         first = false
-        res = res .. (key_labels[key] or key)
+        res = res .. key -- (key_labels[key] or key)
     end
-    -- print(vim.inspect(res))
     return res
 end
 
 local function add_group(group, leader, mappings)
     local mapping = { name = group }
-    for key, detail in pairs(mappings) do
+    -- local short_cut = format_shortcut(leader .. keybind)
+    for name, detail in pairs(mappings) do
         local keybind, rhs, desc = unpack(detail)
+        local parsed = require('which-key.util').parse_keys(leader .. keybind)
+        -- print(vim.inspect(parsed))
         mapping[keybind] = { rhs, desc }
-        M[key] = {
-            shortcut = abbr(leader .. keybind),
-            rhs = rhs, -- TODO properly set "action" field
+        M[name] = {
+            shortcut = join(parsed.notation),
+            action = function()
+                vim.fn.feedkeys(parsed.keys)
+                -- TODO does this string really got captured?
+            end,
             desc = desc,
         }
     end
@@ -57,7 +56,7 @@ add_group('telescope', '<space>f', {
 })
 
 local reload_packer = function()
-    vim.cmd [[ wall ]]
+    vim.cmd [[wall]]
     require('plenary.reload').reload_module('config.plugins')
     dofile(vim.fn.expand('$MYVIMRC'))
     require('packer').sync()
@@ -70,16 +69,17 @@ add_group('packer', '<space>p', {
     packer_reload = { 'r', reload_packer, 'Reload Plugins' }
 })
 
-local toggle_onedark = function()
-    require('onedark').toggle()
-    print('current style =', vim.g.onedark_config.style)
-end
-
-add_group('toggle', '<space>t', {
-    onedark_style = { 's', toggle_onedark, 'Toggle Onedark Style' }
-})
+-- local toggle_onedark = function()
+--     require('onedark').toggle()
+--     print('current style =', vim.g.onedark_config.style)
+-- end
+-- add_group('toggle', '<space>t', {
+--     onedark_style = { 's', toggle_onedark, 'Toggle Onedark Style' }
+-- })
 
 add_group('git', '<space>g', {
+    git_diffview             = { 'd', '<Cmd>DiffviewOpen<CR>', 'Open Git diffview' },
+    git_diffview_toggle_file = { 't', '<Cmd>DiffviewToggleFiles<CR>', 'Diffview Toggle Files' },
     -- TODO
 })
 -- TODO map gitdiff
