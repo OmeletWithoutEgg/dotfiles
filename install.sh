@@ -60,10 +60,12 @@ for d in ${CREATE_DIRS[@]}; do
 done
 
 for f in ${FILES[@]}; do
-    if [ -d $(dirname $HOME/.$f) ]; then
-        cp --interactive --preserve=mode $f ~/.$f
+    if [ ! -d $(dirname $HOME/.$f) ]; then
+        warn "Parent directory $(dirname $HOME/.$f) does not exist."
+    elif diff -q $f ~/.$f >/dev/null 2>/dev/null; then
+        echo "File $f not changed"
     else
-        echo "Parent directory $(dirname $HOME/.$f) does not exist"
+        cp --interactive --preserve=mode $f ~/.$f
     fi
 done
 
