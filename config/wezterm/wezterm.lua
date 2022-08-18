@@ -20,4 +20,5 @@ return {
     font_size = 14,
     window_decorations = 'NONE',
     -- enable_kitty_graphics = true,
+    default_gui_startup_args = { 'start', '--always-new-process' },
 }
