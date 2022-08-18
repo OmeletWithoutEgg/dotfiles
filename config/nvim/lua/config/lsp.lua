@@ -12,6 +12,7 @@ local lsps = {
     hls = {},
     gopls = {},
     bashls = {},
+    html = {},
     -- pylsp = {},
 }
 
@@ -36,20 +37,19 @@ local on_attach = function(client, bufnr)
 
     local wk = require('which-key')
     wk.register({
-        ['gd']         = { vim.lsp.buf.definition     , 'lsp::definition' },
-        ['gD']         = { vim.lsp.buf.declaration    , 'lsp::declaration' },
-        ['K']          = { vim.lsp.buf.hover          , 'lsp::hover' },
-        ['gi']         = { vim.lsp.buf.implementation , 'lsp::implementation' },
+        ['gd']         = { vim.lsp.buf.definition, 'lsp::definition' },
+        ['gD']         = { vim.lsp.buf.declaration, 'lsp::declaration' },
+        ['K']          = { vim.lsp.buf.hover, 'lsp::hover' },
+        ['gi']         = { vim.lsp.buf.implementation, 'lsp::implementation' },
         ['<leader>D']  = { vim.lsp.buf.type_definition, 'lsp::type_definition' },
-        ['<leader>rn'] = { vim.lsp.buf.rename         , 'lsp::rename_variable' },
-        ['<leader>fm'] = { vim.lsp.buf.formatting     , 'lsp::code_formatting' },
-        ['<leader>n']  = { vim.diagnostic.goto_next   , 'lsp::next_diagnostic' },
-        ['<leader>N']  = { vim.diagnostic.goto_prev   , 'lsp::prev_diagnostic' },
-        ['<leader>ca'] = { vim.lsp.buf.code_action    , 'lsp::code_action' },
-        ['gR']         = { vim.lsp.buf.references     , 'lsp::references' },
-        ['<C-k>']      = { vim.lsp.buf.signature_help , 'lsp::signature_help' },
-        ['<leader>K']  = { vim.diagnostic.open_float  , 'lsp::line_diagnostic' },
-    ---- vim.keymap.set('n', '<leader>K', vim.diagnostic.open_float)
+        ['<leader>rn'] = { vim.lsp.buf.rename, 'lsp::rename_variable' },
+        ['<leader>fm'] = { vim.lsp.buf.formatting, 'lsp::code_formatting' },
+        ['<leader>n']  = { vim.diagnostic.goto_next, 'lsp::next_diagnostic' },
+        ['<leader>N']  = { vim.diagnostic.goto_prev, 'lsp::prev_diagnostic' },
+        ['<leader>ca'] = { vim.lsp.buf.code_action, 'lsp::code_action' },
+        ['gR']         = { vim.lsp.buf.references, 'lsp::references' },
+        ['<C-k>']      = { vim.lsp.buf.signature_help, 'lsp::signature_help' },
+        ['<leader>K']  = { vim.diagnostic.open_float, 'lsp::line_diagnostic' },
     }, { buffer = bufnr })
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -58,20 +58,22 @@ local on_attach = function(client, bufnr)
     ---- vim.keymap.set('n', '<leader>wl', function()
     ----     print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
     ---- end, bufopts)
-    ---- <leader>K will show all diagnostics for the current line in a popup window
 end
+
+local border = 'single'
 
 local capabilities = require('cmp_nvim_lsp')
     .update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local handlers = {
-    ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
-    ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
+    ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
 
 vim.diagnostic.config {
+    severity_sort = true,
     float = {
-        border = 'rounded',
+        border = border,
         header = false
     },
 }
