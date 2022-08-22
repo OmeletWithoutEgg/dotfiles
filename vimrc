@@ -14,6 +14,7 @@ Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine'
 
 """ File browser & git tools
+" Plug 'vifm/vifm.vim'
 Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
 Plug 'ryanoasis/vim-devicons'
 Plug 'bryanmylee/vim-colorscheme-icons'
@@ -140,6 +141,7 @@ set cursorline noshowmode lazyredraw termguicolors autochdir showcmd
 set ttimeoutlen=0
 set wildmenu wildoptions=pum
 " set listchars=trail:␣,eol:$,tab:►\ ,extends:⟩,precedes:⟨,space:·,trail:•
+set fillchars=vert:│,fold:-,eob:\ 
 
 augroup rnutoggle
     au!
