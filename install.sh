@@ -46,7 +46,11 @@ fi
 CREATE_DIRS=(
     config/git
     config/python
+    config/fontconfig
     vim/UltiSnips
+    local/bin
+    # TODO optional
+    # config/nvim/lua/config
 )
 
 FILES=(
