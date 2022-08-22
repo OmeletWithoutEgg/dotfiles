@@ -20,6 +20,9 @@ export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='fzf-preview.sh {}' 
 export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
+export FZF_CTRL_R_OPTS="--bind='ctrl-y:execute(echo {+} | copy.sh --history)+accept'"
+
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/rc # TODO track this file
 
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GOPATH="$XDG_DATA_HOME"/go
@@ -31,7 +34,7 @@ export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
 export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
 export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
 
-export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons
+export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 
 # ibus environment variable
 export GTK_IM_MODULE="ibus"
