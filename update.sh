@@ -31,14 +31,14 @@ FILES=(
         | grep -v -P "(install\\.sh|update\\.sh|reflector\\.conf|README\\.md)")
 )
 
+for d in ${COPY_DIRS[@]}; do
+    echo "mkdir -p $d/"
+    mkdir -p $d/
+    echo "cp -r ~/.$d/* $d/"
+    cp -r --preserve=mode ~/.$d/* $d/
+done
+
 for f in ${FILES[@]}; do
     echo "cp ~/.$f $f"
     cp --preserve=mode ~/.$f $f
-done
-
-for d in ${COPY_DIRS[@]}; do
-    echo "rm -r $d/"
-    rm -r $d/
-    echo "cp -r ~/.$d/ $d/"
-    cp -r --preserve=mode ~/.$d/ $d/
 done
