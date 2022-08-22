@@ -4,12 +4,13 @@ require('config.mappings')
 require('config.lsp')
 -- require('config.cmp')
 
+require('config.lualine')
 require('config.dashboard')
 
-local group = vim.api.nvim_create_augroup('custom_highlight', { clear = false })
+local group = vim.api.nvim_create_augroup('CustomVimMaterial', {})
 vim.api.nvim_create_autocmd('ColorScheme', {
     group = group,
-    pattern = '*',
+    pattern = 'vim-material',
     callback = function()
         vim.cmd [[
             hi Comment cterm=NONE gui=NONE |
@@ -20,7 +21,22 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         ]]
     end
 })
+
 vim.cmd [[colorscheme vim-material]]
-vim.g.airline_theme = 'onedark'
+
+-- require('onedark').load()
+-- vim.g.airline_theme = 'onedark'
+-- vim.g.airline_left_sep = ''
+-- vim.g.airline_left_alt_sep = ''
+-- vim.g.airline_right_sep = ''
+-- vim.g.airline_right_alt_sep = ''
+-- vim.g.airline_symbols = { linenr = '␊' }
+
+-- require('lualine').setup {
+--     options = {
+--         theme = 'material',
+--         icons_enabled = false,
+--     },
+-- }
 
 vim.cmd [[nohlsearch]]

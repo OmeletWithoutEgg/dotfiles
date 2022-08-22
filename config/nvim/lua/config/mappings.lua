@@ -13,15 +13,19 @@ local function join(list)
     return res
 end
 
+local function snake_style(s)
+    return string.gsub(s, ' ', '_')
+end
+
 local function add_group(group, leader, mappings)
     local mapping = { name = group }
-    -- local short_cut = format_shortcut(leader .. keybind)
-    for name, detail in pairs(mappings) do
-        local keybind, rhs, desc = unpack(detail)
+    for keybind, detail in pairs(mappings) do
+        local rhs, desc = unpack(detail)
+        desc = group .. '.' .. snake_style(desc)
         local parsed = require('which-key.util').parse_keys(leader .. keybind)
-        -- print(vim.inspect(parsed))
+        -- print(vim.inspect(desc))
         mapping[keybind] = { rhs, desc }
-        M[name] = {
+        M[desc] = {
             shortcut = join(parsed.notation),
             action = function()
                 vim.fn.feedkeys(parsed.keys)
@@ -48,11 +52,11 @@ map('v', 'K', [[<Cmd>m '<-2<CR>gv=gv]])
 map('n', '<C-g>', '1<C-g>')
 
 add_group('telescope', '<space>f', {
-    recent_files = { 'r', '<Cmd>Telescope oldfiles<CR>', 'Find Recent Files' },
-    find_files   = { 'f', '<Cmd>Telescope find_files<CR>', 'Find Files' },
-    live_grep    = { 'w', '<Cmd>Telescope live_grep<CR>', 'Find Word' },
-    config_files = { 'c', '<Cmd>Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>', 'Find Config Files' },
-    colorschemes = { 'C', '<Cmd>Telescope colorscheme<CR>', 'Check Colorschemes' },
+    r = { '<Cmd>Telescope oldfiles<CR>', 'recent files' },
+    f = { '<Cmd>Telescope find_files<CR>', 'files' },
+    w = { '<Cmd>Telescope live_grep<CR>', 'live grep' },
+    c = { '<Cmd>Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>', 'config files' },
+    C = { '<Cmd>Telescope colorscheme<CR>', 'colorschemes' },
 })
 
 local reload_packer = function()
@@ -60,13 +64,12 @@ local reload_packer = function()
     require('plenary.reload').reload_module('config.plugins')
     dofile(vim.fn.expand('$MYVIMRC'))
     require('packer').sync()
-    require('packer').compile()
 end
 
 add_group('packer', '<space>p', {
-    packer_sync   = { 'p', '<Cmd>PackerSync<CR>', 'Packer Sync' },
-    packer_status = { 's', '<Cmd>PackerStatus<CR>', 'Packer Status' },
-    packer_reload = { 'r', reload_packer, 'Reload Plugins' }
+    p = { '<Cmd>PackerSync<CR>', 'sync' },
+    s = { '<Cmd>PackerStatus<CR>', 'status' },
+    r = { reload_packer, 'reload' }
 })
 
 -- local toggle_onedark = function()
@@ -78,8 +81,9 @@ add_group('packer', '<space>p', {
 -- })
 
 add_group('git', '<space>g', {
-    git_diffview             = { 'd', '<Cmd>DiffviewOpen<CR>', 'Open Git diffview' },
-    git_diffview_toggle_file = { 't', '<Cmd>DiffviewToggleFiles<CR>', 'Diffview Toggle Files' },
+    d = { '<Cmd>DiffviewOpen<CR>', 'diffview open' },
+    t = { '<Cmd>DiffviewToggleFiles<CR>', 'diffview toggle files' },
+    c = { '<Cmd>DiffviewClose<CR>', 'diffview close' }
     -- TODO
 })
 -- TODO map gitdiff

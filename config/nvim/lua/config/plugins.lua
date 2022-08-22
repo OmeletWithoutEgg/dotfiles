@@ -55,7 +55,9 @@ return require('packer').startup(function(use)
         config = function() require('nvim-tree').setup {} end
     }
 
+    use 'kaicataldo/material.vim'
     use 'hzchirs/vim-material'
+    use 'lifepillar/vim-solarized8'
     use 'cpea2506/one_monokai.nvim'
     use 'shaunsingh/nord.nvim'
     use {
@@ -69,9 +71,9 @@ return require('packer').startup(function(use)
             -- require('onedark').load()
         end
     }
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
-    -- use 'nvim-lualine/lualine.nvim'
+    -- use 'vim-airline/vim-airline'
+    -- use 'vim-airline/vim-airline-themes'
+    use 'nvim-lualine/lualine.nvim'
     -- use {
     --     'romgrk/barbar.nvim',
     --     config = function() require('bufferline').setup {} end

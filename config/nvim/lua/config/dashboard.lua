@@ -10,7 +10,7 @@ local db = require('dashboard')
 -- db.preview_file_height = 10
 -- db.preview_file_width = 40
 
-local group = vim.api.nvim_create_augroup('custom_highlight', { clear = false })
+local group = vim.api.nvim_create_augroup('CustomDashboardHighlight', {})
 vim.api.nvim_create_autocmd('ColorScheme', {
     group = group,
     pattern = '*',
@@ -36,7 +36,7 @@ db.custom_header = {
 }
 
 -- string right padding https://snipplr.com/view/13091/strrpad--pad-string-to-the-right
-local rpad = function(str, len, char)
+local function rpad(str, len, char)
     if char == nil then char = ' ' end
     return str .. string.rep(char, len - #str)
 end
@@ -58,31 +58,31 @@ end
 db.custom_center = {
     make_shortcut {
         icon = '  ',
-        source = 'packer_sync'
+        source = 'packer.sync'
     },
     make_shortcut {
         icon = '  ',
-        source = 'recent_files'
+        source = 'telescope.recent_files'
     },
     make_shortcut {
         icon = '  ',
-        source = 'find_files'
+        source = 'telescope.files'
     },
     make_shortcut {
         icon = '  ',
-        source = 'live_grep'
+        source = 'telescope.live_grep'
     },
     make_shortcut {
         icon = '  ',
-        source = 'config_files'
+        source = 'telescope.config_files'
     },
     make_shortcut {
         icon = '  ',
-        source = 'colorschemes'
+        source = 'telescope.colorschemes'
     },
     make_shortcut {
         icon = '  ',
-        desc = 'Open Vimwiki Index',
+        desc = 'vimwiki.index',
         action = 'VimwikiIndex',
         shortcut = [[<leader> w w]],
     },
