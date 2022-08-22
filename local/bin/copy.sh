@@ -2,6 +2,7 @@
 
 abort() {
     echo "some thing wrong in copy.sh" 1>&2
+    exit 3
 }
 
 while (( $# > 0 )); do
