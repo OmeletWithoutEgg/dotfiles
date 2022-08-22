@@ -1,7 +1,8 @@
 local o = vim.opt
 
-o.guicursor = ''
 o.termguicolors = true
+
+o.guicursor = ''
 o.background = 'dark'
 o.number = true
 o.relativenumber = true
@@ -22,3 +23,6 @@ o.showcmd = true
 o.ttimeoutlen = 0
 
 o.signcolumn = 'yes:1'
+
+o.ruler = false
+o.fillchars = 'eob: '
