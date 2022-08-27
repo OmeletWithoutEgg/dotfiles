@@ -22,7 +22,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
 export FZF_CTRL_R_OPTS="--bind='ctrl-y:execute(echo {+} | copy.sh --history)+accept'"
 
-export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/rc # TODO track this file
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/rc
 
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export GOPATH="$XDG_DATA_HOME"/go
