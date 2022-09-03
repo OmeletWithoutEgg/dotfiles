@@ -4,9 +4,12 @@ config.load_autoconfig()
 c.auto_save.session = True
 c.content.blocking.method = 'both'
 c.content.javascript.can_access_clipboard = True
-c.editor.command = ['konsole', '-e', 'vim', '{}'] 
-c.fonts.default_size = '14pt'
-c.fonts.web.family.fixed = 'Hack Nerd Font'
+c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}'] 
+c.fonts.default_size = '20pt'
+c.fonts.default_family = 'Source Code Pro Semi Bold'
+c.fonts.web.family.fixed = 'Hack'
+
+c.window.hide_decoration = True
 # c.new_instance_open_target = 'tab-silent'
 
 c.url.default_page = 'https://google.com'
@@ -21,7 +24,7 @@ c.url.searchengines = {
     'aurpkg': 'https://aur.archlinux.org/packages?O=0&K={}',
 }
 
-c.zoom.default = '125%'
+c.zoom.default = '200%'
 c.colors.webpage.preferred_color_scheme = 'dark'
 # c.content.headers.accept_language = 'en-US,en'
 
@@ -47,9 +50,11 @@ config.bind(';v', 'hint links spawn mpv {hint-url}')
 config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
-config.bind('zb', 'hint inputs tab-bg --first \
-        ;; later 1 spawn --userscript qute-pass -d "dmenu -fn Noto-16.0"')
-config.bind('zm', 'spawn --userscript qute-pass --unfiltered -d "dmenu -fn Noto-16.0"')
+
+pass_menu = 'rofi -dmenu -theme ~/.config/rofi/theme.rasi'
+config.bind('zb', f'hint inputs tab-bg --first \
+        ;; later 1 spawn --userscript qute-pass -d "{pass_menu}"')
+config.bind('zm', f'spawn --userscript qute-pass --unfiltered -d "{pass_menu}"')
 config.bind('zp', 'spawn --userscript qute-pass --password-only')
 config.bind('zu', 'spawn --userscript qute-pass --username-only')
 
