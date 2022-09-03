@@ -42,3 +42,5 @@ export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
 
 # export QT_QPA_PLATFORM="wayland"
+
+export TPS_TASK_TEMPLATES_PATH=$HOME/.local/share/tps/task-templates
