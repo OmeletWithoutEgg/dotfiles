@@ -88,4 +88,8 @@ add_group('git', '<space>g', {
 })
 -- TODO map gitdiff
 
+add_group('nvim_tree', '<space>b', {
+    [''] = { '<Cmd>NvimTreeToggle<CR>', 'toggle' }
+})
+
 return M

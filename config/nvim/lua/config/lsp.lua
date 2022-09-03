@@ -13,6 +13,7 @@ local lsps = {
     gopls = {},
     bashls = {},
     html = {},
+    ccls = {},
     -- pylsp = {},
 }
 
