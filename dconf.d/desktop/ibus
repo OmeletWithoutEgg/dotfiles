@@ -1,0 +1,35 @@
+[engine/chewing]
+add-phrase-direction=true
+auto-shift-cur=true
+cand-per-page=uint32 10
+capslock-toggle-chinese=true
+clean-buffer-focus-out=false
+default-english-case='lowercase'
+easy-symbol-input=true
+esc-clean-all-buf=false
+kb-type='default'
+max-chi-symbol-len=20
+phrase-choice-from-last=true
+plain-zhuyin=false
+sel-keys='1234567890'
+shift-toggle-chinese=true
+show-page-number=false
+show-systray=true
+space-as-selection=true
+sync-caps-lock='disable'
+
+[general]
+engines-order=['xkb:us::eng', 'chewing', 'anthy']
+preload-engines=['xkb:us::eng', 'chewing', 'anthy']
+version='1.5.27'
+
+[general/hotkey]
+triggers=['<Control>space']
+
+[panel]
+custom-font='Noto Sans CJK TC 20'
+use-custom-font=true
+
+[panel/emoji]
+font='Noto Sans CJK TC 20'
+hotkey=['<Control><Shift>semicolon', '<Control><Shift>period']

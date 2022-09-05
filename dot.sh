@@ -1,6 +1,25 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
+ACTION="none"
+
+while (( $# > 0 )); do
+    case "$1" in
+        install|i)
+            ACTION="install"
+            ;;
+        update|u)
+            ACTION="update"
+            ;;
+        *)
+            echo "invalid param"
+            exit
+    esac
+    shift
+done
+
+echo "ACTION = $ACTION"
+
 function warn {
     printf "\033[33m"
     printf "$@"
@@ -39,6 +58,11 @@ FILES=(
 
 MKDIRS=(
     $(find -depth -type d -not -path '*/\.git*' -printf '%P\n')
+)
+
+DCONF_ENTRIES=(
+    desktop/ibus
+    org/freedesktop/ibus/engine/anthy/common
 )
 
 function install {
@@ -94,35 +118,58 @@ function install {
             fi
         fi
     done
+
+    for e in ${DCONF_ENTRIES[@]}; do
+        cat dconf.d/$e
+        if confirm "dconf load /$e/ < dconf.d/$e"; then
+            dconf load /$e/ < dconf.d/$e
+        fi
+    done
 }
 
 CPDIRS=(
     config/nvim
-    config/doom
+    # config/doom
 )
 
 function update {
     for d in ${CPDIRS[@]}; do
-        echo "mkdir -p $d/"
+        info "mkdir -p $d/"
         mkdir -p $d/
-        echo "cp -r ~/.$d/* $d/"
+        info "cp -r ~/.$d/* $d/"
         cp -r --preserve=mode ~/.$d/* $d/
     done
 
     for f in ${FILES[@]}; do
-        echo "cp ~/.$f $f"
-        cp --preserve=mode ~/.$f $f
+        if [ -r ~/.$f ]; then
+            info "cp ~/.$f $f"
+            cp --preserve=mode ~/.$f $f
+        fi
     done
 
-    for e in desktop/ibus org/freedesktop/ibus/engine/anthy/common; do
+    for e in ${DCONF_ENTRIES[@]}; do
         local dir=`dirname dconf.d/$e`
-        echo "mkdir -p $dir"
+        info "mkdir -p $dir"
         mkdir -p $dir
-        echo "dconf dump /$e/ > dconf.d/$e"
+        info "dconf dump /$e/ > dconf.d/$e"
         dconf dump /$e/ > dconf.d/$e
     done
 }
 
-update
+case $ACTION in
+    install)
+        install
+        exit
+        ;;
+    update)
+        update
+        exit
+        ;;
+    none)
+        info "usage: $0 install / $0 udpate"
+        ;;
+    *)
+        warn "wrong"
+esac
 
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
