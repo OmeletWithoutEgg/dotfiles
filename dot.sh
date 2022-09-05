@@ -18,6 +18,50 @@ while (( $# > 0 )); do
     shift
 done
 
+EXCLUDE_FILES=(
+    dot.sh
+    reflector.conf
+    README.md
+    bashrc
+    simple-vimrc
+)
+
+function exclude_opt {
+    for f in ${EXCLUDE_FILES[@]}; do
+        printf -- "-not -path ./$f "
+    done
+}
+
+FILES=(
+    $(find -type f \
+        -not -path '*/\.git*' \
+        -not -path '*/dconf\.d*' \
+        `exclude_opt` \
+        -printf '%P\n')
+)
+
+MKDIRS=(
+    $(find -depth -type d \
+        -not -path '*/\.git*' \
+        -not -path '*/dconf\.d*' \
+        `exclude_opt` \
+        -printf '%P\n')
+)
+
+# echo ${FILES[@]}
+# echo ${MKDIRS[@]}
+# exit
+
+DCONF_ENTRIES=(
+    desktop/ibus
+    org/freedesktop/ibus/engine/anthy/common
+)
+
+CPDIRS=(
+    config/nvim
+    # config/doom
+)
+
 echo "ACTION = $ACTION"
 
 function warn {
@@ -50,20 +94,6 @@ if [[ -n `git status -s -uall` ]]; then
         exit
     fi
 fi
-
-FILES=(
-    $(find -type f -not -path '*/\.git*' -printf '%P\n' \
-        | grep -v -P "(dot\\.sh|reflector\\.conf|README\\.md)")
-)
-
-MKDIRS=(
-    $(find -depth -type d -not -path '*/\.git*' -printf '%P\n')
-)
-
-DCONF_ENTRIES=(
-    desktop/ibus
-    org/freedesktop/ibus/engine/anthy/common
-)
 
 function install {
     echo "SHELL = $SHELL"
@@ -126,11 +156,6 @@ function install {
         fi
     done
 }
-
-CPDIRS=(
-    config/nvim
-    # config/doom
-)
 
 function update {
     for d in ${CPDIRS[@]}; do
