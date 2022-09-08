@@ -20,7 +20,7 @@ export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='fzf-preview.sh {}' 
 export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
-export FZF_CTRL_R_OPTS="--bind='ctrl-y:execute(echo {+} | copy.sh --history)+accept'"
+export FZF_CTRL_R_OPTS="--bind='ctrl-y:execute(echo {+} | copy.sh --history)+abort'"
 
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/rc
 

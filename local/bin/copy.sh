@@ -20,5 +20,5 @@ while read line; do
     if [[ -n $is_history ]]; then
         line=`echo $line | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); print cmd }'`
     fi
-    echo $line | xclip -sel c && echo "Copied $line"
+    xclip -sel c <(echo $line) >/dev/null && echo "Copied $line"
 done
