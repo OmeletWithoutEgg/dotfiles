@@ -45,6 +45,7 @@ config.unbind('co')
 config.bind('ZC', 'close') # single hand `:q`
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Alt-f>', 'fake-key f')
+config.bind('cc', 'spawn google-chrome-stable {url}')
 config.bind(';c', 'hint links spawn google-chrome-stable {hint-url}')
 config.bind(';v', 'hint links spawn mpv {hint-url}')
 config.bind('yg', 'spawn --userscript yank-url-path')
