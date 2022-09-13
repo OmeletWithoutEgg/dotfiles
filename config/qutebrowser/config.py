@@ -54,10 +54,10 @@ config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
 
 pass_menu = 'rofi -dmenu -theme ~/.config/rofi/theme.rasi'
 config.bind('zb', f'hint inputs tab-bg --first \
-        ;; later 1 spawn --userscript qute-pass -d "{pass_menu}"')
-config.bind('zm', f'spawn --userscript qute-pass --unfiltered -d "{pass_menu}"')
-config.bind('zp', 'spawn --userscript qute-pass --password-only')
-config.bind('zu', 'spawn --userscript qute-pass --username-only')
+         ;; later 1 spawn --userscript qute-pass -d "{pass_menu}"')
+config.bind('zm', f'spawn --userscript qute-pass -d "{pass_menu}" --unfiltered')
+config.bind('zp', f'spawn --userscript qute-pass -d "{pass_menu}" --password-only')
+config.bind('zu', f'spawn --userscript qute-pass -d "{pass_menu}" --username-only')
 
 hint_chars = {
     'DEFAULT': 'asdfghjkl',
