@@ -80,6 +80,7 @@ return require('packer').startup(function(use)
     -- }
 
     --[[ Nice Toolkit ]]
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.0',
@@ -99,8 +100,10 @@ return require('packer').startup(function(use)
                     live_grep = { find_command = find_command },
                 }
             }
+            require('telescope').load_extension('fzf')
         end
     }
+
     use {
         'folke/which-key.nvim',
         config = function()
@@ -113,6 +116,18 @@ return require('packer').startup(function(use)
         end
     }
     use 'kevinhwang91/vim-ibus-sw'
+
+    -- use 'gw31415/deepl.vim'
+    -- use {
+    --     'gw31415/deepl-commands.nvim',
+    --     -- cmd = { 'DeepL', 'DeepLTarget' },
+    --     config = function()
+    --         require('deepl-commmands').setup {
+    --             -- selector_func = require 'fzyselect'.start, -- default value is `vim.ui.select`
+    --             -- default_target = 'JA', -- Default value is 'EN'
+    --         }
+    --     end
+    -- }
 
     --[[ Filetype Plugins ]]
     use {
