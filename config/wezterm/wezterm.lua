@@ -23,6 +23,7 @@ return {
             family = 'Source Code Pro Medium',
             -- harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
         },
+        'Symbols Nerd Font',
         'Noto Sans Symbols2',
         'Noto Sans CJK TC',
     }),
