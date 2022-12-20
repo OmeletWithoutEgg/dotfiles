@@ -42,6 +42,11 @@ with config.pattern('*://ani.gamer.com.tw/**') as p:
 
 config.unbind('ZQ')
 config.unbind('co')
+config.unbind('sf')
+config.unbind('sk')
+config.unbind('sl')
+config.unbind('ss')
+
 config.bind('ZC', 'close') # single hand `:q`
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Alt-f>', 'fake-key f')
@@ -53,8 +58,9 @@ config.bind('yg', 'spawn --userscript yank-url-path')
 config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
 
 pass_menu = 'rofi -dmenu -theme ~/.config/rofi/theme.rasi'
+config.bind('<Ctrl-Shift-l>', 'spawn --userscript qute-pass  -d "{pass_menu}"', mode='insert')
 config.bind('zb', f'hint inputs tab-bg --first \
-         ;; later 1 spawn --userscript qute-pass -d "{pass_menu}"')
+        ;; later 1 spawn --userscript qute-pass  -d "{pass_menu}"')
 config.bind('zm', f'spawn --userscript qute-pass -d "{pass_menu}" --unfiltered')
 config.bind('zp', f'spawn --userscript qute-pass -d "{pass_menu}" --password-only')
 config.bind('zu', f'spawn --userscript qute-pass -d "{pass_menu}" --username-only')
