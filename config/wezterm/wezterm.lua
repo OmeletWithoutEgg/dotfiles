@@ -12,11 +12,8 @@ end)
 
 return {
     color_scheme = 'Breeze',
-    -- color_schemes = {
-    --     ['BreezeCustom'] = breeze,
-    -- },
-    -- colors = { background = '#232627' },
     -- check_for_updates = false,
+    window_background_opacity = 0.85,
     font = wezterm.font_with_fallback({
         {
             -- family = 'Monocraft',

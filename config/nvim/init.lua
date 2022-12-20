@@ -16,8 +16,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
             hi Comment cterm=NONE gui=NONE |
             hi Search ctermfg=yellow guifg=yellow |
             hi CursorLine term=NONE cterm=NONE |
-            hi CursorLineNr cterm=NONE
-            " au ColorScheme * hi Normal guibg=NONE " make transparent
+            hi CursorLineNr cterm=NONE |
+            hi Normal guibg=NONE " make transparent
         ]]
     end
 })
@@ -40,3 +40,5 @@ vim.cmd [[colorscheme vim-material]]
 -- }
 
 vim.cmd [[nohlsearch]]
+
+require('hologram').setup { auto_display = true }

@@ -15,7 +15,7 @@ Plug 'Yggdroot/indentLine'
 
 """ File browser & git tools
 " Plug 'vifm/vifm.vim'
-Plug 'preservim/nerdtree' " <F2> for toggle nerdtree
+Plug 'preservim/nerdtree' " <F2>/<leader>t for toggle nerdtree
 Plug 'ryanoasis/vim-devicons'
 Plug 'bryanmylee/vim-colorscheme-icons'
 Plug 'tpope/vim-fugitive'
@@ -77,8 +77,9 @@ au ColorScheme *
             \ hi Comment cterm=NONE gui=NONE |
             \ hi Search ctermfg=yellow guifg=yellow |
             \ hi CursorLine term=NONE cterm=NONE |
-            \ hi CursorLineNr cterm=NONE
-            " \ au ColorScheme * hi Normal guibg=NONE " make transparent
+            \ hi CursorLineNr cterm=NONE |
+            \ hi VertSplit cterm=NONE |
+            \ hi Normal guibg=NONE " make transparent
 set background=dark
 color vim-material
 """ <Plug> lightline
@@ -97,6 +98,7 @@ let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZ
 let g:startify_bookmarks = ['~/.vimrc']
 """ <Plug> nerdtree
 nnoremap <silent> <F2> :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
+nnoremap <silent> <leader>t :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
 let g:NERDTreeSortOrder = ['\/$', '*', '\.swp$',  '\.bak$', '\~$', '[[extension]]', '[[-timestamp]]']
 " autocmd FileType nerdtree setlocal nolist
 """ <Plug> indentLine
@@ -220,11 +222,12 @@ augroup mappingHandler
     au FileType cpp call <SID>CppMapping()
     au FileType haskell call <SID>HaskellMapping()
     au FileType python call <SID>PythonMapping()
-    au FileType sage call <SID>SageMapping()
+    au FileType sage.python call <SID>SageMapping()
     au FileType vim call <SID>VimrcMapping()
     au FileType tex,plaintex call <SID>LaTeXMapping()
     au FileType markdown call <SID>MarkdownMapping()
     au FileType vimwiki call <SID>VimwikiMapping()
+    nnoremap <leader>m :w<bar>!make test<CR>
 augroup END
 
 function s:JSFormat()
