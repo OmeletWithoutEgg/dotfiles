@@ -57,6 +57,12 @@ end
 
 db.custom_center = {
     make_shortcut {
+        icon = '  ',
+        desc = 'dashboard.newfile',
+        action = 'DashboardNewFile',
+        shortcut = [[<enter>]],
+    },
+    make_shortcut {
         icon = '  ',
         source = 'packer.sync'
     },
