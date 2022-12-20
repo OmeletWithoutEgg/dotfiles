@@ -22,10 +22,10 @@ autoload -Uz _zi
 ### zi update / zi self-update / zi delete --clean
 ### zi ice OPTIONS / zi load / zi light / zi OPTIONS for
 
-source /usr/share/fzf/completion.zsh
-
 zi ice as:theme depth:1
 zi load "romkatv/powerlevel10k"
+
+zi load "agkozak/zsh-z"
 
 zi wait lucid for \
     atinit:"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
@@ -66,6 +66,9 @@ unset LS_COLORS
 
 # Aliases & functions
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
+alias gst="git status"
+alias gdf="git diff"
+
 @replace rm "trash" "rm -i"
 @replace du "dust"
 @replace df "duf"
@@ -96,7 +99,7 @@ function ipinfo {
 }
 
 function cpp-precompile {
-    echo "Note: needs permission of header dirs"
+    echo "Note: will need permission of header dirs"
     local cppflags=(-g -std=c++17 -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address)
     for header in "bits/stdc++.h" "bits/extc++.h"; do
         local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
