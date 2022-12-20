@@ -64,7 +64,7 @@ end
 local border = 'single'
 
 local capabilities = require('cmp_nvim_lsp')
-    .update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    .default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local handlers = {
     ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
