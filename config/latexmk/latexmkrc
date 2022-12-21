@@ -1,0 +1,9 @@
+$pdf = 1;
+$pdf_previewer = 'okular --unique';
+$pdflatex = 'xelatex -shell-escape -synctex=1 -interaction=batchmode';
+
+@generated_exts = (@generated_exts, 'synctex.gz');
+$cleanup_mode = 1;
+# $preview_continuous_mode = 1;
+# @default_files = ('main.tex');
+# .latexmkrc ends
