@@ -33,6 +33,10 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
 export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
 export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+export ANDROID_HOME="$XDG_DATA_HOME"/android
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 
 export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 
