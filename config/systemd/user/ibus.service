@@ -4,13 +4,11 @@ Documentation=man:ibus-daemon(1)
 Conflicts=fcitx.service
 
 [Service]
-ExecStartPre=/usr/bin/sleep 2
-ExecStart=/usr/bin/ibus-daemon --replace --xim
+ExecStart=/usr/bin/ibus-daemon --replace --xim --desktop=kde
 ExecReload=/usr/bin/ibus restart
 ExecStop=/usr/bin/ibus exit
-#Environment=GTK_IM_MODULE=ibus XMODIFIERS="@im=ibus" QT_IM_MODULE=ibus
+Environment=GTK_IM_MODULE=ibus XMODIFIERS="@im=ibus" QT_IM_MODULE=ibus
 
 [Install]
-WantedBy=default.target
-#Alias=input-method.service
-#https://github.com/terlar/dotfiles/blob/master/systemd/.config/systemd/user/ibus.service
+WantedBy=graphical-session.target
+# https://github.com/terlar/dotfiles/tree/master/systemd/.config/systemd/user
