@@ -1,19 +1,9 @@
 local wezterm = require('wezterm')
 
-local mux = wezterm.mux
-
-wezterm.on('gui-startup', function(cmd)
-    local tab, pane, window = mux.spawn_window(cmd or {})
-    window:gui_window():maximize()
-end)
-
--- local breeze = wezterm.get_builtin_color_schemes()['Breeze']
--- breeze.visual_bell = '#202020' -- TODO remove this after sufficient update
-
 return {
     color_scheme = 'Breeze',
-    -- check_for_updates = false,
-    window_background_opacity = 0.85,
+    check_for_updates = true,
+    window_background_opacity = 0.9,
     font = wezterm.font_with_fallback({
         {
             -- family = 'Monocraft',
@@ -23,6 +13,8 @@ return {
         'Symbols Nerd Font',
         'Noto Sans Symbols2',
         'Noto Sans CJK TC',
+        'Noto Sans CJK JP',
+        'Noto Sans Math',
     }),
     font_size = 24,
 
@@ -34,12 +26,17 @@ return {
         bottom = 0
     },
     -- enable_kitty_graphics = true,
-    default_gui_startup_args = { 'start', '--always-new-process' },
+
+    -- front_end = "WebGpu",
 
     use_fancy_tab_bar = false,
-    xim_im_name = 'ibus',
     adjust_window_size_when_changing_font_size = false,
     hide_tab_bar_if_only_one_tab = true,
+
+    use_ime = true,
+    xim_im_name = 'ibus',
+
+    default_gui_startup_args = { 'start', '--always-new-process' },
 
     visual_bell = {
         fade_in_function = 'EaseIn',
