@@ -12,6 +12,7 @@ Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine'
+" Plug 'tribela/vim-transparent'
 
 """ File browser & git tools
 " Plug 'vifm/vifm.vim'
@@ -52,7 +53,7 @@ Plug 'inkarkat/vim-ReplaceWithRegister' " gr for replace
 " Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 Plug 'editorconfig/editorconfig-vim'
-Plug 'kevinhwang91/vim-ibus-sw'
+Plug 'kevinhwang91/vim-ibus-sw', { 'commit': '83bcdce5cd5c0ef7b129916ea4fb3be27194230b' }
 " Plug 'lilydjwg/fcitx.vim'
 " let g:fcitx5_remote = 'fcitx5-remote'
 Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
@@ -78,8 +79,8 @@ au ColorScheme *
             \ hi Search ctermfg=yellow guifg=yellow |
             \ hi CursorLine term=NONE cterm=NONE |
             \ hi CursorLineNr cterm=NONE |
-            \ hi VertSplit cterm=NONE |
-            \ hi Normal guibg=NONE " make transparent
+            \ hi VertSplit cterm=NONE " |
+            " \ hi Normal guibg=NONE " make transparent
 set background=dark
 color vim-material
 """ <Plug> lightline
@@ -97,14 +98,16 @@ let g:lightline = {
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
 let g:startify_bookmarks = ['~/.vimrc']
 """ <Plug> nerdtree
-nnoremap <silent> <F2> :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
-nnoremap <silent> <leader>t :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
+nnoremap <silent> <leader>n :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
 let g:NERDTreeSortOrder = ['\/$', '*', '\.swp$',  '\.bak$', '\~$', '[[extension]]', '[[-timestamp]]']
 " autocmd FileType nerdtree setlocal nolist
 """ <Plug> indentLine
 let g:indentLine_fileTypeExclude = ['startify', 'vimwiki']
 let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_bufTypeExclude = ['help', 'terminal', 'vimwiki']
+""" <Plug> transparent
+nnoremap <silent> <leader>o <Cmd>TransparentToggle<CR>
+
 """ <Plug> vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
@@ -185,6 +188,10 @@ function s:VimrcMapping()
     nnoremap <buffer> <leader>r :w<bar>so %<CR>
 endfunction
 
+function s:ShellScriptMapping()
+    nnoremap <buffer> <leader>r :w<bar>!bash %<CR>
+endfunction
+
 function s:LaTeXMapping()
     nnoremap <buffer> <leader>b :w<bar>!make<CR>
     nnoremap <buffer> <leader>r :!okular --unique main.pdf &<CR>
@@ -227,6 +234,7 @@ augroup mappingHandler
     au FileType tex,plaintex call <SID>LaTeXMapping()
     au FileType markdown call <SID>MarkdownMapping()
     au FileType vimwiki call <SID>VimwikiMapping()
+    au FileType sh call <SID>ShellScriptMapping()
     nnoremap <leader>m :w<bar>!make test<CR>
 augroup END
 
