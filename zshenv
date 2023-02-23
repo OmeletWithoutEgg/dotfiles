@@ -48,3 +48,14 @@ export XMODIFIERS="@im=ibus"
 # export QT_QPA_PLATFORM="wayland"
 
 export TPS_TASK_TEMPLATES_PATH=$HOME/.local/share/tps/task-templates
+
+SSH_AGENT_PID=`pgrep -U $USER -o 'ssh-agent'`
+if [ -z $SSH_AGENT_PID ]; then
+    eval $(ssh-agent -s)
+    # ssh-add ~/.ssh/id_rsa
+else
+    SSH_AGENT_SOCK=`find /tmp -user $USER -path '*ssh*' -type s -iname 'agent.'$(($SSH_AGENT_PID-1)) 2>/dev/null`
+    export SSH_AGENT_PID="$SSH_AGENT_PID"
+    export SSH_AUTH_SOCK="$SSH_AGENT_SOCK"
+fi
+# https://myapollo.com.tw/zh-tw/ssh-agent-autostart/
