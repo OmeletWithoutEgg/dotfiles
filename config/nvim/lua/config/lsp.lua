@@ -1,5 +1,5 @@
 local lsps = {
-    sumneko_lua = {
+    lua_ls = {
         settings = {
             Lua = {
                 diagnostics = {
@@ -14,6 +14,7 @@ local lsps = {
     bashls = {},
     html = {},
     ccls = {},
+    tsserver = {},
     -- pylsp = {},
 }
 
@@ -44,7 +45,7 @@ local on_attach = function(client, bufnr)
         ['gi']         = { vim.lsp.buf.implementation, 'lsp::implementation' },
         ['<leader>D']  = { vim.lsp.buf.type_definition, 'lsp::type_definition' },
         ['<leader>rn'] = { vim.lsp.buf.rename, 'lsp::rename_variable' },
-        ['<leader>fm'] = { vim.lsp.buf.formatting, 'lsp::code_formatting' },
+        ['<leader>fm'] = { vim.lsp.buf.format, 'lsp::code_formatting' },
         ['<leader>n']  = { vim.diagnostic.goto_next, 'lsp::next_diagnostic' },
         ['<leader>N']  = { vim.diagnostic.goto_prev, 'lsp::prev_diagnostic' },
         ['<leader>ca'] = { vim.lsp.buf.code_action, 'lsp::code_action' },
