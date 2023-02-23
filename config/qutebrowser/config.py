@@ -1,6 +1,14 @@
 # ~/.config/qutebrowser/config.py
 config.load_autoconfig()
 
+c.qt.args = [
+    'ignore-gpu-blacklist',
+    'enable-gpu-rasterization',
+    'enable-native-gpu-memory-buffers',
+    'num-raster-threads=4',
+    'enable-accelerated-video-decode',
+]
+
 c.auto_save.session = True
 c.content.blocking.method = 'both'
 c.content.javascript.can_access_clipboard = True
@@ -17,6 +25,7 @@ c.url.start_pages = 'https://codeforces.com'
 c.url.searchengines = {
     'DEFAULT': 'https://duckduckgo.com/?q={}',
     'google': 'https://google.com/search?q={}',
+    # 'searchyt': 'https://youtu.be/results?search_query={}',
     'toen': 'https://translate.google.com/?sl=auto&tl=en&&text={}',
     'tozh': 'https://translate.google.com/?sl=auto&tl=zh-tw&&text={}',
     'archpkg': 'https://archlinux.org/packages/?q={}',
@@ -56,6 +65,7 @@ config.bind(';v', 'hint links spawn --detach mpv {hint-url}')
 config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
+config.bind('ge', 'edit-url')
 
 pass_menu = 'rofi -dmenu -theme ~/.config/rofi/theme.rasi'
 config.bind('<Ctrl-Shift-l>', 'spawn --userscript qute-pass  -d "{pass_menu}"', mode='insert')
@@ -67,7 +77,7 @@ config.bind('zu', f'spawn --userscript qute-pass -d "{pass_menu}" --username-onl
 
 hint_chars = {
     'DEFAULT': 'asdfghjkl',
-    'left': 'qwerasdfzxcv',
+    'left': 'zxcv' + 'qwer' + 'asdf',
     'right': 'uiophjklbnm',
 }
 c.hints.chars = hint_chars["DEFAULT"]
