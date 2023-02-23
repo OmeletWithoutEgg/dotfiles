@@ -12,7 +12,7 @@ Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'Yggdroot/indentLine'
-" Plug 'tribela/vim-transparent'
+Plug 'tribela/vim-transparent'
 
 """ File browser & git tools
 " Plug 'vifm/vifm.vim'
@@ -26,6 +26,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 " Plug 'mileszs/ack.vim'
 
 """ Language-specific
+Plug 'kchmck/vim-coffee-script'
 Plug 'ap/vim-css-color'
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
@@ -47,6 +48,7 @@ Plug 'godlygeek/tabular'
 Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary' " gc for comment
+Plug 'suy/vim-context-commentstring'
 Plug 'inkarkat/vim-ReplaceWithRegister' " gr for replace
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
