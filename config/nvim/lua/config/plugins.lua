@@ -6,9 +6,17 @@ return require('packer').startup(function(use)
     use 'kyazdani42/nvim-web-devicons'
 
     --[[ Edit ]]
+    -- use {
+    --     'lukas-reineke/indent-blankline.nvim',
+    --     config = function() require('indent_blankline').setup {} end
+    -- }
     use {
-        'lukas-reineke/indent-blankline.nvim',
-        config = function() require('indent_blankline').setup {} end
+        'Yggdroot/indentLine',
+        config = function()
+            vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'alpha' }
+            vim.g.indentLine_leadingSpaceEnabled = 0
+            vim.g.indentLine_bufTypeExclude = { 'help', 'terminal', 'vimwiki' }
+        end
     }
     use 'tpope/vim-surround'
     use 'tommcdo/vim-lion'
@@ -17,6 +25,14 @@ return require('packer').startup(function(use)
     use {
         'numToStr/Comment.nvim',
         config = function() require('Comment').setup {} end
+    }
+    use {
+        'phaazon/hop.nvim',
+        branch = 'v2', -- optional but strongly recommended
+        config = function()
+            -- you can configure Hop the way you like here; see :h hop-config
+            require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+        end
     }
 
     --[[ Git ]]
@@ -49,10 +65,10 @@ return require('packer').startup(function(use)
     -- }
 
     --[[ Appearance ]]
-    use 'glepnir/dashboard-nvim'
+    use 'goolord/alpha-nvim'
     use {
-        'kyazdani42/nvim-tree.lua',
-        config = function() require('nvim-tree').setup {} end
+        'nvim-tree/nvim-tree.lua',
+        -- config = function() require('nvim-tree').setup {} end
     }
 
     use 'kaicataldo/material.vim'
@@ -137,24 +153,34 @@ return require('packer').startup(function(use)
             vim.g.vimwiki_url_maxsave = 0
             vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki' } }
             vim.cmd [[
-                autocmd FileType vimwiki setlocal nowrap concealcursor=
+            autocmd FileType vimwiki setlocal nowrap concealcursor=
             ]]
         end
     }
     use 'Julian/lean.nvim'
 
     --[[ Misc ]]
-    -- use 'edluffy/hologram.nvim'
+    use 'edluffy/hologram.nvim'
     -- use '~/Repos/hologram.nvim'
-    -- use {
-    --     'bfredl/nvim-luadev',
-    --     config = function()
-    --         vim.cmd [[
-    --             nmap <leader>ll <Plug>(Luadev-RunLine)
-    --             nmap <leader>lr <Plug>(Luadev-Run)
-    --             nmap <leader>lw <Plug>(Luadev-RunWord)
-    --             nmap <leader>lc <Plug>(Luadev-Complete)
-    --         ]]
-    --     end
-    -- }
+    use {
+        'bfredl/nvim-luadev',
+        config = function()
+            vim.cmd [[
+            nmap <leader>ll <Plug>(Luadev-RunLine)
+            nmap <leader>lr <Plug>(Luadev-Run)
+            nmap <leader>lw <Plug>(Luadev-RunWord)
+            nmap <leader>lc <Plug>(Luadev-Complete)
+            ]]
+        end
+    }
+
+    use 'kchmck/vim-coffee-script'
+    use 'ap/vim-css-color'
+    use 'cespare/vim-toml' -- TOML syntax highlight
+    use 'itchyny/vim-haskell-indent'
+    use 'pangloss/vim-javascript'
+    use 'mxw/vim-jsx'
+    use 'petRUShka/vim-sage'
+    use 'isobit/vim-caddyfile'
+    use 'posva/vim-vue'
 end)

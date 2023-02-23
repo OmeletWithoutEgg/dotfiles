@@ -27,10 +27,7 @@ local function add_group(group, leader, mappings)
         mapping[keybind] = { rhs, desc }
         M[desc] = {
             shortcut = join(parsed.notation),
-            action = function()
-                vim.fn.feedkeys(parsed.keys)
-                -- TODO does this string really got captured?
-            end,
+            keys = parsed.keys,
             desc = desc,
         }
     end
@@ -47,8 +44,8 @@ end
 map('n', '<f2>', '<Cmd>NvimTreeToggle<CR>')
 map('v', '<', '<gv')
 map('v', '>', '>gv')
-map('v', 'J', [[<Cmd>m '>+1<CR>gv=gv]])
-map('v', 'K', [[<Cmd>m '<-2<CR>gv=gv]])
+-- map('v', 'J', [[<Cmd>m+1<CR>gv=gv]])
+-- map('v', 'K', [[<Cmd>m-2<CR>gv=gv]])
 map('n', '<C-g>', '1<C-g>')
 
 add_group('telescope', '<space>f', {
@@ -91,5 +88,21 @@ add_group('git', '<space>g', {
 add_group('nvim_tree', '<space>b', {
     [''] = { '<Cmd>NvimTreeToggle<CR>', 'toggle' }
 })
+
+-- place this in one of your configuration file(s)
+-- local hop = require('hop')
+-- local directions = require('hop.hint').HintDirection
+-- vim.keymap.set('', 'f', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- vim.keymap.set('', 'F', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- vim.keymap.set('', 't', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+-- end, {remap=true})
+-- vim.keymap.set('', 'T', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+-- end, {remap=true})
 
 return M
