@@ -1,4 +1,8 @@
 # ~/.config/qutebrowser/config.py
+
+def dummy(): global c, config  # disable pyflakes error
+
+
 config.load_autoconfig()
 
 c.qt.args = [
@@ -12,7 +16,7 @@ c.qt.args = [
 c.auto_save.session = True
 c.content.blocking.method = 'both'
 c.content.javascript.can_access_clipboard = True
-c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}'] 
+c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}']
 c.fonts.default_size = '20pt'
 c.fonts.default_family = 'Source Code Pro Semi Bold'
 c.fonts.web.family.fixed = 'Hack'
@@ -45,7 +49,7 @@ with config.pattern('*://ani.gamer.com.tw/**') as p:
 # config.set('colors.webpage.darkmode.enabled', True)
 # config.set('colors.webpage.darkmode.enabled', False, '*://youtube.com/**')
 
-## TODO
+# TODO
 # - [ ] set dark mode to all sites except youtube?
 # - [x] set a hotkey to auto focus on certain field and run qute-pass
 
@@ -56,7 +60,7 @@ config.unbind('sk')
 config.unbind('sl')
 config.unbind('ss')
 
-config.bind('ZC', 'close') # single hand `:q`
+config.bind('ZC', 'close')  # single hand `:q`
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Alt-f>', 'fake-key f')
 config.bind('cc', 'spawn --detach google-chrome-stable {url}')
@@ -66,14 +70,16 @@ config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
 config.bind('ge', 'edit-url')
+config.bind('ce', 'config-edit')
 
 pass_menu = 'rofi -dmenu -theme ~/.config/rofi/theme.rasi'
-config.bind('<Ctrl-Shift-l>', 'spawn --userscript qute-pass  -d "{pass_menu}"', mode='insert')
-config.bind('zb', f'hint inputs tab-bg --first \
-        ;; later 1 spawn --userscript qute-pass  -d "{pass_menu}"')
-config.bind('zm', f'spawn --userscript qute-pass -d "{pass_menu}" --unfiltered')
-config.bind('zp', f'spawn --userscript qute-pass -d "{pass_menu}" --password-only')
-config.bind('zu', f'spawn --userscript qute-pass -d "{pass_menu}" --username-only')
+qute_pass = f'spawn --userscript qute-pass -d "{pass_menu}"'
+
+config.bind('<Ctrl-Shift-l>', '{qute_pass}', mode='insert')
+config.bind('zb', f'hint inputs tab-bg --first ;; later 1 {qute_pass}')
+config.bind('zm', f'{qute_pass} --unfiltered')
+config.bind('zp', f'{qute_pass} --password-only')
+config.bind('zu', f'{qute_pass} --username-only')
 
 hint_chars = {
     'DEFAULT': 'asdfghjkl',
@@ -87,3 +93,20 @@ config.bind('gh', f'set hints.chars {hint_chars["DEFAULT"]}')
 
 # config.source('qutebrowser-themes/themes/onedark.py')
 # config.source('qutebrowser-themes/themes/gruvbox.py')
+# config.source('/home/omelet/Downloads/qb-breath.py')
+
+ublockOrigin = 'https://github.com/uBlockOrigin/uAssets/raw/master/filters'
+
+c.content.blocking.adblock.lists = [
+    "https://easylist.to/easylist/easylist.txt",
+    "https://easylist.to/easylist/easyprivacy.txt",
+    "https://secure.fanboy.co.nz/fanboy-cookiemonster.txt",
+    "https://easylist.to/easylist/fanboy-annoyance.txt",
+    "https://secure.fanboy.co.nz/fanboy-annoyance.txt",
+    f"{ublockOrigin}/annoyances.txt",
+    f"{ublockOrigin}/filters-2020.txt",
+    f"{ublockOrigin}/unbreak.txt",
+    f"{ublockOrigin}/resource-abuse.txt",
+    f"{ublockOrigin}/privacy.txt",
+    f"{ublockOrigin}/filters.txt"
+]
