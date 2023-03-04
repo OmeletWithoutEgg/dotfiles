@@ -72,6 +72,7 @@ alias gdf="git diff"
 @replace rm "trash" "rm -i"
 @replace du "dust"
 @replace df "duf"
+@replace vim "nvim"
 
 function open {
     xdg-open $@ 2>/dev/null && sleep 1
