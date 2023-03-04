@@ -77,10 +77,10 @@ add_group('packer', '<space>p', {
 --     onedark_style = { 's', toggle_onedark, 'Toggle Onedark Style' }
 -- })
 
-add_group('git', '<space>g', {
-    d = { '<Cmd>DiffviewOpen<CR>', 'diffview open' },
-    t = { '<Cmd>DiffviewToggleFiles<CR>', 'diffview toggle files' },
-    c = { '<Cmd>DiffviewClose<CR>', 'diffview close' }
+add_group('git_diffview', '<space>g', {
+    d = { '<Cmd>DiffviewOpen<CR>', 'open' },
+    t = { '<Cmd>DiffviewToggleFiles<CR>', 'toggle files' },
+    c = { '<Cmd>DiffviewClose<CR>', 'close' }
     -- TODO
 })
 -- TODO map gitdiff
@@ -89,20 +89,17 @@ add_group('nvim_tree', '<space>b', {
     [''] = { '<Cmd>NvimTreeToggle<CR>', 'toggle' }
 })
 
--- place this in one of your configuration file(s)
--- local hop = require('hop')
--- local directions = require('hop.hint').HintDirection
--- vim.keymap.set('', 'f', function()
---   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
--- end, {remap=true})
--- vim.keymap.set('', 'F', function()
---   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
--- end, {remap=true})
--- vim.keymap.set('', 't', function()
---   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
--- end, {remap=true})
--- vim.keymap.set('', 'T', function()
---   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
--- end, {remap=true})
+
+add_group('hop', '<space>j', {
+    j = { '<Cmd>HopAnywhere<CR>', 'anywhere' },
+    w = { '<Cmd>HopWord<CR>', 'word' },
+    v = { '<Cmd>HopVertical<CR>', 'line' },
+    ['/'] = { '<Cmd>HopPattern<CR>', 'pattern' },
+})
+
+add_group('treesitter', '<space>t', {
+    t = { '<Cmd>TSUpdate<CR>', 'update' },
+    h = { '<Cmd>TSToggle highlight<CR>', 'toggle highlight' },
+})
 
 return M

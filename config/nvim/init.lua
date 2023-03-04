@@ -3,6 +3,7 @@ require('config.plugins')
 require('config.mappings')
 require('config.lsp')
 require('config.cmp')
+require('config.treesitter')
 
 require('config.lualine')
 require('config.alpha')
@@ -20,8 +21,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
         ]]
     end
 })
-
-vim.cmd [[colorscheme vim-material]]
+vim.cmd.colorscheme [[vim-material]]
 
 -- require('onedark').load()
 -- vim.g.airline_theme = 'onedark'
@@ -31,13 +31,4 @@ vim.cmd [[colorscheme vim-material]]
 -- vim.g.airline_right_alt_sep = ''
 -- vim.g.airline_symbols = { linenr = '␊' }
 
--- require('lualine').setup {
---     options = {
---         theme = 'material',
---         icons_enabled = false,
---     },
--- }
-
-vim.cmd [[nohlsearch]]
-
-require('hologram').setup { auto_display = true }
+-- require('hologram').setup { auto_display = true }

@@ -8,8 +8,8 @@ o.number = true
 o.relativenumber = true
 o.cindent = true
 o.expandtab = true
-o.shiftwidth = 4
-o.softtabstop = 4
+o.shiftwidth = 2
+o.softtabstop = 2
 o.hlsearch = true
 
 o.laststatus = 2

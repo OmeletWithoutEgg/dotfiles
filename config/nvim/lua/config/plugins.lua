@@ -13,7 +13,7 @@ return require('packer').startup(function(use)
     use {
         'Yggdroot/indentLine',
         config = function()
-            vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'alpha' }
+            vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'alpha', 'lsp-installer', 'packer' }
             vim.g.indentLine_leadingSpaceEnabled = 0
             vim.g.indentLine_bufTypeExclude = { 'help', 'terminal', 'vimwiki' }
         end
@@ -22,9 +22,14 @@ return require('packer').startup(function(use)
     use 'tommcdo/vim-lion'
     use 'tpope/vim-repeat'
     use 'editorconfig/editorconfig-vim'
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
     use {
         'numToStr/Comment.nvim',
-        config = function() require('Comment').setup {} end
+        config = function()
+          require('Comment').setup {
+            pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+          }
+        end
     }
     use {
         'phaazon/hop.nvim',
@@ -47,29 +52,35 @@ return require('packer').startup(function(use)
         'neovim/nvim-lspconfig',
         'williamboman/nvim-lsp-installer'
     }
-    use {
-        'hrsh7th/nvim-cmp',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-cmdline',
-        -- 'hrsh7th/cmp-omni',
-        -- 'ray-x/lsp_signature.nvim',
-    }
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/cmp-vsnip'
+
+    -- use 'hrsh7th/cmp-omni',
+    -- use 'ray-x/lsp_signature.nvim',
     use 'hrsh7th/vim-vsnip'
-    -- use {
-    --     'nvim-treesitter/nvim-treesitter',
-    --     run = function()
-    --         require('nvim-treesitter.install').update({ with_sync = true })
-    --     end,
-    -- }
+    use {
+        'nvim-treesitter/nvim-treesitter',
+    }
 
     --[[ Appearance ]]
     use 'goolord/alpha-nvim'
     use {
         'nvim-tree/nvim-tree.lua',
-        -- config = function() require('nvim-tree').setup {} end
+        config = function()
+          vim.g.loaded_netrw = 1
+          vim.g.loaded_netrwPlugin = 1
+          require('nvim-tree').setup {}
+          vim.cmd[[
+            autocmd StdinReadPre * let s:std_in=1
+            autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') | execute 'cd ' .. argv()[0] | NvimTreeOpen | endif
+          ]]
+        end
     }
+
 
     use 'kaicataldo/material.vim'
     use 'hzchirs/vim-material'
@@ -160,7 +171,7 @@ return require('packer').startup(function(use)
     use 'Julian/lean.nvim'
 
     --[[ Misc ]]
-    use 'edluffy/hologram.nvim'
+    -- use 'edluffy/hologram.nvim'
     -- use '~/Repos/hologram.nvim'
     use {
         'bfredl/nvim-luadev',
@@ -183,4 +194,5 @@ return require('packer').startup(function(use)
     use 'petRUShka/vim-sage'
     use 'isobit/vim-caddyfile'
     use 'posva/vim-vue'
+    use 'digitaltoad/vim-pug'
 end)

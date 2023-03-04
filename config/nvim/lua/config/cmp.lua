@@ -1,10 +1,10 @@
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'preview' }
 
 vim.cmd [[
-    imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-    smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-    imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-    smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+    imap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+    smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
+    imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
+    smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
 ]]
 
 local cmp = require('cmp')
@@ -20,7 +20,7 @@ cmp.setup {
         -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
         -- ['<C-Space>'] = cmp.mapping.complete(),
-        -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<Tab>'] = cmp.mapping.confirm({ select = true }),
     }),
 
     -- formatting = {
@@ -28,21 +28,22 @@ cmp.setup {
     -- },
 
     sources = {
-        { name = 'path' },
-        { name = 'vsnip', keyword_length = 3 },
         { name = 'nvim_lsp', keyword_length = 3 },
-        { name = 'buffer', keyword_length = 3 },
+        { name = 'path' },
+        -- { name = 'vsnip',    keyword_length = 3 },
+        -- { name = 'buffer',   keyword_length = 3 },
         -- { name = 'orgmode' },
-    }
+    },
 }
 
 -- `/` cmdline setup.
-cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-        { name = 'buffer', keyword_length = 3 }
-    }
-})
+-- cmp.setup.cmdline('/', {
+--     mapping = cmp.mapping.preset.cmdline(),
+--     sources = {
+--         { name = 'buffer', keyword_length = 3 }
+--     },
+-- })
+
 -- `:` cmdline setup.
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
@@ -50,5 +51,5 @@ cmp.setup.cmdline(':', {
         { name = 'path' }
     }, {
         { name = 'cmdline', keyword_length = 3 }
-    })
+    }),
 })

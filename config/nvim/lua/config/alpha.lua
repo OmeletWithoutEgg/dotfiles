@@ -223,10 +223,10 @@ local buttons = {
             icon = '  ',
             source = 'telescope.recent_files'
         },
-        make_shortcut {
-            icon = '  ',
-            source = 'telescope.files'
-        },
+        -- make_shortcut {
+        --     icon = '  ',
+        --     source = 'telescope.files'
+        -- },
         make_shortcut {
             icon = '  ',
             source = 'telescope.live_grep'
@@ -248,19 +248,19 @@ local buttons = {
 local function info_text()
   ---@diagnostic disable-next-line:undefined-field
   local total_plugins = #vim.tbl_keys(_G.packer_plugins)
-  local datetime = os.date " %Y-%m-%d  󰨳 %A"
+  local datetime = os.date ' %Y-%m-%d  󰨳 %A'
   local version = vim.version()
-  local nvim_version_info = "   v" .. version.major .. "." .. version.minor .. "." .. version.patch
+  local nvim_version_info = '   v' .. version.major .. '.' .. version.minor .. '.' .. version.patch
 
-  return datetime .. "   " .. total_plugins .. " plugins" .. nvim_version_info
+  return datetime .. '   ' .. total_plugins .. ' plugins' .. nvim_version_info
 end
 
 local section_info = {
-  type = "text",
+  type = 'text',
   val = info_text,
   opts = {
-    hl = "Comment",
-    position = "center",
+    hl = 'Comment',
+    position = 'center',
   },
 }
 
@@ -268,11 +268,11 @@ local config = {
     layout = {
         { type = 'padding', val = 5 },
         default_header,
-        { type = 'padding', val = 2 },
+        { type = 'padding', val = 1 },
         buttons,
-        { type = 'padding', val = 2 },
+        { type = 'padding', val = 1 },
         section_mru,
-        { type = 'padding', val = 2 },
+        { type = 'padding', val = 1 },
         section_info,
     },
     opts = {
