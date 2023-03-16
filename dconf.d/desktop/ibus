@@ -21,7 +21,7 @@ sync-caps-lock='disable'
 [general]
 engines-order=['xkb:us::eng', 'chewing', 'anthy']
 preload-engines=['xkb:us::eng', 'chewing', 'anthy']
-version='1.5.27'
+version='1.5.28'
 
 [general/hotkey]
 triggers=['<Control>space']
