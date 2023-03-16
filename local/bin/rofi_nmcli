@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function grab_connections() {
+  nmcli -f NAME,STATE connection show | \
+    tail -n +2 | \
+    grep -v -w lo | \
+    sort -k 2 -r
+}
+
+result=`grab_connections | rofi -theme ~/.config/rofi/material.rasi -dmenu`
+
+is_activated=`echo $result | cut -d ' ' -f 2 | grep activated`
+conn=`echo $result | cut -d ' ' -f 1`
+
+if [[ -z $conn ]]; then
+  exit 1
+fi
+
+if [[ -n $is_activated ]]; then
+  echo "down $conn"
+  nmcli connection down $conn
+else
+  echo "up $conn"
+  nmcli connection up $conn
+fi

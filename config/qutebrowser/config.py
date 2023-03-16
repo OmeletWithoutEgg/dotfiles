@@ -72,7 +72,7 @@ config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
 config.bind('ge', 'edit-url')
 config.bind('ce', 'config-edit')
 
-pass_menu = 'rofi -dmenu -theme ~/.config/rofi/theme.rasi'
+pass_menu = 'rofi -dmenu -theme ~/.config/rofi/material.rasi'
 qute_pass = f'spawn --userscript qute-pass -d "{pass_menu}"'
 
 config.bind('<Ctrl-Shift-l>', '{qute_pass}', mode='insert')
