@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rofi -show ssh -modi drun,ssh
