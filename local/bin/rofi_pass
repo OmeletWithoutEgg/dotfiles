@@ -1,8 +1,5 @@
 #!/bin/bash
 
-function dmenu() {
-}
-
 ## these lines are from passmenu
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
