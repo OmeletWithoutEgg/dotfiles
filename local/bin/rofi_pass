@@ -1,12 +1,16 @@
 #!/bin/bash
 
+function dmenu() {
+  rofi -theme ~/.config/rofi/material.rasi -dmenu -p "pass"
+}
+
 ## these lines are from passmenu
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | rofi -theme ~/.config/rofi/material.rasi -dmenu)
+password=$(printf '%s\n' "${password_files[@]}" | dmenu)
 
 if [[ -z $password ]]; then
   exit 1

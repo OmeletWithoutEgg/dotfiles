@@ -7,7 +7,7 @@ function grab_connections() {
     sort -k 2 -r
 }
 
-result=`grab_connections | rofi -theme ~/.config/rofi/material.rasi -dmenu`
+result=`grab_connections | rofi -theme ~/.config/rofi/material.rasi -dmenu -p "connections"`
 
 is_activated=`echo $result | cut -d ' ' -f 2 | grep activated`
 conn=`echo $result | cut -d ' ' -f 1`
