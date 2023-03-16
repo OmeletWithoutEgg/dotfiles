@@ -17,7 +17,7 @@ c.auto_save.session = True
 c.content.blocking.method = 'both'
 c.content.javascript.can_access_clipboard = True
 c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}']
-c.fonts.default_size = '20pt'
+c.fonts.default_size = '16pt'
 c.fonts.default_family = 'Source Code Pro Semi Bold'
 c.fonts.web.family.fixed = 'Hack'
 
@@ -37,7 +37,7 @@ c.url.searchengines = {
     'aurpkg': 'https://aur.archlinux.org/packages?O=0&K={}',
 }
 
-c.zoom.default = '200%'
+c.zoom.default = '125%'
 c.colors.webpage.preferred_color_scheme = 'dark'
 # c.content.headers.accept_language = 'en-US,en'
 

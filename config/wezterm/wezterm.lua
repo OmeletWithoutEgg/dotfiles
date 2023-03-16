@@ -16,7 +16,7 @@ return {
         'Noto Sans CJK JP',
         'Noto Sans Math',
     }),
-    font_size = 24,
+    font_size = 16,
 
     window_decorations = 'NONE',
     window_padding = {
