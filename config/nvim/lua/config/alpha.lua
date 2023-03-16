@@ -185,8 +185,8 @@ local make_shortcut = function(opts)
             align_shortcut = 'right',
             position = 'center',
             shortcut = rpad(opts.shortcut, 11),
-            hl_shortcut = 'Keyword',
-            hl = 'Type',
+            hl_shortcut = 'Type',
+            hl = 'Keyword',
             width = 50,
             cursor = 6,
         }
@@ -195,19 +195,11 @@ local make_shortcut = function(opts)
     -- return dashboard.button(opts.shortcut, opts.icon .. ' ' .. opts.desc, opts.action)
 end
 
-
 local buttons = {
     type = 'group',
     val = {
         { type = 'text', val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
         { type = 'padding', val = 1 },
-        -- dashboard.button('e', '  New file', '<cmd>ene<CR>'),
-        -- dashboard.button('SPC f', '  Find file'),
-        -- dashboard.button('SPC F', '  Live grep'),
-        -- dashboard.button('SPC p', '  Projects'),
-        -- dashboard.button('c', '  Configuration', '<cmd>e ~/.config/nvim/init.lua <CR>'),
-        -- dashboard.button('u', '  Update plugins', '<cmd>PackerSync<CR>'),
-        -- dashboard.button('q', '  Quit', '<cmd>qa<CR>'),
 
         make_shortcut {
             icon = '  ',
@@ -266,7 +258,7 @@ local section_info = {
 
 local config = {
     layout = {
-        { type = 'padding', val = 5 },
+        { type = 'padding', val = 2 },
         default_header,
         { type = 'padding', val = 1 },
         buttons,

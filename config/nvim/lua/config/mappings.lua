@@ -69,21 +69,12 @@ add_group('packer', '<space>p', {
     r = { reload_packer, 'reload' }
 })
 
--- local toggle_onedark = function()
---     require('onedark').toggle()
---     print('current style =', vim.g.onedark_config.style)
--- end
--- add_group('toggle', '<space>t', {
---     onedark_style = { 's', toggle_onedark, 'Toggle Onedark Style' }
--- })
-
 add_group('git_diffview', '<space>g', {
     d = { '<Cmd>DiffviewOpen<CR>', 'open' },
     t = { '<Cmd>DiffviewToggleFiles<CR>', 'toggle files' },
     c = { '<Cmd>DiffviewClose<CR>', 'close' }
     -- TODO
 })
--- TODO map gitdiff
 
 add_group('nvim_tree', '<space>b', {
     [''] = { '<Cmd>NvimTreeToggle<CR>', 'toggle' }
@@ -91,10 +82,9 @@ add_group('nvim_tree', '<space>b', {
 
 
 add_group('hop', '<space>j', {
-    j = { '<Cmd>HopAnywhere<CR>', 'anywhere' },
-    w = { '<Cmd>HopWord<CR>', 'word' },
-    v = { '<Cmd>HopVertical<CR>', 'line' },
-    ['/'] = { '<Cmd>HopPattern<CR>', 'pattern' },
+    [''] = { '<Cmd>HopWord<CR>', 'word' },
+    -- l = { '<Cmd>HopVertical<CR>', 'line' },
+    -- ['/'] = { '<Cmd>HopPattern<CR>', 'pattern' },
 })
 
 add_group('treesitter', '<space>t', {
