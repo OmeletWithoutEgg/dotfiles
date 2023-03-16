@@ -8,8 +8,9 @@ export PATH="$HOME"/.local/bin:"$XDG_CONFIG_HOME"/emacs/bin:$PATH
 
 # Configuration of fd & fzf
 export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
-export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='fzf-preview.sh {}' --preview-window='right:hidden:60%:wrap' \
-    --bind='f2:toggle-preview,ctrl-y:execute(echo {+} | copy.sh)' \
+export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='fzf-preview.sh {}' \
+    --preview-window='right:hidden:60%:wrap' \
+    --bind='ctrl-m:toggle-preview,ctrl-y:execute(echo {+} | copy.sh)' \
     --bind='ctrl-d:half-page-down,ctrl-u:half-page-up' \
     --bind='ctrl-n:preview-page-down,ctrl-p:preview-page-up'"
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
