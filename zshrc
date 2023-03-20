@@ -68,11 +68,11 @@ unset LS_COLORS
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
 alias gst="git status"
 alias gdf="git diff"
+alias v=nvim
 
 @replace rm "trash" "rm -i"
 @replace du "dust"
 @replace df "duf"
-@replace vim "nvim"
 
 function open {
     xdg-open $@ 2>/dev/null && sleep 1
@@ -123,7 +123,7 @@ function nvm-enable {
 }
 
 function pacman-history {
-    history -i | grep -P "(pacman|yay) (-S|-Rs)" | sed "s/sudo //g" | vim -
+    history -i | grep -P "(pacman|yay) (-S|-Rs)" | sed "s/sudo //g" | vim - +
 }
 
 set -o vi
