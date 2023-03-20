@@ -6,16 +6,19 @@ def dummy(): global c, config  # disable pyflakes error
 config.load_autoconfig()
 
 c.qt.args = [
-    'ignore-gpu-blacklist',
+    'use-gl=desktop',
+    'ignore-gpu-blocklist',
     'enable-gpu-rasterization',
     'enable-native-gpu-memory-buffers',
-    'num-raster-threads=4',
+    'enable-zero-copy',
+    # 'num-raster-threads=4',
     'enable-accelerated-video-decode',
+    'disable-accelerated-2d-canvas',
 ]
 
 c.auto_save.session = True
 c.content.blocking.method = 'both'
-c.content.javascript.can_access_clipboard = True
+c.content.javascript.clipboard = 'access-paste'
 c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}']
 c.fonts.default_size = '16pt'
 c.fonts.default_family = 'Source Code Pro Semi Bold'
@@ -70,12 +73,13 @@ config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
 config.bind('ge', 'edit-url')
+config.bind('gyd', 'spawn --userscript dl_audio')
 config.bind('ce', 'config-edit')
 
-pass_menu = 'rofi -dmenu -theme ~/.config/rofi/material.rasi'
+pass_menu = 'rofi -dmenu'
 qute_pass = f'spawn --userscript qute-pass -d "{pass_menu}"'
 
-config.bind('<Ctrl-Shift-l>', '{qute_pass}', mode='insert')
+config.bind('<Ctrl-Shift-l>', f'{qute_pass}', mode='insert')
 config.bind('zb', f'hint inputs tab-bg --first ;; later 1 {qute_pass}')
 config.bind('zm', f'{qute_pass} --unfiltered')
 config.bind('zp', f'{qute_pass} --password-only')
