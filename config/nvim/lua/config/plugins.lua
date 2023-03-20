@@ -13,12 +13,17 @@ return require('packer').startup(function(use)
   use {
     'Yggdroot/indentLine',
     config = function()
-      vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'alpha', 'lsp-installer', 'packer' }
+      vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'startify', 'alpha', 'lsp-installer', 'packer' }
       vim.g.indentLine_leadingSpaceEnabled = 0
       vim.g.indentLine_bufTypeExclude = { 'help', 'terminal', 'vimwiki' }
     end
   }
-  use 'tpope/vim-surround'
+  use {
+    'kylechui/nvim-surround',
+    config = function()
+      require('nvim-surround').setup {}
+    end
+  }
   use 'tommcdo/vim-lion'
   use 'tpope/vim-repeat'
   use 'editorconfig/editorconfig-vim'
@@ -33,10 +38,9 @@ return require('packer').startup(function(use)
   }
   use {
     'phaazon/hop.nvim',
-    branch = 'v2',     -- optional but strongly recommended
+    branch = 'v2', -- optional but strongly recommended
     config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      require 'hop'.setup {}
     end
   }
 
@@ -53,11 +57,13 @@ return require('packer').startup(function(use)
     'williamboman/nvim-lsp-installer'
   }
   use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/cmp-vsnip'
+  use {
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-vsnip',
+  }
 
   -- use 'hrsh7th/cmp-omni',
   -- use 'ray-x/lsp_signature.nvim',
@@ -73,44 +79,40 @@ return require('packer').startup(function(use)
       vim.g.loaded_netrwPlugin = 1
       require('nvim-tree').setup {}
       vim.cmd [[
-            autocmd StdinReadPre * let s:std_in=1
-            autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') | execute 'cd ' .. argv()[0] | NvimTreeOpen | endif
-          ]]
+        function s:opendir()
+          if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in')
+            execute 'cd ' .. argv()[0]
+            NvimTreeOpen
+          endif
+        endfunction
+        augroup nvimtreeOpenDirectory
+          autocmd StdinReadPre * let s:std_in=1
+          autocmd VimEnter * call <SID>opendir()
+        augroup END
+      ]]
     end
   }
 
-  use 'kaicataldo/material.vim'
   use 'hzchirs/vim-material'
-  use 'lifepillar/vim-solarized8'
-  use 'cpea2506/one_monokai.nvim'
-  use 'shaunsingh/nord.nvim'
   use {
+    'kaicataldo/material.vim',
+    'lifepillar/vim-solarized8',
+    'cpea2506/one_monokai.nvim',
+    'shaunsingh/nord.nvim',
     'navarasu/onedark.nvim',
-    config = function()
-      -- require('onedark').setup {
-      --     style = 'warm',
-      --     -- toggle_style_key = '<Plug>(onedark-toggle-style)',
-      --     code_style = { comments = 'none' },
-      -- }
-      -- require('onedark').load()
-    end
+    'Mofiqul/vscode.nvim',
   }
-  -- use 'vim-airline/vim-airline'
-  -- use 'vim-airline/vim-airline-themes'
+  use 'tribela/vim-transparent'
+
   use 'nvim-lualine/lualine.nvim'
-  -- use {
-  --     'romgrk/barbar.nvim',
-  --     config = function() require('bufferline').setup {} end
-  -- }
 
   --[[ Nice Toolkit ]]
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.0',
+    tag = '0.1.1',
     config = function()
-      -- require('telescope').load_extension('media_files')
-      local find_command = { 'rg', '--hidden', '--files' }
+      local find_command = { 'rg', '--files' }
       require('telescope').setup {
         defaults = {
           layout_config = {
@@ -133,14 +135,14 @@ return require('packer').startup(function(use)
     config = function()
       require('which-key').setup {
         plugins = {
-          marks = false,               -- shows a list of your marks on ' and `
-          registers = false,           -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          marks = false,     -- shows a list of your marks on ' and `
+          registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         }
       }
     end
   }
   use 'kevinhwang91/vim-ibus-sw'
-
+  use 'lambdalisue/suda.vim'
 
   --[[ Filetype Plugins ]]
   use {
@@ -150,8 +152,8 @@ return require('packer').startup(function(use)
       vim.g.vimwiki_url_maxsave = 0
       vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki' } }
       vim.cmd [[
-            autocmd FileType vimwiki setlocal nowrap concealcursor=
-            ]]
+        autocmd FileType vimwiki setlocal nowrap concealcursor=
+      ]]
     end
   }
   use 'Julian/lean.nvim'
