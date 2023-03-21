@@ -6,18 +6,18 @@ return require('packer').startup(function(use)
   use 'kyazdani42/nvim-web-devicons'
 
   --[[ Edit ]]
-  -- use {
-  --     'lukas-reineke/indent-blankline.nvim',
-  --     config = function() require('indent_blankline').setup {} end
-  -- }
   use {
-    'Yggdroot/indentLine',
-    config = function()
-      vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'startify', 'alpha', 'lsp-installer', 'packer' }
-      vim.g.indentLine_leadingSpaceEnabled = 0
-      vim.g.indentLine_bufTypeExclude = { 'help', 'terminal', 'vimwiki' }
-    end
+      'lukas-reineke/indent-blankline.nvim',
+      config = function() require('indent_blankline').setup {} end
   }
+  -- use {
+  --   'Yggdroot/indentLine',
+  --   config = function()
+  --     vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'startify', 'alpha', 'lsp-installer', 'packer' }
+  --     vim.g.indentLine_leadingSpaceEnabled = 0
+  --     vim.g.indentLine_bufTypeExclude = { 'help', 'terminal', 'vimwiki' }
+  --   end
+  -- }
   use {
     'kylechui/nvim-surround',
     config = function()
@@ -42,6 +42,9 @@ return require('packer').startup(function(use)
     config = function()
       require 'hop'.setup {}
     end
+  }
+  use {
+    'mfussenegger/nvim-treehopper',
   }
 
   --[[ Git ]]
@@ -112,7 +115,7 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim',
     tag = '0.1.1',
     config = function()
-      local find_command = { 'rg', '--files' }
+      local find_command = { 'fd', '--type', 'f' }
       require('telescope').setup {
         defaults = {
           layout_config = {
@@ -176,7 +179,7 @@ return require('packer').startup(function(use)
     'jbyuki/nabla.nvim',
     config = function()
       vim.cmd [[
-        nnoremap <leader>p :lua require("nabla").popup()<CR>
+        nnoremap <silent> <leader>p :lua require("nabla").popup()<CR>
         " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
       ]]
     end

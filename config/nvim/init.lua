@@ -24,3 +24,14 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 
 vim.cmd.colorscheme [[vim-material]]
+
+vim.cmd [[
+  function s:TeXFormat()
+    setlocal foldmethod=marker
+  endfunction
+  augroup formattingHandler
+    au!
+    au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
+    au FileType tex,plaintex call <SID>TeXFormat()
+  augroup END
+]]

@@ -53,10 +53,9 @@ add_group('telescope', '<space>f', {
     f = { '<Cmd>Telescope find_files<CR>', 'files' },
     w = { '<Cmd>Telescope live_grep<CR>', 'live grep' },
     c = { '<Cmd>Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>', 'config files' },
-    C = { '<Cmd>Telescope colorscheme<CR>', 'colorschemes' },
 })
 
-local reload_packer = function()
+local function reload_packer()
     vim.cmd [[wall]]
     require('plenary.reload').reload_module('config.plugins')
     dofile(vim.fn.expand('$MYVIMRC'))
@@ -73,16 +72,19 @@ add_group('git_diffview', '<space>g', {
     d = { '<Cmd>DiffviewOpen<CR>', 'open' },
     t = { '<Cmd>DiffviewToggleFiles<CR>', 'toggle files' },
     c = { '<Cmd>DiffviewClose<CR>', 'close' }
-    -- TODO
 })
 
 add_group('nvim_tree', '<space>b', {
     [''] = { '<Cmd>NvimTreeToggle<CR>', 'toggle' }
 })
 
+-- local function treehop()
+--   require('tsht').move({ side = "start" })
+-- end
 
 add_group('hop', '<space>j', {
     [''] = { '<Cmd>HopWord<CR>', 'word' },
+    -- [''] = { treehop, 'treesitter' }
     -- l = { '<Cmd>HopVertical<CR>', 'line' },
     -- ['/'] = { '<Cmd>HopPattern<CR>', 'pattern' },
 })
@@ -90,6 +92,11 @@ add_group('hop', '<space>j', {
 add_group('treesitter', '<space>t', {
     t = { '<Cmd>TSUpdate<CR>', 'update' },
     h = { '<Cmd>TSToggle highlight<CR>', 'toggle highlight' },
+})
+
+add_group('appearance', '<space>a', {
+    c = { '<Cmd>Telescope colorscheme<CR>', 'colorschemes' },
+    t = { '<Cmd>TransparentToggle<CR>', 'toggle transparent' },
 })
 
 return M
