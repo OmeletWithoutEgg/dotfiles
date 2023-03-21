@@ -1,23 +1,25 @@
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
-local lualine = require('lualine')
-
--- Color table for highlights
--- stylua: ignore
 local colors = {
   bg       = 'NONE',
-  -- bg       = '#263238',
-  fg       = '#bbc2cf',
-  yellow   = '#ecbe7b',
+
+  -- fg       = '#bbc2cf',
+  -- yellow   = '#ecbe7b',
   cyan     = '#008080',
   darkblue = '#081633',
-  green    = '#98be65',
+  -- green    = '#98be65',
   orange   = '#ff8800',
+
+  fg     = '#d5dbe5',
+  blue   = '#89ddff',
+  green  = '#8bd649',
+  purple = '#82aaff',
+  yellow = '#ffcc00',
+
   violet   = '#a9a1e1',
   magenta  = '#c678dd',
-  blue     = '#51afef',
+  -- blue     = '#51afef',
   red      = '#ec5f67',
+
+  black    = '#263238',
 }
 
 local conditions = {
@@ -32,33 +34,37 @@ local conditions = {
     local gitdir = vim.fn.finddir('.git', filepath .. ';')
     return gitdir and #gitdir > 0 and #gitdir < #filepath
   end,
+  buf_has_lsp = function()
+    local buf_clients = vim.lsp.buf_get_clients()
+    return #buf_clients ~= 0
+  end
 }
 
 local function get_mode_color()
   -- auto change color according to neovims mode
   local mode_color = {
-    n       = colors.blue,   -- colors.red,
-    i       = colors.red,    -- colors.green,
-    v       = colors.orange, -- colors.blue,
-    ['']  = colors.orange, -- colors.blue,
-    V       = colors.orange, -- colors.blue,
-    c       = colors.red,    -- colors.magenta,
-    no      = colors.blue,   -- colors.red,
-    s       = colors.orange,
-    S       = colors.orange,
-    ['']  = colors.orange,
+    n       = colors.green,
+    no      = colors.blue,
+    i       = colors.blue,
     ic      = colors.yellow,
-    R       = colors.violet,
-    Rv      = colors.violet,
+    v       = colors.orange,
+    V       = colors.orange,
+    ['']  = colors.orange,
+    c       = colors.red,
+    s       = colors.blue,
+    S       = colors.blue,
+    ['']  = colors.blue,
+    R       = colors.red,
+    Rv      = colors.red,
     cv      = colors.red,
     ce      = colors.red,
     r       = colors.cyan,
     rm      = colors.cyan,
     ['r?']  = colors.cyan,
-    ['!']   = colors.red, -- ???
-    t       = colors.red, -- ???
+    ['!']   = colors.violet,
+    t       = colors.violet,
   }
-  return { bg = mode_color[vim.fn.mode()], fg = '#263238', gui = 'bold' }
+  return { bg = mode_color[vim.fn.mode()], fg = colors.darkblue, gui = 'bold' }
 end
 
 local mode = {
@@ -105,7 +111,6 @@ end
 
 local diff = {
   'diff',
-  -- Is it me or the symbol for modified us really weird
   symbols = { added = ' ', modified = '柳', removed = ' ' },
   diff_color = {
     added = { fg = colors.green },
@@ -113,14 +118,14 @@ local diff = {
     removed = { fg = colors.red },
   },
   source = diff_source,
-  -- cond = conditions.hide_in_width,
+  cond = conditions.hide_in_width,
 }
 
 local lspstatus = {
   -- Lsp server name .
   function()
-    local original_bufnr = vim.api.nvim_get_current_buf()
-    local buf_clients = vim.lsp.get_active_clients { bufnr = original_bufnr }
+    -- local original_bufnr = vim.api.nvim_get_current_buf()
+    local buf_clients = vim.lsp.buf_get_clients()
     local result = nil
     for _, client in pairs(buf_clients) do
       if result == nil then
@@ -132,10 +137,7 @@ local lspstatus = {
     return result
   end,
   icon = ' ',
-  cond = function()
-    local clients = vim.lsp.get_active_clients()
-    return #clients ~= 0
-  end,
+  cond = conditions.buf_has_lsp,
 }
 
 local diagnostics = {
@@ -157,7 +159,6 @@ local filetype = {
 
 local fileencoding = {
   'o:encoding', -- option component same as &encoding in viml
-  cond = conditions.hide_in_width,
 }
 
 local fileformat = {
@@ -178,12 +179,20 @@ local tabs = {
   max_length = vim.o.columns,
   mode = 2,
   tabs_color = {
-    active = { fg = '#263238', bg = colors.blue },
+    active = { fg = '#263238', bg = colors.purple },
     inactive = { fg = colors.fg, bg = colors.bg },
   },
+  fmt = function(name, context)
+    -- Show + if buffer is modified in tab
+    local buflist = vim.fn.tabpagebuflist(context.tabnr)
+    local winnr = vim.fn.tabpagewinnr(context.tabnr)
+    local bufnr = buflist[winnr]
+    local mod = vim.fn.getbufvar(bufnr, '&mod')
+    return name .. (mod == 1 and ' +' or '')
+  end,
 }
 
-local config = {
+require('lualine').setup {
   options = {
     -- Disable sections and component separators
     component_separators = '|',
@@ -210,12 +219,12 @@ local config = {
     lualine_z = { percent, location }
   },
   inactive_sections = {
-    lualine_a = {},
+    lualine_a = { mode },
     lualine_b = { filename },
     lualine_c = {},
     lualine_x = {},
-    lualine_y = { percent },
-    lualine_z = {}
+    lualine_y = { fileformat, fileencoding, filetype },
+    lualine_z = { percent }
   },
   tabline = {
     lualine_a = {},
@@ -225,7 +234,5 @@ local config = {
     lualine_y = {},
     lualine_z = {}
   },
+  -- extensions = { 'nvim-tree' }
 }
-
--- Now don't forget to initialize lualine
-lualine.setup(config)

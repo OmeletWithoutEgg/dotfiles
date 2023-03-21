@@ -171,4 +171,14 @@ return require('packer').startup(function(use)
     'digitaltoad/vim-pug',
     'Fymyte/rasi.vim',
   }
+
+  use {
+    'jbyuki/nabla.nvim',
+    config = function()
+      vim.cmd [[
+        nnoremap <leader>p :lua require("nabla").popup()<CR>
+        " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
+      ]]
+    end
+  }
 end)
