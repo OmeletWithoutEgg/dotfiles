@@ -1,5 +1,6 @@
 configuration {
-  ssh-command: "wezterm ssh {host}[:{port}]";
+  terminal: "wezterm start";
+  modi: "drun,ssh,window";
 }
 
 @theme "material"
