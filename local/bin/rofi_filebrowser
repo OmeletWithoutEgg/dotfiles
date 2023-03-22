@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# fd | rofi -show file-browser-extended -file-browser-stdin
+
+rofi -show file-browser-extended -modi file-browser-extended
