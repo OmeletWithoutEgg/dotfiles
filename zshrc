@@ -25,8 +25,6 @@ autoload -Uz _zi
 zi ice as:theme depth:1
 zi load "romkatv/powerlevel10k"
 
-zi load "agkozak/zsh-z"
-
 zi wait lucid for \
     atinit:"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
         "z-shell/fast-syntax-highlighting" \
@@ -35,11 +33,13 @@ zi wait lucid for \
     atload:"!_zsh_autosuggest_start" \
         "zsh-users/zsh-autosuggestions" \
         "zpm-zsh/ls" \
-        "le0me55i/zsh-extract"
+        "le0me55i/zsh-extract" \
+        "agkozak/zsh-z"
 
 # zi wait lucid for z-shell/zui z-shell/zi-console
 
 zi snippet OMZ::lib/history.zsh
+zi snippet OMZP::command-not-found # to update: pkgfile -u
 
 # https://github.com/ThiefMaster/zsh-config/blob/master/zshrc.d/completion.zsh
 # Use ls-colors for path completions
@@ -53,8 +53,6 @@ unset LS_COLORS
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 @include "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-
-@include /usr/share/doc/pkgfile/command-not-found.zsh # to update: pkgfile -u
 
 @include /usr/share/fzf/key-bindings.zsh
 ### usage: Ctrl+T / Alt+C / Ctrl+R
