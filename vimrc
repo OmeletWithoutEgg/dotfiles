@@ -11,7 +11,7 @@ call plug#begin()
 Plug 'hzchirs/vim-material'
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 Plug 'tribela/vim-transparent'
 
 """ File browser & git tools
@@ -53,15 +53,19 @@ Plug 'inkarkat/vim-ReplaceWithRegister' " gr for replace
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
 " Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-
+Plug 'mbbill/undotree'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kevinhwang91/vim-ibus-sw', { 'commit': '83bcdce5cd5c0ef7b129916ea4fb3be27194230b' }
 " Plug 'lilydjwg/fcitx.vim'
 " let g:fcitx5_remote = 'fcitx5-remote'
-Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
+
+" Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
+
+Plug 'lervag/vimtex'
 
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'Fzf'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 " function! s:RipgrepFzf(query, fullscreen)
 "   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
@@ -120,6 +124,22 @@ let g:vim_markdown_frontmatter = 1 " YAML
 let g:vim_markdown_math = 1
 """ <Plug> vim-tabular
 let g:tex_conceal='' " tabular
+"
+""" <Plug> vimtex
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+
+" let g:vimtex_view_method = 'zathura'
+" let g:vimtex_view_automatic = 0
+" function! s:ZathuraHook() abort
+"     call b:vimtex.viewer.xdo_focus_viewer()
+" endfunction
+" augroup vimrc_vimtex
+"   autocmd!
+"   autocmd User VimtexEventView call <SID>ZathuraHook()
+"   " autocmd User VimtexEventCompileSuccess call ZathuraHook()
+" augroup END
+
 """ <Plug> vimwiki
 let g:vimwiki_global_ext = 0
 let g:vimwiki_url_maxsave = 0
@@ -195,7 +215,7 @@ function s:ShellScriptMapping()
 endfunction
 
 function s:LaTeXMapping()
-    nnoremap <buffer> <leader>b :w<bar>!make<CR>
+    " nnoremap <buffer> <leader>b :w<bar>!make<CR>
     nnoremap <buffer> <leader>r :!okular --unique main.pdf &<CR>
     " inoremap <buffer> <leader>bm \begin{bmatrix}<CR>\end{bmatrix}<ESC>O
     " inoremap <buffer> <leader>bee \begin{enumerate}<CR>\end{enumerate}<ESC>O
@@ -247,13 +267,17 @@ endfunction
 
 function s:TeXFormat()
     setlocal foldmethod=marker
-    setlocal cc=100
+    " setlocal cc=80
+    " setlocal textwidth=80
+    " setlocal wrapmargin=0
+    " setlocal formatoptions+=t
+    " setlocal linebreak
 endfunction
 
 augroup formattingHandler
     au!
     au FileType javascript,vue call <SID>JSFormat()
-    au FileType vue,c,cpp,html,markdown,vimwiki syntax sync fromstart
+    au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
     au FileType tex,plaintex call <SID>TeXFormat()
 augroup END
 
