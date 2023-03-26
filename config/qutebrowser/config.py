@@ -30,14 +30,15 @@ c.window.hide_decoration = True
 c.url.default_page = 'https://google.com'
 c.url.start_pages = 'https://codeforces.com'
 c.url.searchengines = {
-    'DEFAULT': 'https://duckduckgo.com/?q={}',
-    'google': 'https://google.com/search?q={}',
+    # TODO nitter
+    'DEFAULT':  'https://duckduckgo.com/?q={}',
+    'google':   'https://google.com/search?q={}',
     # 'searchyt': 'https://youtu.be/results?search_query={}',
-    'toen': 'https://translate.google.com/?sl=auto&tl=en&&text={}',
-    'tozh': 'https://translate.google.com/?sl=auto&tl=zh-tw&&text={}',
-    'archpkg': 'https://archlinux.org/packages/?q={}',
+    'toen':     'https://translate.google.com/?sl=auto&tl=en&&text={}',
+    'tozh':     'https://translate.google.com/?sl=auto&tl=zh-tw&&text={}',
+    'archpkg':  'https://archlinux.org/packages/?q={}',
     'archwiki': 'https://wiki.archlinux.org/index.php?search={}',
-    'aurpkg': 'https://aur.archlinux.org/packages?O=0&K={}',
+    'aurpkg':   'https://aur.archlinux.org/packages?O=0&K={}',
 }
 
 c.zoom.default = '125%'
@@ -91,9 +92,10 @@ hint_chars = {
     'right': 'uiophjklbnm',
 }
 c.hints.chars = hint_chars["DEFAULT"]
-config.bind('ga', f'set hints.chars {hint_chars["left"]}')
-config.bind('gl', f'set hints.chars {hint_chars["right"]}')
-config.bind('gh', f'set hints.chars {hint_chars["DEFAULT"]}')
+config.unbind('ga')
+config.bind('gaa', f'set hints.chars {hint_chars["left"]}')
+config.bind('gll', f'set hints.chars {hint_chars["right"]}')
+config.bind('ghh', f'set hints.chars {hint_chars["DEFAULT"]}')
 
 # config.source('qutebrowser-themes/themes/onedark.py')
 # config.source('qutebrowser-themes/themes/gruvbox.py')
