@@ -105,7 +105,7 @@ return require('packer').startup(function(use)
     'navarasu/onedark.nvim',
     'Mofiqul/vscode.nvim',
   }
-  use 'tribela/vim-transparent'
+  use 'xiyaowong/transparent.nvim'
 
   use 'nvim-lualine/lualine.nvim'
 
@@ -174,6 +174,8 @@ return require('packer').startup(function(use)
     'digitaltoad/vim-pug',
     'Fymyte/rasi.vim',
   }
+
+  use 'mbbill/undotree'
 
   use {
     'jbyuki/nabla.nvim',

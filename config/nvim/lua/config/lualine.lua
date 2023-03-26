@@ -143,7 +143,7 @@ local lspstatus = {
 local diagnostics = {
   'diagnostics',
   -- sources = { 'nvim_diagnostic' },
-  symbols = { error = ' ', warn = ' ', info = ' ' },
+  -- symbols = { error = '', warn = '', info = '' },
   diagnostics_color = {
     color_error = { fg = colors.red },
     color_warn = { fg = colors.yellow },
@@ -177,9 +177,10 @@ local location = {
 local tabs = {
   'tabs',
   max_length = vim.o.columns,
+  component_separators = { left = '', right = '' },
   mode = 2,
   tabs_color = {
-    active = { fg = '#263238', bg = colors.purple },
+    active = { fg = colors.black, bg = colors.purple },
     inactive = { fg = colors.fg, bg = colors.bg },
   },
   fmt = function(name, context)
