@@ -1,23 +1,6 @@
 #!/bin/bash
 cd "$(dirname "$0")"
 
-ACTION="none"
-
-while (( $# > 0 )); do
-    case "$1" in
-        install|i)
-            ACTION="install"
-            ;;
-        update|u)
-            ACTION="update"
-            ;;
-        *)
-            echo "invalid param"
-            exit
-    esac
-    shift
-done
-
 EXCLUDE_FILES=(
     dot.sh
     reflector.conf
@@ -62,8 +45,6 @@ CPDIRS=(
     # config/doom
 )
 
-echo "ACTION = $ACTION"
-
 function warn {
     printf "\033[33m"
     printf "$@"
@@ -87,15 +68,19 @@ function confirm {
     done
 }
 
-if [[ -n `git status -s -uall` ]]; then
-    git status
-    warn "GIT STATUS IS NOT CLEAN :("
-    if ! confirm "CONTINUE"; then
-        exit
+function check_git_status() {
+    if [[ -n `git status -s -uall` ]]; then
+        git status
+        warn "**git status is not clean**"
+        if ! confirm "continue"; then
+            exit
+        fi
     fi
-fi
+}
 
 function install {
+    info "INSTALL"
+    check_git_status
     echo "SHELL = $SHELL"
     for f in vim zsh git curl; do
         if ! command -v $f; then
@@ -158,6 +143,8 @@ function install {
 }
 
 function update {
+    info "UPDATE"
+    check_git_status
     for d in ${CPDIRS[@]}; do
         info "mkdir -p $d/"
         mkdir -p $d/
@@ -181,20 +168,20 @@ function update {
     done
 }
 
-case $ACTION in
-    install)
+case "$@" in
+    install|i)
         install
         exit
         ;;
-    update)
+    update|u)
         update
         exit
         ;;
-    none)
-        info "usage: $0 install / $0 udpate"
-        ;;
     *)
-        warn "wrong"
+        info "usage: "
+        info "	$0 install"
+        info "	$0 udpate"
+        exit
 esac
 
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
