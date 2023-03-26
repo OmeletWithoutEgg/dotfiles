@@ -1,5 +1,19 @@
 #!/bin/bash
 
-# fd | rofi -show file-browser-extended -file-browser-stdin
+function sort_by_depth() {
+    while IFS= read -r line; do
+        local slashes=${line//[!\/]}
+        local depth=${#slashes}
+        echo ${depth},$line
+    done | sort -n -s | cut -d ',' -f 2-
+}
 
-rofi -show file-browser-extended -modi file-browser-extended
+function fdfind() {
+    local max_depth=4
+    fd --type d --max-depth=$max_depth | sort_by_depth
+    fd --type f --max-depth=$max_depth | sort_by_depth
+}
+
+fdfind | rofi -show file-browser-extended -file-browser-stdin
+
+# rofi -show file-browser-extended -modi file-browser-extended

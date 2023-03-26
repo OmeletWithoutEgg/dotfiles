@@ -1,1 +1,16 @@
 !.config/
+
+.config/google-chrome/
+.config/google-chrome-unstable/
+.config/falkon
+
+.config/Typora/
+.config/Slack/
+.config/discord/
+
+.config/libreoffice/
+
+Documents/contests/
+
+Desktop/os
+Documents/FLOLAC/FP/lean/mathlib
