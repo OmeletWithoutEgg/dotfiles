@@ -1,7 +1,9 @@
 return {
   {
     'hrsh7th/nvim-cmp',
-    config = function() require('plugins.nvim-cmp.config') end,
+    config = function()
+      require('plugins.nvim-cmp.config')
+    end,
     dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'saadparwaiz1/cmp_luasnip',

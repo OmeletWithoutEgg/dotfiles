@@ -37,7 +37,7 @@ require('lazy').setup({
   },
 
   --[[ LSP & Completion & Tree-Sitter ]]
-  require('plugins.lsp'),
+  require('plugins.mason-lspconfig'),
   require('plugins.nvim-cmp'),
   require('plugins.nvim-treesitter'),
 
@@ -71,9 +71,8 @@ require('lazy').setup({
 
   {
     'kevinhwang91/vim-ibus-sw',
-    config = function()
-      require('ibus-sw').setup()
-    end
+    name = 'ibus-sw',
+    config = true,
   },
   'lambdalisue/suda.vim',
 
