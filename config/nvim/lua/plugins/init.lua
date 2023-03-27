@@ -40,6 +40,7 @@ require('lazy').setup({
   require('plugins.mason-lspconfig'),
   require('plugins.nvim-cmp'),
   require('plugins.nvim-treesitter'),
+  require('plugins.luasnip'),
 
   --[[ UI ]]
   require('plugins.ui.themes'),
@@ -63,7 +64,8 @@ require('lazy').setup({
     'Shatur/neovim-session-manager',
     config = function()
       require('session_manager').setup {
-        autoload_mode = require('session_manager.config').AutoloadMode.Disabled,
+        autoload_mode =
+          require('session_manager.config').AutoloadMode.Disabled,
         autosave_last_session = false,
       }
     end
@@ -86,7 +88,8 @@ require('lazy').setup({
       vim.cmd [[
         autocmd FileType vimwiki setlocal nowrap concealcursor=
       ]]
-    end
+    end,
+    event = 'VeryLazy',
   },
 
   {

@@ -1,15 +1,15 @@
 local colors = {
   bg       = 'NONE',
   -- fg       = '#bbc2cf',
-  -- yellow   = '#ecbe7b',
+  fg       = '#d5dbe5',
   cyan     = '#008080',
   darkblue = '#081633',
-  -- green    = '#98be65',
   orange   = '#ff8800',
-  fg       = '#d5dbe5',
   blue     = '#89ddff',
+  -- green    = '#98be65',
   green    = '#8bd649',
   purple   = '#82aaff',
+  -- yellow   = '#ecbe7b',
   yellow   = '#ffcc00',
   violet   = '#a9a1e1',
   magenta  = '#c678dd',
@@ -39,26 +39,26 @@ local conditions = {
 local function get_mode_color()
   -- auto change color according to neovims mode
   local mode_color = {
-    n       = colors.green,
-    no      = colors.blue,
-    i       = colors.blue,
-    ic      = colors.yellow,
-    v       = colors.orange,
-    V       = colors.orange,
+    n      = colors.green,
+    no     = colors.blue,
+    i      = colors.blue,
+    ic     = colors.yellow,
+    v      = colors.orange,
+    V      = colors.orange,
     ['']  = colors.orange,
-    c       = colors.red,
-    s       = colors.blue,
-    S       = colors.blue,
+    c      = colors.red,
+    s      = colors.blue,
+    S      = colors.blue,
     ['']  = colors.blue,
-    R       = colors.red,
-    Rv      = colors.red,
-    cv      = colors.red,
-    ce      = colors.red,
-    r       = colors.cyan,
-    rm      = colors.cyan,
-    ['r?']  = colors.cyan,
-    ['!']   = colors.violet,
-    t       = colors.violet,
+    R      = colors.red,
+    Rv     = colors.red,
+    cv     = colors.red,
+    ce     = colors.red,
+    r      = colors.cyan,
+    rm     = colors.cyan,
+    ['r?'] = colors.cyan,
+    ['!']  = colors.violet,
+    t      = colors.violet,
   }
   return { bg = mode_color[vim.fn.mode()], fg = colors.darkblue, gui = 'bold' }
 end
@@ -237,7 +237,7 @@ return {
         lualine_y = {},
         lualine_z = {}
       },
-      -- extensions = { 'nvim-tree' }
+      -- extensions = { 'nvim-tree' },
     }
   end,
 }
