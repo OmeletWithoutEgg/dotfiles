@@ -3,7 +3,6 @@ local o = vim.opt
 o.termguicolors = true
 
 o.guicursor = ''
-o.background = 'dark'
 o.number = true
 o.relativenumber = true
 o.cindent = true

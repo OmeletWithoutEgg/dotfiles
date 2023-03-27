@@ -1,11 +1,6 @@
 require('config.options')
-require('config.plugins')
+require('plugins')
 require('config.mappings')
-require('config.lsp')
-require('config.cmp')
--- require('config.treesitter')
-
--- require('config.alpha')
 
 local group = vim.api.nvim_create_augroup('CustomVimMaterial', {})
 vim.api.nvim_create_autocmd('ColorScheme', {
@@ -22,16 +17,18 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   end
 })
 
-vim.g.material_style = 'dark'
+vim.o.background = 'dark'
 vim.cmd.colorscheme [[vim-material]]
 
-vim.cmd [[
-  function s:TeXFormat()
-    setlocal foldmethod=marker
-  endfunction
-  augroup formattingHandler
-    au!
-    au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
-    au FileType tex,plaintex call <SID>TeXFormat()
-  augroup END
-]]
+vim.cmd(string.format([[source %s/buf.vim]], vim.fn.stdpath('config')))
+
+-- vim.cmd [[
+--   function s:TeXFormat()
+--     setlocal foldmethod=marker
+--   endfunction
+--   augroup formattingHandler
+--     au!
+--     au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
+--     au FileType tex,plaintex call <SID>TeXFormat()
+--   augroup END
+-- ]]
