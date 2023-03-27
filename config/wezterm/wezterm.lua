@@ -8,10 +8,14 @@ return {
         {
             -- family = 'Monocraft',
             family = 'Source Code Pro Medium',
+            -- family = 'FiraCode Nerd Font Mono',
+            -- family = 'JetBrains Mono',
             -- harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
         },
-        'Symbols Nerd Font',
-        'Noto Sans Symbols2',
+        {
+            family = 'Symbols Nerd Font',
+        },
+        -- 'Noto Sans Symbols2',
         'Noto Sans CJK TC',
         'Noto Sans CJK JP',
         'Noto Sans Math',
@@ -27,7 +31,7 @@ return {
     },
     -- enable_kitty_graphics = true,
 
-    -- front_end = "WebGpu",
+    -- front_end = 'WebGpu',
 
     use_fancy_tab_bar = false,
     adjust_window_size_when_changing_font_size = false,
