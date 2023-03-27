@@ -59,12 +59,12 @@ local function reload_packer()
     vim.cmd [[wall]]
     require('plenary.reload').reload_module('config.plugins')
     dofile(vim.fn.expand('$MYVIMRC'))
-    require('packer').sync()
+    require('lazy').sync()
 end
 
 add_group('packer', '<space>p', {
-    p = { '<Cmd>PackerSync<CR>', 'sync' },
-    s = { '<Cmd>PackerStatus<CR>', 'status' },
+    p = { '<Cmd>Lazy sync<CR>', 'sync' },
+    s = { '<Cmd>Lazy<CR>', 'status' },
     r = { reload_packer, 'reload' }
 })
 

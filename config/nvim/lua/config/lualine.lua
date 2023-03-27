@@ -1,24 +1,20 @@
 local colors = {
   bg       = 'NONE',
-
   -- fg       = '#bbc2cf',
   -- yellow   = '#ecbe7b',
   cyan     = '#008080',
   darkblue = '#081633',
   -- green    = '#98be65',
   orange   = '#ff8800',
-
-  fg     = '#d5dbe5',
-  blue   = '#89ddff',
-  green  = '#8bd649',
-  purple = '#82aaff',
-  yellow = '#ffcc00',
-
+  fg       = '#d5dbe5',
+  blue     = '#89ddff',
+  green    = '#8bd649',
+  purple   = '#82aaff',
+  yellow   = '#ffcc00',
   violet   = '#a9a1e1',
   magenta  = '#c678dd',
   -- blue     = '#51afef',
   red      = '#ec5f67',
-
   black    = '#263238',
 }
 
@@ -193,47 +189,55 @@ local tabs = {
   end,
 }
 
-require('lualine').setup {
-  options = {
-    -- Disable sections and component separators
-    component_separators = '|',
-    section_separators = '',
-    -- component_separators = { left = '', right = '' },
-    -- section_separators = { left = '', right = '' },
-    theme = {
-      normal = {
-        a = get_mode_color,
-        b = { fg = colors.fg, bg = colors.bg },
-        c = { fg = colors.fg, bg = colors.bg },
-        y = { fg = colors.fg, bg = colors.bg },
-        x = { fg = '#ffffff', bg = colors.bg, gui = 'bold' },
-        z = get_mode_color,
-      }
-    },
+return {
+  'nvim-lualine/lualine.nvim',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons'
   },
-  sections = {
-    lualine_a = { mode, paste },
-    lualine_b = { filename, branch, diff },
-    lualine_c = {},
-    lualine_x = { diagnostics, lspstatus },
-    lualine_y = { fileformat, fileencoding, filetype },
-    lualine_z = { percent, location }
-  },
-  inactive_sections = {
-    lualine_a = { mode },
-    lualine_b = { filename },
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = { fileformat, fileencoding, filetype },
-    lualine_z = { percent }
-  },
-  tabline = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { tabs },
-    lualine_x = {},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  -- extensions = { 'nvim-tree' }
+  config = function()
+    require('lualine').setup {
+      options = {
+        -- Disable sections and component separators
+        component_separators = '|',
+        section_separators = '',
+        -- component_separators = { left = '', right = '' },
+        -- section_separators = { left = '', right = '' },
+        theme = {
+          normal = {
+            a = get_mode_color,
+            b = { fg = colors.fg, bg = colors.bg },
+            c = { fg = colors.fg, bg = colors.bg },
+            y = { fg = colors.fg, bg = colors.bg },
+            x = { fg = '#ffffff', bg = colors.bg, gui = 'bold' },
+            z = get_mode_color,
+          },
+        },
+      },
+      sections = {
+        lualine_a = { mode, paste },
+        lualine_b = { filename, branch, diff },
+        lualine_c = {},
+        lualine_x = { diagnostics, lspstatus },
+        lualine_y = { fileformat, fileencoding, filetype },
+        lualine_z = { percent, location }
+      },
+      inactive_sections = {
+        lualine_a = { mode },
+        lualine_b = { filename },
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = { fileformat, fileencoding, filetype },
+        lualine_z = { percent }
+      },
+      tabline = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { tabs },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {}
+      },
+      -- extensions = { 'nvim-tree' }
+    }
+  end,
 }

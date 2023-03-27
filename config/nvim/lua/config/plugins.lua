@@ -1,86 +1,105 @@
-return require('packer').startup(function(use)
-  -- use 'wbthomason/packer.nvim' -- currently use yay to manage it
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-  --[[ Basic ]]
-  use 'nvim-lua/plenary.nvim'
-  use 'kyazdani42/nvim-web-devicons'
+local lazy_opts = {
+  ui = {
+    border = 'single',
+  }
+}
 
+require('lazy').setup({
+  {
+    'nvim-tree/nvim-web-devicons',
+  },
   --[[ Edit ]]
-  use {
-      'lukas-reineke/indent-blankline.nvim',
-      config = function() require('indent_blankline').setup {} end
-  }
-  -- use {
-  --   'Yggdroot/indentLine',
-  --   config = function()
-  --     vim.g.indentLine_fileTypeExclude = { 'vimwiki', 'startify', 'alpha', 'lsp-installer', 'packer' }
-  --     vim.g.indentLine_leadingSpaceEnabled = 0
-  --     vim.g.indentLine_bufTypeExclude = { 'help', 'terminal', 'vimwiki' }
-  --   end
-  -- }
-  use {
+  'lukas-reineke/indent-blankline.nvim',
+  {
     'kylechui/nvim-surround',
-    config = function()
-      require('nvim-surround').setup {}
-    end
-  }
-  use 'tommcdo/vim-lion'
-  use 'tpope/vim-repeat'
-  use 'editorconfig/editorconfig-vim'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-  use {
+    config = true,
+  },
+  'tommcdo/vim-lion',
+  -- 'tpope/vim-repeat',
+  'editorconfig/editorconfig-vim',
+  {
     'numToStr/Comment.nvim',
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     config = function()
       require('Comment').setup {
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+        pre_hook =
+            require('ts_context_commentstring.integrations.comment_nvim')
+            .create_pre_hook(),
       }
     end
-  }
-  use {
+  },
+
+  {
     'phaazon/hop.nvim',
     branch = 'v2', -- optional but strongly recommended
-    config = function()
-      require 'hop'.setup {}
-    end
-  }
-  use {
-    'mfussenegger/nvim-treehopper',
-  }
+    config = true,
+  },
+
+  'mbbill/undotree',
 
   --[[ Git ]]
-  use 'sindrets/diffview.nvim'
-  use {
+  {
+    'sindrets/diffview.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+    }
+  },
+  {
     'lewis6991/gitsigns.nvim',
-    config = function() require('gitsigns').setup {} end
-  }
+    config = true,
+  },
 
   --[[ LSP & Completion & Tree-Sitter ]]
-  use {
+  {
     'neovim/nvim-lspconfig',
     'williamboman/nvim-lsp-installer'
-  }
-  use 'hrsh7th/nvim-cmp'
-  use {
+  },
+  'hrsh7th/nvim-cmp',
+  {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-vsnip',
-  }
+  },
 
-  -- use 'hrsh7th/cmp-omni',
-  -- use 'ray-x/lsp_signature.nvim',
-  use 'hrsh7th/vim-vsnip'
-  use 'nvim-treesitter/nvim-treesitter'
+  -- 'hrsh7th/cmp-omni',
+  -- 'ray-x/lsp_signature.nvim',
+  'hrsh7th/vim-vsnip',
+  'nvim-treesitter/nvim-treesitter',
 
   --[[ Appearance ]]
-  use 'goolord/alpha-nvim'
-  use {
+  require('config.alpha_startify'),
+
+  {
     'nvim-tree/nvim-tree.lua',
-    config = function()
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    init = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
-      require('nvim-tree').setup {}
+    end,
+    config = function()
+      require('nvim-tree').setup {
+        respect_buf_cwd = true
+      }
       vim.cmd [[
         function s:opendir()
           if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in')
@@ -94,26 +113,40 @@ return require('packer').startup(function(use)
         augroup END
       ]]
     end
-  }
+  },
 
-  use 'hzchirs/vim-material'
-  use {
+  'hzchirs/vim-material',
+  {
     'kaicataldo/material.vim',
     'lifepillar/vim-solarized8',
     'cpea2506/one_monokai.nvim',
     'shaunsingh/nord.nvim',
     'navarasu/onedark.nvim',
     'Mofiqul/vscode.nvim',
-  }
-  use 'xiyaowong/transparent.nvim'
+  },
 
-  use 'nvim-lualine/lualine.nvim'
+  'xiyaowong/transparent.nvim',
+
+  require('config.lualine'),
+
+  -- 'ap/vim-css-color',
+  {
+    'norcalli/nvim-colorizer.lua',
+    opts = { 'css', 'javascript', 'html', 'lua', 'rasi' },
+    config = true,
+  },
 
   --[[ Nice Toolkit ]]
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use {
+  {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.1',
+    version = '0.1.1',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make'
+      },
+    },
     config = function()
       local find_command = { 'fd', '--type', 'f' }
       require('telescope').setup {
@@ -131,9 +164,9 @@ return require('packer').startup(function(use)
       }
       require('telescope').load_extension('fzf')
     end
-  }
+  },
 
-  use {
+  {
     'folke/which-key.nvim',
     config = function()
       require('which-key').setup {
@@ -143,14 +176,20 @@ return require('packer').startup(function(use)
         }
       }
     end
-  }
-  use 'kevinhwang91/vim-ibus-sw'
-  use 'lambdalisue/suda.vim'
+  },
+
+  {
+    'kevinhwang91/vim-ibus-sw',
+    config = function()
+      require('ibus-sw').setup()
+    end
+  },
+  'lambdalisue/suda.vim',
 
   --[[ Filetype Plugins ]]
-  use {
+  {
     'vimwiki/vimwiki',
-    config = function()
+    init = function()
       vim.g.vimwiki_global_ext = 0
       vim.g.vimwiki_url_maxsave = 0
       vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki' } }
@@ -158,12 +197,17 @@ return require('packer').startup(function(use)
         autocmd FileType vimwiki setlocal nowrap concealcursor=
       ]]
     end
-  }
-  use 'Julian/lean.nvim'
+  },
 
-  use {
+  {
+    'Julian/lean.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    }
+  },
+
+  {
     'kchmck/vim-coffee-script',
-    'ap/vim-css-color',
     'cespare/vim-toml',
     'itchyny/vim-haskell-indent',
     'pangloss/vim-javascript',
@@ -173,17 +217,19 @@ return require('packer').startup(function(use)
     'posva/vim-vue',
     'digitaltoad/vim-pug',
     'Fymyte/rasi.vim',
-  }
+  },
 
-  use 'mbbill/undotree'
-
-  use {
+  {
     'jbyuki/nabla.nvim',
     config = function()
       vim.cmd [[
-        nnoremap <silent> <leader>p :lua require("nabla").popup()<CR>
+        nnoremap <silent> <leader>p :lua require('nabla').popup()<CR>
         " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
       ]]
     end
-  }
-end)
+  },
+
+  {
+    'lifepillar/vim-colortemplate'
+  },
+}, lazy_opts)
