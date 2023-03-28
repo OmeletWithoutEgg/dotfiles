@@ -51,8 +51,10 @@ add_group('telescope', '<space>f', {
   r = { '<Cmd>Telescope oldfiles<CR>', 'recent files' },
   f = { '<Cmd>Telescope find_files<CR>', 'files' },
   w = { '<Cmd>Telescope live_grep<CR>', 'live grep' },
-  c = { '<Cmd>Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>',
-    'config files' },
+  c = {
+    '<Cmd>Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>',
+    'config files'
+  },
 })
 
 add_group('plugins', '<space>p', {
@@ -61,7 +63,7 @@ add_group('plugins', '<space>p', {
 })
 
 add_group('vcs_diffview', '<space>vd', {
-  d = { '<Cmd>DiffviewOpen<CR>', 'open' },
+  o = { '<Cmd>DiffviewOpen<CR>', 'open' },
   t = { '<Cmd>DiffviewToggleFiles<CR>', 'toggle files' },
   c = { '<Cmd>DiffviewClose<CR>', 'close' }
 })

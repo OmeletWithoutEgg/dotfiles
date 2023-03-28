@@ -7,5 +7,7 @@ return {
         registers = false,         -- shows your registers on " in NORMAL or <C-r> in INSERT mode
       }
     }
-  end
+    require('config.mappings') -- TODO remove this
+  end,
+  event = 'VeryLazy',
 }

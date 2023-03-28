@@ -50,7 +50,7 @@ function s:MarkdownMapping()
 endfunction
 
 function s:VimwikiMapping()
-    nnoremap <buffer> <space> <Plug>VimwikiToggleListItem
+    nnoremap <buffer> <space><space> <Plug>VimwikiToggleListItem
     nnoremap <buffer> = <nop>
     nnoremap <buffer> - <nop>
     nnoremap <buffer> # <Plug>VimwikiAddHeaderLevel
@@ -87,9 +87,14 @@ function s:TeXFormat()
     " setlocal linebreak
 endfunction
 
+function s:VimwikiSetup()
+  setlocal nowrap concealcursor=
+endfunction
+
 augroup formattingHandler
     au!
     au FileType javascript,vue call <SID>JSFormat()
     au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
     au FileType tex,plaintex call <SID>TeXFormat()
+    au FileType vimwiki call <SID>VimwikiSetup()
 augroup END

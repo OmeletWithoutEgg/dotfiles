@@ -1,6 +1,6 @@
 -- https://raw.githubusercontent.com/CosmicNvim/CosmicNvim/main/lua/cosmic/plugins/nvim-cmp/config.lua
 -- vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'preview' }
-vim.opt.pumheight = 10
+vim.opt.pumheight = 5
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')

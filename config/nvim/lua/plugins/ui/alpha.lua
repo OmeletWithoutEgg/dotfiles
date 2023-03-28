@@ -23,6 +23,8 @@ return {
 
     local config = startify.config
     config.layout[3].val = 1
+
     require('alpha').setup(config)
   end
 }
+

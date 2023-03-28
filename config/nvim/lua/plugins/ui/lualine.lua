@@ -25,11 +25,11 @@ local conditions = {
   hide_in_width = function()
     return vim.fn.winwidth(0) > 80
   end,
-  check_git_workspace = function()
-    local filepath = vim.fn.expand('%:p:h')
-    local gitdir = vim.fn.finddir('.git', filepath .. ';')
-    return gitdir and #gitdir > 0 and #gitdir < #filepath
-  end,
+  -- check_git_workspace = function()
+  --   local filepath = vim.fn.expand('%:p:h')
+  --   local gitdir = vim.fn.finddir('.git', filepath .. ';')
+  --   return gitdir and #gitdir > 0 and #gitdir < #filepath
+  -- end,
   buf_has_lsp = function()
     local buf_clients = vim.lsp.buf_get_clients()
     return #buf_clients ~= 0
@@ -185,6 +185,12 @@ local tabs = {
     local winnr = vim.fn.tabpagewinnr(context.tabnr)
     local bufnr = buflist[winnr]
     local mod = vim.fn.getbufvar(bufnr, '&mod')
+    if vim.bo.buftype == 'nofile' then
+      return vim.bo.filetype
+    end
+    if vim.bo.buftype ~= '' then
+      return vim.bo.buftype
+    end
     return name .. (mod == 1 and ' +' or '')
   end,
 }

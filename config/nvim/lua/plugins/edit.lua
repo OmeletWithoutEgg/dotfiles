@@ -16,7 +16,6 @@ return {
             .create_pre_hook(),
       }
     end,
-    event = 'VeryLazy',
   },
 
   {

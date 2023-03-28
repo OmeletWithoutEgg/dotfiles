@@ -11,7 +11,6 @@ o.shiftwidth = 2
 o.softtabstop = 2
 o.hlsearch = true
 
-o.laststatus = 2
 o.mouse = 'nvh'
 o.cinoptions = 'j1'
 o.cursorline = true
@@ -25,3 +24,5 @@ o.signcolumn = 'yes:1'
 
 o.ruler = false
 o.fillchars = 'eob: '
+
+o.laststatus = 3 -- experimental?

@@ -1,6 +1,5 @@
 require('config.options')
 require('plugins')
-require('config.mappings')
 
 local group = vim.api.nvim_create_augroup('CustomVimMaterial', {})
 vim.api.nvim_create_autocmd('ColorScheme', {
@@ -12,7 +11,9 @@ vim.api.nvim_create_autocmd('ColorScheme', {
       hi Search ctermfg=yellow guifg=yellow
       hi CursorLine term=NONE cterm=NONE
       hi CursorLineNr cterm=NONE
-      hi TabLineFill gui=none " prevent lualine flash
+      hi TabLineFill gui=NONE " prevent lualine flash
+      hi TabLineSel gui=NONE " prevent lualine flash
+      hi TabLine gui=NONE " prevent lualine flash
     ]]
   end
 })
@@ -20,7 +21,12 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 vim.o.background = 'dark'
 vim.cmd.colorscheme [[vim-material]]
 
-vim.cmd(string.format([[source %s/buf.vim]], vim.fn.stdpath('config')))
+vim.cmd(
+  string.format(
+    [[source %s/buf.vim]],
+    vim.fn.stdpath('config')
+  )
+)
 
 -- vim.cmd [[
 --   function s:TeXFormat()

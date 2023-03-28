@@ -17,11 +17,23 @@ local lazy_opts = {
   }
 }
 
+local function VeryLazy(plugins)
+  --- WARN: this function does not go deep
+  for key, plugin in pairs(plugins) do
+    if type(plugin) == 'string' then
+      plugins[key] = { plugin, event = 'VeryLazy' }
+    else
+      plugins[key].event = 'VeryLazy'
+    end
+  end
+  return plugins
+end
+
 require('lazy').setup({
   -- 'nvim-tree/nvim-web-devicons',
 
   -- [[ Edit ]]
-  require('plugins.edit'),
+  VeryLazy(require('plugins.edit')),
 
   --[[ Git ]]
   {
@@ -29,11 +41,13 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
-    }
+    },
+    event = 'VeryLazy',
   },
   {
     'lewis6991/gitsigns.nvim',
     config = true,
+    event = 'VeryLazy',
   },
 
   --[[ LSP & Completion & Tree-Sitter ]]
@@ -54,6 +68,7 @@ require('lazy').setup({
     'norcalli/nvim-colorizer.lua',
     config = true,
     opts = { 'css', 'javascript', 'html', 'lua', 'rasi' },
+    event = 'VeryLazy',
   },
 
   -- [[ Tool ]]
@@ -65,16 +80,18 @@ require('lazy').setup({
     config = function()
       require('session_manager').setup {
         autoload_mode =
-          require('session_manager.config').AutoloadMode.Disabled,
+            require('session_manager.config').AutoloadMode.Disabled,
         autosave_last_session = false,
       }
-    end
+    end,
+    event = 'VeryLazy',
   },
 
   {
     'kevinhwang91/vim-ibus-sw',
     name = 'ibus-sw',
     config = true,
+    event = 'VeryLazy',
   },
   'lambdalisue/suda.vim',
 
@@ -85,14 +102,11 @@ require('lazy').setup({
       vim.g.vimwiki_global_ext = 0
       vim.g.vimwiki_url_maxsave = 0
       vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki' } }
-      vim.cmd [[
-        autocmd FileType vimwiki setlocal nowrap concealcursor=
-      ]]
     end,
     event = 'VeryLazy',
   },
 
-  {
+  VeryLazy {
     'kchmck/vim-coffee-script',
     'cespare/vim-toml',
     'itchyny/vim-haskell-indent',
@@ -113,7 +127,8 @@ require('lazy').setup({
         nnoremap <silent> <leader>p :lua require('nabla').popup()<CR>
         " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
       ]]
-    end
+    end,
+    event = 'VeryLazy',
   },
 
   -- 'jubnzv/mdeval.nvim',
