@@ -11,9 +11,9 @@ export PATH="$HOME"/.local/bin:"$XDG_CONFIG_HOME"/emacs/bin:$PATH
 export FD_OPTIONS="--color=always"
 export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='fzf-preview.sh {}' \
     --preview-window='right:hidden:60%:wrap' \
-    --bind='ctrl-a:toggle-preview,ctrl-y:execute(echo {+} | copy.sh)' \
-    --bind='ctrl-d:half-page-down,ctrl-u:half-page-up' \
-    --bind='ctrl-n:preview-page-down,ctrl-p:preview-page-up'"
+    --bind='ctrl-a:toggle-preview,ctrl-y:execute(echo {+} | copy.sh)+abort' \
+    --bind='ctrl-f:page-down,ctrl-b:page-up' \
+    --bind='ctrl-d:preview-page-down,ctrl-u:preview-page-up'"
 # export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 #     --color=fg:#CCCCCC,bg:#18191E,hl:#FFFF00
 #     --color=fg+:#FFEE79,bg+:#21252D,hl+:#ED722E
@@ -52,7 +52,7 @@ export XMODIFIERS="@im=ibus"
 
 # export QT_QPA_PLATFORM="wayland"
 
-export TPS_TASK_TEMPLATES_PATH=$HOME/.local/share/tps/task-templates
+export TPS_TASK_TEMPLATES_PATH="$XDG_DATA_HOME"/tps/task-templates
 
 SSH_AGENT_PID=`pgrep -U $USER -o 'ssh-agent'`
 if [ -z $SSH_AGENT_PID ]; then
