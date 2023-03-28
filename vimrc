@@ -16,7 +16,7 @@ Plug 'tribela/vim-transparent'
 
 """ File browser & git tools
 " Plug 'vifm/vifm.vim'
-Plug 'preservim/nerdtree' " <F2>/<leader>t for toggle nerdtree
+Plug 'preservim/nerdtree' " file browser
 Plug 'ryanoasis/vim-devicons'
 Plug 'bryanmylee/vim-colorscheme-icons'
 Plug 'tpope/vim-fugitive'
@@ -104,7 +104,7 @@ let g:lightline = {
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
 let g:startify_bookmarks = ['~/.vimrc']
 """ <Plug> nerdtree
-nnoremap <silent> <leader>n :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
+nnoremap <silent> <space>nt :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
 let g:NERDTreeSortOrder = ['\/$', '*', '\.swp$',  '\.bak$', '\~$', '[[extension]]', '[[-timestamp]]']
 " autocmd FileType nerdtree setlocal nolist
 """ <Plug> indentLine
@@ -169,6 +169,7 @@ set ttimeoutlen=0
 set wildmenu wildoptions=pum
 " set listchars=trail:␣,eol:$,tab:►\ ,extends:⟩,precedes:⟨,space:·,trail:•
 set fillchars=vert:│,fold:-,eob:\ 
+set smartcase ignorecase incsearch
 
 augroup rnutoggle
     au!
@@ -183,6 +184,7 @@ vnoremap <silent> K :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <C-g> 1<C-g>
+
 command Codeforces %d_<bar>0r ~/CompetitiveProgramming/templates/main.cpp<bar>15,101fo<bar>111
 
 let g:gcc_compile_flag = '-g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address'
