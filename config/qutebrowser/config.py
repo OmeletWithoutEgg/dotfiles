@@ -1,4 +1,6 @@
 # ~/.config/qutebrowser/config.py
+import urllib
+
 
 def dummy(): global c, config  # disable pyflakes error
 
@@ -29,6 +31,13 @@ c.window.hide_decoration = True
 
 c.url.default_page = 'https://google.com'
 c.url.start_pages = 'https://codeforces.com'
+
+
+def make_sites_query(sites):
+    query = '(' + ' OR '.join([f'site:{site}' for site in sites]) + ') '
+    return urllib.parse.quote_plus(query)
+
+
 c.url.searchengines = {
     # TODO nitter
     'DEFAULT':  'https://duckduckgo.com/?q={}',
@@ -36,9 +45,18 @@ c.url.searchengines = {
     # 'searchyt': 'https://youtu.be/results?search_query={}',
     'toen':     'https://translate.google.com/?sl=auto&tl=en&&text={}',
     'tozh':     'https://translate.google.com/?sl=auto&tl=zh-tw&&text={}',
-    'archpkg':  'https://archlinux.org/packages/?q={}',
     'archwiki': 'https://wiki.archlinux.org/index.php?search={}',
+    'archpkg':  'https://archlinux.org/packages/?q={}',
     'aurpkg':   'https://aur.archlinux.org/packages?O=0&K={}',
+    'pkg':
+        'https://duckduckgo.com/?q={}%20' + make_sites_query([
+            'repology.org',
+            'pkgs.org',
+            'aur.archlinux.org',
+            'archlinux.org/packages',
+            'hub.docker.com',
+            'pypi.org',
+        ]),
 }
 
 c.zoom.default = '125%'
