@@ -8,7 +8,7 @@ return {
         {
             -- family = 'Monocraft',
             family = 'Source Code Pro Medium',
-            -- family = 'FiraCode Nerd Font Mono',
+            -- family = 'FiraCode Nerd Font',
             -- family = 'JetBrains Mono',
             -- harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
         },
@@ -20,7 +20,7 @@ return {
         'Noto Sans CJK JP',
         'Noto Sans Math',
     }),
-    font_size = 16,
+    font_size = 14,
 
     window_decorations = 'NONE',
     window_padding = {
