@@ -15,7 +15,6 @@ Plug 'mhinz/vim-startify'
 Plug 'tribela/vim-transparent'
 
 """ File browser & git tools
-" Plug 'vifm/vifm.vim'
 Plug 'preservim/nerdtree' " file browser
 Plug 'ryanoasis/vim-devicons'
 Plug 'bryanmylee/vim-colorscheme-icons'
@@ -23,7 +22,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 " Plug 'mhinz/vim-signify'
 " let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
-" Plug 'mileszs/ack.vim'
 
 """ Language-specific
 Plug 'kchmck/vim-coffee-script'
@@ -31,7 +29,7 @@ Plug 'ap/vim-css-color'
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
 " Plug 'sheerun/vim-polyglot'
-Plug 'cespare/vim-toml' " TOML syntax highlight
+Plug 'cespare/vim-toml'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -39,46 +37,40 @@ Plug 'mxw/vim-jsx'
 Plug 'petRUShka/vim-sage'
 Plug 'isobit/vim-caddyfile'
 Plug 'posva/vim-vue'
-" Plug 'vim-latex/vim-latex'
-Plug 'preservim/vim-markdown'
-Plug 'godlygeek/tabular'
-" Plug 'joker1007/vim-markdown-quote-syntax'
 
 """ Functional
-Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary' " gc for comment
 Plug 'suy/vim-context-commentstring'
-Plug 'inkarkat/vim-ReplaceWithRegister' " gr for replace
+" Plug 'inkarkat/vim-ReplaceWithRegister' " gr for replace
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
-" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'mbbill/undotree'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'kevinhwang91/vim-ibus-sw', { 'commit': '83bcdce5cd5c0ef7b129916ea4fb3be27194230b' }
 " Plug 'lilydjwg/fcitx.vim'
 " let g:fcitx5_remote = 'fcitx5-remote'
 
-" Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
-
+Plug 'vimwiki/vimwiki', { 'branch': 'master' }
+" Plug 'vim-latex/vim-latex'
+Plug 'preservim/vim-markdown'
+Plug 'godlygeek/tabular'
+" Plug 'joker1007/vim-markdown-quote-syntax'
 Plug 'lervag/vimtex'
+" Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
 
 Plug 'junegunn/fzf.vim'
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-
-" function! s:RipgrepFzf(query, fullscreen)
-"   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-"   let initial_command = printf(command_fmt, shellescape(a:query))
-"   let reload_command = printf(command_fmt, '{q}')
-"   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-"   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-" endfunction
-" 
-" command! -nargs=* -bang RG call <SID>RipgrepFzf(<q-args>, <bang>0)
+nnoremap <silent> <space>ac :FzfColors<CR>
+nnoremap <silent> <space>ff :FzfFiles<CR>
+nnoremap <silent> <space>fr :FzfHistory<CR>
 
 call plug#end()
 
+nnoremap <silent> <space>pp :PlugUpgrade<bar>PlugUpdate<CR>
+
+""" UI plugins {{{
 """ <Plug> vim-material
 au ColorScheme *
             \ hi Comment cterm=NONE gui=NONE |
@@ -104,7 +96,7 @@ let g:lightline = {
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
 let g:startify_bookmarks = ['~/.vimrc']
 """ <Plug> nerdtree
-nnoremap <silent> <space>nt :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
+nnoremap <silent> <space>e :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
 let g:NERDTreeSortOrder = ['\/$', '*', '\.swp$',  '\.bak$', '\~$', '[[extension]]', '[[-timestamp]]']
 " autocmd FileType nerdtree setlocal nolist
 """ <Plug> indentLine
@@ -112,8 +104,10 @@ let g:indentLine_fileTypeExclude = ['startify', 'vimwiki']
 let g:indentLine_leadingSpaceEnabled = 0
 let g:indentLine_bufTypeExclude = ['help', 'terminal', 'vimwiki']
 """ <Plug> transparent
-nnoremap <silent> <leader>o <Cmd>TransparentToggle<CR>
+nnoremap <silent> <space>at :TransparentToggle<CR>
+""" }}}
 
+""" Markdown & Tex & vimwiki {{{
 """ <Plug> vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
@@ -124,7 +118,6 @@ let g:vim_markdown_frontmatter = 1 " YAML
 let g:vim_markdown_math = 1
 """ <Plug> vim-tabular
 let g:tex_conceal='' " tabular
-"
 """ <Plug> vimtex
 let g:vimtex_view_general_viewer = 'okular'
 let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
@@ -142,25 +135,22 @@ let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 """ <Plug> vimwiki
 let g:vimwiki_global_ext = 0
+let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_url_maxsave = 0
-au ColorScheme *
-            \ hi VimwikiHeader1 guifg=#89DDFF |
-            \ hi VimwikiHeader2 guifg=#C3E88D |
-            \ hi VimwikiHeader3 guifg=#FFCB6B |
-            \ hi VimwikiHeader4 guifg=#F07178 |
-au FileType vimwiki setlocal nowrap concealcursor=
 let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.wiki'}]
-
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" just to override
 " let wiki = {}
 " let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
+
 """ <Plug> ultisnips
 let g:UltiSnipsExpandTrigger = '<space>'
 let g:UltiSnipsJumpForwardTrigger = '<C-j>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 " let g:UltiSnipsListSnippets = '<C-H>'
+""" }}}
 
-""" Basic
+""" Basic Option {{{
 syntax on
 set nu rnu cin bs=2 et sw=4 sts=4 hls
 set belloff=all laststatus=2 mouse=a cino=j1
@@ -170,6 +160,9 @@ set wildmenu wildoptions=pum
 " set listchars=trail:␣,eol:$,tab:►\ ,extends:⟩,precedes:⟨,space:·,trail:•
 set fillchars=vert:│,fold:-,eob:\ 
 set smartcase ignorecase incsearch
+set foldmethod=marker
+set colorcolumn=100
+""" }}}
 
 augroup rnutoggle
     au!
@@ -185,102 +178,13 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap <C-g> 1<C-g>
 
-command Codeforces %d_<bar>0r ~/CompetitiveProgramming/templates/main.cpp<bar>15,101fo<bar>111
-
-let g:gcc_compile_flag = '-g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address'
-
-function s:CMapping()
-    nnoremap <buffer> <leader>b :w<bar>execute '!gcc % -o %:r ' . g:gcc_compile_flag<CR>
-    nnoremap <buffer> <leader>r :!./%:r<CR>
-endfunction
-
-function s:CppMapping()
-    " nnoremap <F8> :w<bar>!./run.sh<CR>
-    nnoremap <buffer> <leader>b :w<bar>execute '!g++ % -o %:r -std=c++17 ' . g:gcc_compile_flag<CR>
-    nnoremap <buffer> <leader>r :!./%:r<CR>
-endfunction
-
-function s:PythonMapping()
-    nnoremap <buffer> <leader>r :w<bar>!python3 %<CR>
-endfunction
-
-function s:SageMapping()
-    nnoremap <buffer> <leader>r :w<bar>!sage %<CR>
-endfunction
-
-function s:VimrcMapping()
-    nnoremap <buffer> <leader>r :w<bar>so %<CR>
-endfunction
-
-function s:ShellScriptMapping()
-    nnoremap <buffer> <leader>r :w<bar>!bash %<CR>
-endfunction
-
-function s:LaTeXMapping()
-    " nnoremap <buffer> <leader>b :w<bar>!make<CR>
-    nnoremap <buffer> <leader>r :!okular --unique main.pdf &<CR>
-    " inoremap <buffer> <leader>bm \begin{bmatrix}<CR>\end{bmatrix}<ESC>O
-    " inoremap <buffer> <leader>bee \begin{enumerate}<CR>\end{enumerate}<ESC>O
-    " inoremap <buffer> <leader>bei \begin{itemize}<CR>\end{itemize}<ESC>O
-    " inoremap <buffer> <leader>bea \begin{align*}<CR>\end{align*}<ESC>O
-    " inoremap <buffer> <leader>bf \begin{frame}{}<CR>\end{frame}<ESC>O
-    " inoremap <buffer> <leader>bb \begin{block}{}<CR>\end{block}<ESC>O
-    " inoremap <buffer> <leader>env <ESC>^"pc$\begin{<C-o>"pp}<CR>\end{<C-o>"pp}<ESC>O
-endfunction
-
-function s:HaskellMapping()
-    nnoremap <buffer> <leader>b :w<bar>!ghc % -o %:r -dynamic<CR>
-    nnoremap <buffer> <leader>r :!./%:r<CR>
-    nnoremap <buffer> <leader>i :w<bar>!ghci %<CR>
-endfunction
-
-function s:MarkdownMapping()
-    nnoremap <buffer> <leader>t :TableFormat<CR>
-endfunction
-
-function s:VimwikiMapping()
-    nnoremap <buffer> <space> <Plug>VimwikiToggleListItem
-    nnoremap <buffer> = <nop>
-    nnoremap <buffer> - <nop>
-    nnoremap <buffer> # <Plug>VimwikiAddHeaderLevel
-    nnoremap <buffer> L <Plug>VimwikiFollowLink
-    nnoremap <buffer> H <Plug>VimwikiGoBackLink
-endfunction
-
-augroup mappingHandler
-    au!
-    au FileType c call <SID>CMapping()
-    au FileType cpp call <SID>CppMapping()
-    au FileType haskell call <SID>HaskellMapping()
-    au FileType python call <SID>PythonMapping()
-    au FileType sage.python call <SID>SageMapping()
-    au FileType vim call <SID>VimrcMapping()
-    au FileType tex,plaintex call <SID>LaTeXMapping()
-    au FileType markdown call <SID>MarkdownMapping()
-    au FileType vimwiki call <SID>VimwikiMapping()
-    au FileType sh call <SID>ShellScriptMapping()
-    nnoremap <leader>m :w<bar>!make test<CR>
-augroup END
-
-function s:JSFormat()
-    setlocal cc=100
-    " setlocal sts=2 sw=2 cc=100
-endfunction
-
-function s:TeXFormat()
-    setlocal foldmethod=marker
-    " setlocal cc=80
-    " setlocal textwidth=80
-    " setlocal wrapmargin=0
-    " setlocal formatoptions+=t
-    " setlocal linebreak
-endfunction
+let g:gcc_compile_flag = '-g -Dlocal -Ofast ' .
+            \ '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' .
+            \ '-fsanitize=undefined,address'
 
 augroup formattingHandler
     au!
-    au FileType javascript,vue call <SID>JSFormat()
     au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
-    au FileType tex,plaintex call <SID>TeXFormat()
 augroup END
 
 nmap <F9> <leader>b
@@ -288,13 +192,15 @@ nmap <F10> <leader>r
 
 noh
 
-" vim hardcodes background color erase even if the terminfo file does
-" not contain bce (not to mention that libvte based terminals
-" incorrectly contain bce in their terminfo files). This causes
-" incorrect background rendering when using a color theme with a
-" background color.
+" Terminal Emulator Specific problem {{{
+" vim hardcodes background color erase even if the
+" terminfo file does not contain bce (not to mention that
+" libvte based terminals incorrectly contain bce in their
+" terminfo files). This causes incorrect background
+" rendering when using a color theme with a background color.
 " let &t_ut='' " kitty
 
 if (&term == "alacritty" || &term == "kitty")
     let &term = "xterm-256color"
 endif
+" }}}
