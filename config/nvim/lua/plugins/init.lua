@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local lazy_opts = {
   ui = {
     border = 'single',
-  }
+  },
 }
 
 local function VeryLazy(plugins)
@@ -100,10 +100,10 @@ require('lazy').setup({
     'vimwiki/vimwiki',
     init = function()
       vim.g.vimwiki_global_ext = 0
+      vim.g.vimwiki_markdown_link_ext = 1
       vim.g.vimwiki_url_maxsave = 0
-      vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.wiki' } }
+      vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md' } }
     end,
-    event = 'VeryLazy',
   },
 
   VeryLazy {
@@ -117,6 +117,18 @@ require('lazy').setup({
     'posva/vim-vue',
     'digitaltoad/vim-pug',
     'Fymyte/rasi.vim',
+    {
+      'preservim/vim-markdown',
+      init = function()
+        vim.g.vim_markdown_folding_disabled = 1
+        -- vim.g.vim_markdown_no_default_key_mappings = 1
+        vim.g.vim_markdown_conceal = 0
+        vim.g.vim_markdown_conceal_code_blocks = 0
+        -- vim.g. g:vim_markdown_toml_frontmatter = 1
+        vim.g.vim_markdown_frontmatter = 1 -- YAML
+        vim.g.vim_markdown_math = 1
+      end
+    },
   },
 
   -- [[ Misc ]]

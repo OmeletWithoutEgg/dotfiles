@@ -25,7 +25,7 @@ local lsps = {
   -- solargraph = {}, -- ruby
   vuels = {},
   -- volar = {},
-  marksman = {},
+  -- marksman = { filetypes = { 'markdown', 'vimwiki' } },
   cssls = {},
 }
 

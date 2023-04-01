@@ -10,5 +10,4 @@ return {
     'folke/which-key.nvim',
     -- 'ray-x/lsp_signature.nvim',
   },
-  event = 'VeryLazy',
 }

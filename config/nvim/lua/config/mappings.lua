@@ -47,9 +47,18 @@ map('v', '>', '>gv')
 -- map('v', 'K', [[<Cmd>m-2<CR>gv=gv]])
 map('n', '<C-g>', '1<C-g>')
 
+
+local function project_files()
+  local opts = {} -- define here if you want to define something
+  local ok = pcall(require('telescope.builtin').git_files, opts)
+  if not ok then
+    require('telescope.builtin').find_files(opts)
+  end
+end
+
 add_group('telescope', '<space>f', {
   r = { '<Cmd>Telescope oldfiles<CR>', 'recent files' },
-  f = { '<Cmd>Telescope find_files<CR>', 'files' },
+  f = { project_files, 'files' },
   w = { '<Cmd>Telescope live_grep<CR>', 'live grep' },
   c = {
     '<Cmd>Telescope find_files cwd=' .. vim.fn.stdpath('config') .. '<CR>',
@@ -73,8 +82,8 @@ add_group('vcs', '<space>v', {
   s = { '<Cmd>Telescope git_status<CR>', 'git status' }
 })
 
-add_group('nvim_tree', '<space>n', {
-  t = { '<Cmd>NvimTreeToggle<CR>', 'toggle' }
+add_group('nvim_tree', '<space>e', {
+  [''] = { '<Cmd>NvimTreeToggle<CR>', 'toggle' }
 })
 
 -- local function treehop()

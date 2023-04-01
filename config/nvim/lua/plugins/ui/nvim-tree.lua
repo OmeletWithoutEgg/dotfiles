@@ -9,11 +9,11 @@ return {
   end,
   config = function()
     require('nvim-tree').setup {
-      respect_buf_cwd = true
+      respect_buf_cwd = true,
     }
     vim.cmd [[
       function s:opendir()
-        if exists('s:stdin') then
+        if exists('s:stdin')
           return
         end
         if argc() == 1 && isdirectory(argv()[0])
@@ -27,5 +27,5 @@ return {
       augroup END
     ]]
   end,
-  event = 'VeryLazy',
+  -- event = 'VeryLazy',
 }

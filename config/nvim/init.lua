@@ -21,20 +21,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 vim.o.background = 'dark'
 vim.cmd.colorscheme [[vim-material]]
 
-vim.cmd(
-  string.format(
-    [[source %s/buf.vim]],
-    vim.fn.stdpath('config')
-  )
-)
-
--- vim.cmd [[
---   function s:TeXFormat()
---     setlocal foldmethod=marker
---   endfunction
---   augroup formattingHandler
---     au!
---     au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
---     au FileType tex,plaintex call <SID>TeXFormat()
---   augroup END
--- ]]
+vim.g.gcc_compile_flag =
+    '-g -Dlocal -Ofast ' ..
+    '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' ..
+    '-fsanitize=undefined,address'

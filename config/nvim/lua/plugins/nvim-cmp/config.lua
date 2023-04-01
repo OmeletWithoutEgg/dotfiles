@@ -1,6 +1,6 @@
 -- https://raw.githubusercontent.com/CosmicNvim/CosmicNvim/main/lua/cosmic/plugins/nvim-cmp/config.lua
 -- vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'preview' }
-vim.opt.pumheight = 5
+-- vim.opt.pumheight = 5
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
@@ -14,6 +14,10 @@ local has_words_before = function()
 end
 
 local default_cmp_opts = {
+  completion = {
+    autocomplete = false,
+  },
+
   enabled = function()
     -- disable completion in comments
     local context = require('cmp.config.context')
@@ -29,6 +33,7 @@ local default_cmp_opts = {
       luasnip.lsp_expand(args.body)
     end,
   },
+
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -69,10 +74,10 @@ local default_cmp_opts = {
     }),
   }),
   window = {
-    completion = {
-      border = border,
-      winhighlight = 'FloatBorder:FloatBorder,Normal:Normal',
-    },
+    -- completion = {
+    --   border = border,
+    --   winhighlight = 'FloatBorder:FloatBorder,Normal:Normal',
+    -- },
     documentation = {
       border = border,
       winhighlight = 'FloatBorder:FloatBorder,Normal:Normal',
