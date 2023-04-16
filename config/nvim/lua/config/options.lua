@@ -25,6 +25,6 @@ o.signcolumn = 'yes:1'
 o.ruler = false
 o.fillchars = 'eob: '
 
-o.foldmethod = 'marker'
+-- o.foldmethod = 'marker'
 
 o.laststatus = 3 -- experimental?

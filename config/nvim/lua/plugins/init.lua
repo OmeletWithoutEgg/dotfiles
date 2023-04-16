@@ -103,6 +103,7 @@ require('lazy').setup({
       vim.g.vimwiki_markdown_link_ext = 1
       vim.g.vimwiki_url_maxsave = 0
       vim.g.vimwiki_list = { { path = '~/vimwiki/', syntax = 'markdown', ext = '.md' } }
+      -- vim.g.vimwiki_folding = 'expr'
     end,
   },
 
@@ -142,7 +143,5 @@ require('lazy').setup({
     end,
     event = 'VeryLazy',
   },
-
   -- 'jubnzv/mdeval.nvim',
-
 }, lazy_opts)

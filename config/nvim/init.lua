@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 vim.o.background = 'dark'
 vim.cmd.colorscheme [[vim-material]]
+-- vim.cmd.colorscheme [[material]]
 
 vim.g.gcc_compile_flag =
     '-g -Dlocal -Ofast ' ..

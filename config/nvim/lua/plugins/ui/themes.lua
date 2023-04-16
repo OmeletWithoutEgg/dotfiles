@@ -18,5 +18,6 @@ return {
     'shaunsingh/nord.nvim',
     'navarasu/onedark.nvim',
     'Mofiqul/vscode.nvim',
+    'folke/tokyonight.nvim',
   },
 }

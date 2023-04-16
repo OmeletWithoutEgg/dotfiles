@@ -1,7 +1,7 @@
 local treesitter_opts = {
   -- A list of parser names, or 'all' (the four listed parsers should always be installed)
   ensure_installed = {
-    'c', 'lua', 'vim', 'help',
+    'c', 'lua', 'vim', 'vimdoc',
     'dockerfile', 'make',
     'javascript',
     'cpp', 'rust',
@@ -11,6 +11,8 @@ local treesitter_opts = {
     'haskell',
     'bash',
     'toml', 'yaml', 'html', 'css', 'rasi', 'scss',
+
+    'markdown', 'markdown_inline',
   },
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -21,8 +23,8 @@ local treesitter_opts = {
     enable = true
   },
   highlight = {
-    enable = true,
-    disable = { 'markdown' },
+    enable = false,
+    -- disable = { 'markdown' },
 
     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
@@ -44,7 +46,6 @@ local treesitter_opts = {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
-
   textobjects = {
     select = {
       enable = true,
@@ -57,27 +58,69 @@ local treesitter_opts = {
         ['ac'] = '@class.outer',
         -- You can optionally set descriptions to the mappings (used in the desc parameter of
         -- nvim_buf_set_keymap) which plugins like which-key display
-        ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
+        ['ic'] = '@class.inner',
         -- You can also use captures from other query groups like `locals.scm`
         ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
       },
     },
   },
-
   autotag = {
     enable = true,
+  },
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
   },
 }
 
 return {
-  'nvim-treesitter/nvim-treesitter',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    'windwp/nvim-ts-autotag',
+  {
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      'windwp/nvim-ts-autotag',
+      'JoosepAlviste/nvim-ts-context-commentstring',
+      'numToStr/Comment.nvim',
+    },
+    config = function()
+      require('nvim-treesitter.configs').setup(treesitter_opts)
+      require('Comment').setup {
+        pre_hook =
+            require('ts_context_commentstring.integrations.comment_nvim')
+            .create_pre_hook(),
+      }
+    end,
+    build = ':TSUpdate',
+    event = 'VeryLazy',
   },
-  config = function()
-    require('nvim-treesitter.configs').setup(treesitter_opts)
-  end,
-  build = ':TSUpdate',
-  event = 'VeryLazy',
+
+  {
+    'kiyoon/treesitter-indent-object.nvim',
+    keys = {
+      {
+        "ai",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer()<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (outer)",
+      },
+      {
+        "aI",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer(true)<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (outer, line-wise)",
+      },
+      {
+        "ii",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner()<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (inner, partial range)",
+      },
+      {
+        "iI",
+        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner(true)<CR>",
+        mode = { "x", "o" },
+        desc = "Select context-aware indent (inner, entire range)",
+      },
+    },
+  }
 }

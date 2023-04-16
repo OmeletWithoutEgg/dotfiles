@@ -14,7 +14,7 @@ local lsps = {
     },
   },
   texlab = {},
-  hls = {},
+  -- hls = {},
   -- gopls = {},
   bashls = {},
   html = {},
