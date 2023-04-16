@@ -1,9 +1,4 @@
-" if exists('b:did_ftplugin')
-"     finish
-" endif
-" let b:did_ftplugin = 1
-
-nmap <buffer> <C-C> <Plug>VimwikiToggleListItem
+nmap <buffer> <leader>c <Plug>VimwikiToggleListItem
 nnoremap <buffer> = <nop>
 nnoremap <buffer> - <nop>
 nmap <buffer> # <Plug>VimwikiAddHeaderLevel

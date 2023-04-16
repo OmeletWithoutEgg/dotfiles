@@ -124,6 +124,9 @@ let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
 " let g:vimtex_view_method = 'zathura'
 " let g:vimtex_view_automatic = 0
+" if empty(v:servername) && exists('*remote_startserver')
+"     call remote_startserver('VIM')
+" endif
 " function! s:ZathuraHook() abort
 "     call b:vimtex.viewer.xdo_focus_viewer()
 " endfunction
@@ -139,6 +142,7 @@ let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_url_maxsave = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_folding = 'expr'
 " just to override
 " let wiki = {}
 " let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
