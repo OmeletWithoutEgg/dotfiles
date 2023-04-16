@@ -7,7 +7,15 @@ function grab_connections() {
     sort -k 2 -r
 }
 
-result=`grab_connections | rofi -dmenu -p "connections"`
+function choose() {
+    if [[ x"wayland" == x"$XDG_SESSION_TYPE" ]]; then
+        GTK_IM_MODULE="" wofi --dmenu "$@"
+    else
+        rofi -dmenu "$@"
+    fi
+}
+
+result=`grab_connections | choose -p "connections"`
 
 is_activated=`echo $result | cut -d ' ' -f 2 | grep activated`
 conn=`echo $result | cut -d ' ' -f 1`

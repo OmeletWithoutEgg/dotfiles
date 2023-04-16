@@ -1,12 +1,20 @@
 #!/bin/bash
 
+function choose() {
+    if [[ x"wayland" == x"$XDG_SESSION_TYPE" ]]; then
+        GTK_IM_MODULE="" wofi --dmenu "$@"
+    else
+        rofi -dmenu "$@"
+    fi
+}
+
 ## these lines are from passmenu
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu -p "pass")
+password=$(printf '%s\n' "${password_files[@]}" | choose -p "pass")
 
 if [[ -z $password ]]; then
   exit 1

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ x"wayland" == x"$XDG_SESSION_TYPE" ]]; then
+    GTK_IM_MODULE="" wofi --show drun
+else
+    rofi -show drun
+fi

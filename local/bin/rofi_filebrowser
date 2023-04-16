@@ -9,10 +9,15 @@ function sort_by_depth() {
 }
 
 function fdfind() {
-    local max_depth=4
+    local max_depth=5
     fd --type d --max-depth=$max_depth | sort_by_depth
     fd --type f --max-depth=$max_depth | sort_by_depth
 }
+
+if [[ x"wayland" == x"$XDG_SESSION_TYPE" ]]; then
+    fdfind | GTK_IM_MODULE="" wofi --dmenu | xargs xdg-open
+    exit
+fi
 
 fdfind | rofi -show file-browser-extended -file-browser-stdin
 
