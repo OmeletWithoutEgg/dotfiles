@@ -2,14 +2,15 @@ local wezterm = require('wezterm')
 
 return {
     color_scheme = 'Breeze',
+    -- color_scheme = 'tokyonight_moon',
     check_for_updates = true,
     window_background_opacity = 0.95,
     font = wezterm.font_with_fallback({
         {
             -- family = 'Monocraft',
-            family = 'Source Code Pro Medium',
+            -- family = 'Source Code Pro Medium',
             -- family = 'FiraCode Nerd Font',
-            -- family = 'JetBrains Mono',
+            family = 'JetBrains Mono',
             harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
         },
         {
