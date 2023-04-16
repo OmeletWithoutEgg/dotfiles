@@ -14,10 +14,21 @@ function @replace {
     done
 }
 
-# ZI plugin manager
-@include "$HOME/.zi/bin/zi.zsh"
-autoload -Uz _zi
-(( ${+_comps} )) && _comps[zi]=_zi
+### Zinit's installer
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
+    print -P "%F{33}%F{220}Installing zdharma-continuum/zinit ...%f"
+    command mkdir -p $(dirname $ZINIT_HOME) && command chmod g-rwX $(dirname $ZINIT_HOME)
+    command git clone https://github.com/zdharma-continuum/zinit $ZINIT_HOME && \
+        print -P "%F{33}%F{34}Installation successful.%f%b" || \
+        print -P "%F{160}The clone has failed.%f%b"
+fi
+
+source "$ZINIT_HOME/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
+
 # ZI cheatsheet:
 ### zi update / zi self-update / zi delete --clean
 ### zi ice OPTIONS / zi load / zi light / zi OPTIONS for
@@ -26,8 +37,8 @@ zi ice as:theme depth:1
 zi load "romkatv/powerlevel10k"
 
 zi wait lucid for \
-    atinit:"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-        "z-shell/fast-syntax-highlighting" \
+    atinit:"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+        "zdharma-continuum/fast-syntax-highlighting" \
     blockf atpull:"zi creinstall zsh-users/zsh-completions"\
         "zsh-users/zsh-completions" \
     atload:"!_zsh_autosuggest_start" \
@@ -56,6 +67,7 @@ unset LS_COLORS
 
 @include /usr/share/fzf/key-bindings.zsh
 ### usage: Ctrl+T / Alt+C / Ctrl+R
+bindkey -r -M viins '\ec'
 
 # # History config
 # HISTSIZE=10000
