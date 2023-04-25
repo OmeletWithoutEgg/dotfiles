@@ -13,17 +13,17 @@ local lsps = {
       },
     },
   },
-  texlab = {},
+  -- texlab = {},
   -- hls = {},
   -- gopls = {},
   bashls = {},
-  html = {},
-  clangd = {},
+  -- html = {},
+  -- clangd = {},
   -- ccls = {},
   tsserver = {},
   pylsp = {},
   -- solargraph = {}, -- ruby
-  vuels = {},
+  -- vuels = {},
   -- volar = {},
   -- marksman = { filetypes = { 'markdown', 'vimwiki' } },
   cssls = {},
@@ -32,6 +32,13 @@ local lsps = {
 local border = 'single'
 
 local ensure_installed = vim.tbl_keys(lsps)
+
+require('mason').setup {
+  ui = { border = border },
+}
+require('mason-lspconfig').setup {
+  ensure_installed = ensure_installed,
+}
 
 vim.diagnostic.config {
   severity_sort = true,
@@ -71,13 +78,6 @@ local function on_attach(_, bufnr)
   ----     print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
   ---- end, bufopts)
 end
-
-require('mason').setup {
-  ui = { border = border },
-}
-require('mason-lspconfig').setup {
-  ensure_installed = ensure_installed,
-}
 
 local lspconfig = require('lspconfig')
 require('lspconfig.ui.windows').default_options = { border = border }

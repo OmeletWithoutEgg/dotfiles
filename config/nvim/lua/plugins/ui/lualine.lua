@@ -185,23 +185,20 @@ local tabs = {
     local winnr = vim.fn.tabpagewinnr(context.tabnr)
     local bufnr = buflist[winnr]
     local mod = vim.fn.getbufvar(bufnr, '&mod')
-    local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
-    if buftype == 'nofile' then
-      local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-      return ft
-    end
-    if buftype ~= '' then
-      return buftype
-    end
+    -- local buftype = vim.api.nvim_buf_get_option(bufnr, 'buftype')
+    -- if buftype == 'nofile' then
+    --   local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+    --   return ft
+    -- end
+    -- if buftype ~= '' then
+    --   return buftype
+    -- end
     return name .. (mod == 1 and ' +' or '')
   end,
 }
 
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = {
-    'nvim-tree/nvim-web-devicons'
-  },
   config = function()
     require('lualine').setup {
       options = {
@@ -247,5 +244,7 @@ return {
       },
       -- extensions = { 'nvim-tree' },
     }
+
+    require('lualine').refresh()
   end,
 }
