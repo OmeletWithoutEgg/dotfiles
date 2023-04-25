@@ -24,6 +24,8 @@ if [[ ! -f $ZINIT_HOME/zinit.zsh ]]; then
         print -P "%F{160}The clone has failed.%f%b"
 fi
 
+typeset -A ZINIT=(ZCOMPDUMP_PATH "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zcompdump")
+
 source "$ZINIT_HOME/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
