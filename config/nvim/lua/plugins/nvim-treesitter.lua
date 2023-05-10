@@ -23,7 +23,7 @@ local treesitter_opts = {
     enable = true
   },
   highlight = {
-    enable = false,
+    enable = true,
     -- disable = { 'markdown' },
 
     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to

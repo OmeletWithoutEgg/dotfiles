@@ -60,7 +60,7 @@ map('v', '>', '>gv')
 -- map('v', 'K', [[<Cmd>m-2<CR>gv=gv]])
 map('n', '<C-g>', '1<C-g>')
 
-map('n', '<space>e', '<Cmd>NvimTreeToggle<CR>', { desc = 'nvim_tree.toggle' })
+map('n', '<space>e', '<Cmd>Fern . -drawer -toggle<CR>', { desc = 'fern.toggle' })
 map('n', '<space>j', '<Cmd>HopWord<CR>', { desc = 'hop' })
 
 local function telescope_project_files()
@@ -155,7 +155,7 @@ end
 
 require('lazy').setup({
   'nvim-lua/plenary.nvim',
-  'nvim-tree/nvim-web-devicons',
+  -- 'nvim-tree/nvim-web-devicons',
 
   -- [[ Edit ]] {{{
   VeryLazy {
@@ -177,6 +177,9 @@ require('lazy').setup({
         show_current_context_start = true,
       },
       config = true,
+      init = function()
+        vim.g.indentLine_fileTypeExclude = { 'startify' }
+      end,
     },
     -- 'mbbill/undotree',
   },
@@ -200,10 +203,46 @@ require('lazy').setup({
   require('plugins.lspconfig'),
 
   --[[ UI ]]
-  require('plugins.ui.alpha'),
-  require('plugins.ui.nvim-tree'),
   require('plugins.ui.lualine'),
-  -- [[ themes collection ]] {{{
+  -- require('plugins.ui.alpha'),
+  -- require('plugins.ui.nvim-tree'),
+  require('plugins.ui.startify'),
+  {
+    'lambdalisue/fern.vim',
+    dependencies = {
+      'lambdalisue/fern-git-status.vim',
+      'lambdalisue/fern-hijack.vim',
+      'lambdalisue/fern-renderer-nerdfont.vim',
+      'lambdalisue/nerdfont.vim',
+      'csch0/vim-startify-renderer-nerdfont',
+      'lambdalisue/glyph-palette.vim',
+    },
+    init = function()
+      vim.g['fern#renderer'] = 'nerdfont'
+    end,
+    config = function()
+      vim.cmd [[
+      function s:custom_glyph_palette()
+          " hi GlyphPalette0 " black
+          hi GlyphPalette1 guifg=#FF5370 " red
+          hi GlyphPalette2 guifg=#C3E88D " green
+          hi GlyphPalette3 guifg=#FFCB6B " yellow
+          hi GlyphPalette4 guifg=#89DDFF " blue
+          " hi GlyphPalette5 " magenta
+          hi GlyphPalette6 guifg=#82AAFF " cyan
+          hi GlyphPalette7 guifg=#FFFFFF " white
+          " tips: :call glyph_palette#tools#show_palette()
+      endfunction
+      augroup my_glyph_palette
+        autocmd! *
+        autocmd ColorScheme * call <SID>custom_glyph_palette()
+        autocmd FileType fern,startify call glyph_palette#apply()
+      augroup END
+      ]]
+    end
+  },
+
+  -- [[[ themes collection ]]] {{{
   {
     'hzchirs/vim-material',
     VeryLazy {
@@ -276,8 +315,8 @@ require('lazy').setup({
       local wk = require('which-key')
       wk.setup {
         plugins = {
-          marks = false,             -- shows a list of your marks on ' and `
-          registers = false,         -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          marks = false,     -- shows a list of your marks on ' and `
+          registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
         }
       }
       for leader, group in pairs(keymap_groups) do
@@ -294,7 +333,7 @@ require('lazy').setup({
     config = function()
       require('session_manager').setup {
         autoload_mode =
-        require('session_manager.config').AutoloadMode.Disabled,
+            require('session_manager.config').AutoloadMode.Disabled,
         autosave_last_session = false,
       }
     end,
@@ -364,13 +403,13 @@ require('lazy').setup({
     -- https://github.com/neovim/neovim/issues/12649
     'kevinhwang91/nvim-ufo',
     dependencies = { 'kevinhwang91/promise-async' },
-    init = function ()
+    init = function()
       vim.o.foldcolumn = '0'
       vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
     end,
-    config = function ()
+    config = function()
       require('ufo').setup {
         open_fold_hl_timeout = 1,
       }
@@ -406,6 +445,6 @@ vim.cmd.colorscheme [[vim-material]]
 -- vim.cmd.colorscheme [[material]]
 
 vim.g.gcc_compile_flag =
-          '-g -Dlocal -Ofast ' ..
-          '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' ..
-          '-fsanitize=undefined,address'
+    '-g -Dlocal -Ofast ' ..
+    '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' ..
+    '-fsanitize=undefined,address'

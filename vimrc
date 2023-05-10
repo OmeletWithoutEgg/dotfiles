@@ -15,13 +15,37 @@ Plug 'mhinz/vim-startify'
 Plug 'tribela/vim-transparent'
 
 """ File browser & git tools
-Plug 'preservim/nerdtree' " file browser
-Plug 'ryanoasis/vim-devicons'
-Plug 'bryanmylee/vim-colorscheme-icons'
 Plug 'tpope/vim-fugitive'
-Plug 'Xuyuanp/nerdtree-git-plugin' " git status
 " Plug 'mhinz/vim-signify'
 " let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
+
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-git-status.vim'
+Plug 'lambdalisue/fern-hijack.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'csch0/vim-startify-renderer-nerdfont'
+
+Plug 'lambdalisue/glyph-palette.vim'
+
+function s:custom_glyph_palette()
+    " hi GlyphPalette0 " black
+    hi GlyphPalette1 guifg=#FF5370 " red
+    hi GlyphPalette2 guifg=#C3E88D " green
+    hi GlyphPalette3 guifg=#FFCB6B " yellow
+    hi GlyphPalette4 guifg=#89DDFF " blue
+    " hi GlyphPalette5 " magenta
+    hi GlyphPalette6 guifg=#82AAFF " cyan
+    hi GlyphPalette7 guifg=#FFFFFF " white
+    " tips: :call glyph_palette#tools#show_palette()
+endfunction
+
+augroup my_glyph_palette
+  autocmd! *
+  autocmd ColorScheme * call <SID>custom_glyph_palette()
+  autocmd FileType fern,startify call glyph_palette#apply()
+augroup END
+let g:fern#renderer = 'nerdfont'
 
 """ Language-specific
 Plug 'kchmck/vim-coffee-script'
@@ -94,9 +118,10 @@ let g:lightline = {
     \ }
 """ <Plug> startify
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
-let g:startify_bookmarks = ['~/.vimrc']
+let g:startify_bookmarks = [{ 'c': '~/.vimrc' }]
 """ <Plug> nerdtree
-nnoremap <silent> <space>e :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
+" nnoremap <silent> <space>e :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
+nnoremap <silent> <space>e :Fern . -drawer -toggle<CR>
 let g:NERDTreeSortOrder = ['\/$', '*', '\.swp$',  '\.bak$', '\~$', '[[extension]]', '[[-timestamp]]']
 " autocmd FileType nerdtree setlocal nolist
 """ <Plug> indentLine
