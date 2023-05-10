@@ -119,11 +119,8 @@ let g:lightline = {
 """ <Plug> startify
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
 let g:startify_bookmarks = [{ 'c': '~/.vimrc' }]
-""" <Plug> nerdtree
-" nnoremap <silent> <space>e :if expand('%') <bar> cd %:h <bar> endif <bar> NERDTreeToggle <bar> call lightline#update()<CR>
+""" <Plug> fern
 nnoremap <silent> <space>e :Fern . -drawer -toggle<CR>
-let g:NERDTreeSortOrder = ['\/$', '*', '\.swp$',  '\.bak$', '\~$', '[[extension]]', '[[-timestamp]]']
-" autocmd FileType nerdtree setlocal nolist
 """ <Plug> indentLine
 let g:indentLine_fileTypeExclude = ['startify', 'vimwiki']
 let g:indentLine_leadingSpaceEnabled = 0
