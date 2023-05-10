@@ -38,16 +38,18 @@ autoload -Uz _zinit
 zi ice as:theme depth:1
 zi load "romkatv/powerlevel10k"
 
+zi lucid for \
+        "zpm-zsh/ls" \
+        "le0me55i/zsh-extract" \
+        "agkozak/zsh-z"
+
 zi wait lucid for \
     atinit:"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
         "zdharma-continuum/fast-syntax-highlighting" \
     blockf atpull:"zi creinstall zsh-users/zsh-completions"\
         "zsh-users/zsh-completions" \
     atload:"!_zsh_autosuggest_start" \
-        "zsh-users/zsh-autosuggestions" \
-        "zpm-zsh/ls" \
-        "le0me55i/zsh-extract" \
-        "agkozak/zsh-z"
+        "zsh-users/zsh-autosuggestions"
 
 # zi wait lucid for z-shell/zui z-shell/zi-console
 
@@ -83,6 +85,7 @@ alias gdf="git diff"
 alias v=nvim
 
 @replace rm "trash" "rm -i"
+@replace mv "mv -i"
 @replace du "dust"
 @replace df "duf"
 
