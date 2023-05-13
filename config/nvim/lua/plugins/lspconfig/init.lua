@@ -4,7 +4,10 @@ return {
     require('plugins.lspconfig.config')
   end,
   dependencies = {
-    'williamboman/mason.nvim',
+    {
+      'williamboman/mason.nvim',
+      build = ':MasonUpdate',
+    },
     'williamboman/mason-lspconfig.nvim',
     'hrsh7th/cmp-nvim-lsp',
     -- require('plugins.nvim-cmp'),
