@@ -7,6 +7,7 @@ return {
   },
   init = function()
     vim.g.startify_bookmarks = { { c = '~/.config/nvim/init.lua' } }
+    vim.g.startify_fortune_use_unicode = 1
   end,
   config = function()
     local function info_text()

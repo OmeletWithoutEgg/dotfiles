@@ -6,9 +6,10 @@ return {
   dependencies = {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-    require('plugins.nvim-cmp'),
+    'hrsh7th/cmp-nvim-lsp',
+    -- require('plugins.nvim-cmp'),
     -- 'folke/which-key.nvim',
     -- 'ray-x/lsp_signature.nvim',
   },
-  event = 'VeryLazy',
+  -- event = 'VeryLazy',
 }

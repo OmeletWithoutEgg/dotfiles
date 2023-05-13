@@ -204,22 +204,11 @@ require('lazy').setup({
 
   --[[ UI ]]
   require('plugins.ui.lualine'),
+  require('plugins.ui.startify'),
   -- require('plugins.ui.alpha'),
   -- require('plugins.ui.nvim-tree'),
-  require('plugins.ui.startify'),
   {
-    'lambdalisue/fern.vim',
-    dependencies = {
-      'lambdalisue/fern-git-status.vim',
-      'lambdalisue/fern-hijack.vim',
-      'lambdalisue/fern-renderer-nerdfont.vim',
-      'lambdalisue/nerdfont.vim',
-      'csch0/vim-startify-renderer-nerdfont',
-      'lambdalisue/glyph-palette.vim',
-    },
-    init = function()
-      vim.g['fern#renderer'] = 'nerdfont'
-    end,
+    'lambdalisue/glyph-palette.vim',
     config = function()
       vim.cmd [[
       function s:custom_glyph_palette()
@@ -239,7 +228,20 @@ require('lazy').setup({
         autocmd FileType fern,startify call glyph_palette#apply()
       augroup END
       ]]
-    end
+    end,
+  },
+  {
+    'lambdalisue/fern.vim',
+    dependencies = {
+      'lambdalisue/fern-git-status.vim',
+      'lambdalisue/fern-hijack.vim',
+      'lambdalisue/fern-renderer-nerdfont.vim',
+      'lambdalisue/nerdfont.vim',
+    },
+    init = function()
+      vim.g['fern#renderer'] = 'nerdfont'
+    end,
+    -- event = 'VeryLazy',
   },
 
   -- [[[ themes collection ]]] {{{
