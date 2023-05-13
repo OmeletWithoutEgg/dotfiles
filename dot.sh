@@ -100,11 +100,13 @@ function install {
         chsh -s /usr/bin/zsh
     fi
 
-    if [[ ! -d "$HOME/.zi" ]]; then
-        mkdir -p "$HOME/.zi" && chmod g-rwX "$HOME/.zi"
-        git clone --depth=1 \
-            --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin"
-    fi
+    info "run 'exec zsh' to install zsh plugins with zinit"
+    
+    # if [[ ! -d "$HOME/.zi" ]]; then
+    #     mkdir -p "$HOME/.zi" && chmod g-rwX "$HOME/.zi"
+    #     git clone --depth=1 \
+    #         --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin"
+    # fi
 
     if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
         mkdir -p "$HOME/.tmux/plugins/"
