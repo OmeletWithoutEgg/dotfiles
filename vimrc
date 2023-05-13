@@ -204,6 +204,8 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap <C-g> 1<C-g>
 
+ca Hash w !cpp -dD -P -fpreprocessed \| tr -d '[:space:]' \| md5sum \| cut -c-6
+
 let g:gcc_compile_flag = '-g -Dlocal -Ofast ' .
             \ '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' .
             \ '-fsanitize=undefined,address'
