@@ -80,7 +80,7 @@
 ;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 ;; (toggle-full-screen)
 
-(setq doom-font (font-spec :family "Hack Nerd Font" :size 16))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 28))
 
 (add-load-path! "~/.config/doom/lisp/")
 (load "markdown-agda-mode")
