@@ -36,6 +36,7 @@ export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
+export TEXMFHOME="$XDG_DATA_HOME"/texmf
 export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
 export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
@@ -51,6 +52,7 @@ export QT_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
 
 # export QT_QPA_PLATFORM="wayland"
+# export QT_QPA_PLATFORM="wayland;xcb"
 
 export TPS_TASK_TEMPLATES_PATH="$XDG_DATA_HOME"/tps/task-templates
 
