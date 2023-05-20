@@ -6,6 +6,8 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export EDITOR=vim
 export PATH="$HOME"/.local/bin:"$XDG_CONFIG_HOME"/emacs/bin:$PATH
 
+export MANPAGER="sh -c 'col -bx | bat -l man -p'" # https://github.com/sharkdp/bat#man
+
 # Configuration of fd & fzf
 # export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
 export FD_OPTIONS="--color=always"
