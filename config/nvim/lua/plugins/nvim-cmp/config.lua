@@ -1,5 +1,9 @@
 -- https://raw.githubusercontent.com/CosmicNvim/CosmicNvim/main/lua/cosmic/plugins/nvim-cmp/config.lua
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect', 'preview' }
+vim.opt.completeopt = {
+  'menu', 'menuone',
+  -- 'noselect',
+  'preview',
+}
 -- vim.opt.pumheight = 5
 
 local cmp = require('cmp')
@@ -17,7 +21,6 @@ local default_cmp_opts = {
   completion = {
     autocomplete = false,
   },
-
   enabled = function()
     -- disable completion in comments
     local context = require('cmp.config.context')
@@ -33,7 +36,6 @@ local default_cmp_opts = {
       luasnip.lsp_expand(args.body)
     end,
   },
-
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -52,6 +54,7 @@ local default_cmp_opts = {
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       elseif has_words_before() then
+        cmp.select_next_item()
         cmp.complete()
       else
         fallback()
@@ -138,11 +141,22 @@ cmp.setup.filetype('TelescopePrompt', {
 -- })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' },
-  }, {
-    { name = 'cmdline', keyword_length = 3 },
-  }),
-})
+-- cmp.setup.cmdline(':', {
+--   mapping = cmp.mapping.preset.cmdline({
+--     ['<Tab>'] = {
+--       c = function()
+--         if cmp.visible() then
+--           cmp.select_next_item()
+--         else
+--           cmp.select_next_item()
+--           cmp.complete()
+--         end
+--       end,
+--     },
+--   }),
+--   sources = cmp.config.sources({
+--     { name = 'path' },
+--   }, {
+--     { name = 'cmdline', keyword_length = 3 },
+--   }),
+-- })
