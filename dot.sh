@@ -5,6 +5,7 @@ EXCLUDE_FILES=(
     dot.sh
     reflector.conf
     README.md
+    screenshot.png
     bashrc
     simple-vimrc
 )
