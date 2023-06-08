@@ -28,3 +28,5 @@ Some of my dotfiles.
 - Shell: zsh
 - Editor: `vim` and `nvim` (aliased to `v`)
 - Extra CLI tools: `fzf` `rg` `fd` `exa` `delta` `bat` `dust` `duf`
+
+![](screenshot.png)
