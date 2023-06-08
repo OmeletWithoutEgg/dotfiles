@@ -207,6 +207,7 @@ require('lazy').setup({
   require('plugins.ui.startify'),
   -- require('plugins.ui.alpha'),
   -- require('plugins.ui.nvim-tree'),
+  -- {{{ [[[ glyph-palette.vim ]]]
   {
     'lambdalisue/glyph-palette.vim',
     config = function()
@@ -230,6 +231,8 @@ require('lazy').setup({
       ]]
     end,
   },
+  -- }}}
+
   {
     'lambdalisue/fern.vim',
     dependencies = {
