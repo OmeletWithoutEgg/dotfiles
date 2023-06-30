@@ -56,8 +56,8 @@ end
 
 map('v', '<', '<gv')
 map('v', '>', '>gv')
--- map('v', 'J', [[<Cmd>m+1<CR>gv=gv]])
--- map('v', 'K', [[<Cmd>m-2<CR>gv=gv]])
+map('v', 'J', [[:m '>+1<CR>gv=gv]])
+map('v', 'K', [[:m '<-2<CR>gv=gv]])
 map('n', '<C-g>', '1<C-g>')
 
 map('n', '<space>e', '<Cmd>Fern . -drawer -toggle<CR>', { desc = 'fern.toggle' })
