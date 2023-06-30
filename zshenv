@@ -26,7 +26,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
 export FZF_CTRL_R_OPTS="--bind='ctrl-y:execute(echo {+} | copy.sh --history)+abort'"
 
-export _Z_DATA="$XDG_DATA_HOME/z"
+export ZSHZ_DATA="$XDG_DATA_HOME/z"
 
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/rc
 
@@ -45,6 +45,7 @@ export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 export ANDROID_HOME="$XDG_DATA_HOME"/android
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
+export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 
 export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 
