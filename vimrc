@@ -178,7 +178,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 
 """ Basic Option {{{
 syntax on
-set nu rnu cin bs=2 et sw=4 sts=4 hls
+set nu rnu cin bs=2 et sw=2 sts=2 hls
 set belloff=all laststatus=2 mouse=a cino=j1
 set cursorline noshowmode lazyredraw termguicolors autochdir showcmd
 set ttimeoutlen=0
