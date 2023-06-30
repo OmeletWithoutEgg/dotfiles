@@ -36,38 +36,36 @@ local conditions = {
   end
 }
 
-local function get_mode_color()
-  -- auto change color according to neovims mode
-  local mode_color = {
-    n      = colors.green,
-    no     = colors.blue,
-    i      = colors.blue,
-    ic     = colors.yellow,
-    v      = colors.orange,
-    V      = colors.orange,
-    ['']  = colors.orange,
-    c      = colors.red,
-    s      = colors.blue,
-    S      = colors.blue,
-    ['']  = colors.blue,
-    R      = colors.red,
-    Rv     = colors.red,
-    cv     = colors.red,
-    ce     = colors.red,
-    r      = colors.cyan,
-    rm     = colors.cyan,
-    ['r?'] = colors.cyan,
-    ['!']  = colors.violet,
-    t      = colors.violet,
-  }
-  return { bg = mode_color[vim.fn.mode()], fg = colors.darkblue, gui = 'bold' }
-end
+local lightline_materia_theme = {
+  normal = {
+    a = { bg = colors.green, fg = colors.darkblue, gui = 'bold' },
+    b = { fg = colors.fg, bg = colors.bg },
+    c = { fg = colors.fg, bg = colors.bg },
+    x = { fg = '#ffffff', bg = colors.bg, gui = 'bold' }, -- LSP section
+    y = { fg = colors.fg, bg = colors.bg },
+    z = { bg = colors.green, fg = colors.darkblue, gui = 'bold' },
+  },
+  insert = {
+    a = { bg = colors.blue, fg = colors.darkblue, gui = 'bold' },
+    z = { bg = colors.blue, fg = colors.darkblue, gui = 'bold' },
+  },
+  visual = {
+    a = { bg = colors.orange, fg = colors.darkblue, gui = 'bold' },
+    z = { bg = colors.orange, fg = colors.darkblue, gui = 'bold' },
+  },
+  replace = {
+    a = { bg = colors.red, fg = colors.darkblue, gui = 'bold' },
+    z = { bg = colors.red, fg = colors.darkblue, gui = 'bold' },
+  },
+  command = {
+    a = { bg = colors.red, fg = colors.darkblue, gui = 'bold' },
+    z = { bg = colors.red, fg = colors.darkblue, gui = 'bold' },
+  },
+}
 
 local mode = {
-  function()
-    local mode = require('lualine.utils.mode').get_mode()
-    return ' ' .. mode
-  end,
+  'mode',
+  icon = '',
 }
 
 local paste = {
@@ -107,7 +105,7 @@ end
 
 local diff = {
   'diff',
-  symbols = { added = ' ', modified = '柳', removed = ' ' },
+  -- symbols = { added = ' ', modified = '柳', removed = ' ' },
   diff_color = {
     added = { fg = colors.green },
     modified = { fg = colors.orange },
@@ -207,16 +205,7 @@ return {
         section_separators = '',
         -- component_separators = { left = '', right = '' },
         -- section_separators = { left = '', right = '' },
-        theme = {
-          normal = {
-            a = get_mode_color,
-            b = { fg = colors.fg, bg = colors.bg },
-            c = { fg = colors.fg, bg = colors.bg },
-            y = { fg = colors.fg, bg = colors.bg },
-            x = { fg = '#ffffff', bg = colors.bg, gui = 'bold' },
-            z = get_mode_color,
-          },
-        },
+        theme = lightline_materia_theme,
       },
       sections = {
         lualine_a = { mode, paste },
@@ -226,14 +215,14 @@ return {
         lualine_y = { fileformat, fileencoding, filetype },
         lualine_z = { percent, location }
       },
-      inactive_sections = {
-        lualine_a = { mode },
-        lualine_b = { filename },
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = { fileformat, fileencoding, filetype },
-        lualine_z = { percent }
-      },
+      -- inactive_sections = {
+      --   lualine_a = { mode },
+      --   lualine_b = { filename },
+      --   lualine_c = {},
+      --   lualine_x = {},
+      --   lualine_y = { fileformat, fileencoding, filetype },
+      --   lualine_z = { percent }
+      -- },
       tabline = {
         lualine_a = {},
         lualine_b = {},
