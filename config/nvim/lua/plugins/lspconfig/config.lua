@@ -22,6 +22,9 @@ local lsps = {
   -- ccls = {},
   tsserver = {},
   pylsp = {},
+  -- ~/.local/share/nvim/mason/packages/python-lsp-server/venv/pyvenv.cfg
+  -- include-system-site-packages = true
+
   -- solargraph = {}, -- ruby
   -- vuels = {},
   -- volar = {},

@@ -17,7 +17,7 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
-local default_cmp_opts = {
+local cmp_opts = {
   completion = {
     autocomplete = false,
   },
@@ -94,7 +94,7 @@ local default_cmp_opts = {
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'path' },
-  }, {
+  -- }, {
     { name = 'buffer' },
   }),
   formatting = {
@@ -117,7 +117,7 @@ local default_cmp_opts = {
 -- set up autopairs
 -- cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
-cmp.setup(default_cmp_opts)
+cmp.setup(cmp_opts)
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
