@@ -197,12 +197,12 @@ require('lazy').setup({
   },
   -- }}}
 
-  --[[ LSP & Completion & Tree-Sitter ]]
+  -- [[ LSP & Completion & Tree-Sitter ]]
   require('plugins.nvim-treesitter'),
   require('plugins.nvim-cmp'),
   require('plugins.lspconfig'),
 
-  --[[ UI ]]
+  -- [[ UI ]]
   require('plugins.ui.lualine'),
   require('plugins.ui.startify'),
   -- require('plugins.ui.alpha'),
@@ -211,24 +211,14 @@ require('lazy').setup({
   {
     'lambdalisue/glyph-palette.vim',
     config = function()
-      vim.cmd [[
-      function s:custom_glyph_palette()
-          " hi GlyphPalette0 " black
-          hi GlyphPalette1 guifg=#FF5370 " red
-          hi GlyphPalette2 guifg=#C3E88D " green
-          hi GlyphPalette3 guifg=#FFCB6B " yellow
-          hi GlyphPalette4 guifg=#89DDFF " blue
-          " hi GlyphPalette5 " magenta
-          hi GlyphPalette6 guifg=#82AAFF " cyan
-          hi GlyphPalette7 guifg=#FFFFFF " white
-          " tips: :call glyph_palette#tools#show_palette()
-      endfunction
-      augroup my_glyph_palette
-        autocmd! *
-        autocmd ColorScheme * call <SID>custom_glyph_palette()
-        autocmd FileType fern,startify call glyph_palette#apply()
-      augroup END
-      ]]
+      local group = vim.api.nvim_create_augroup('ApplyPalette', {})
+      vim.api.nvim_create_autocmd('FileType', {
+        group = group,
+        pattern = 'fern,startify',
+        callback = function()
+          vim.api.nvim_call_function('glyph_palette#apply', {})
+        end
+      })
     end,
   },
   -- }}}
@@ -353,7 +343,7 @@ require('lazy').setup({
   },
   'lambdalisue/suda.vim',
 
-  --[[ Filetype Plugins ]]
+  -- [[ Filetype Plugins ]]
   {
     'vimwiki/vimwiki',
     init = function()
@@ -394,10 +384,8 @@ require('lazy').setup({
   {
     'jbyuki/nabla.nvim',
     config = function()
-      vim.cmd [[
-      nnoremap <silent> <leader>p :lua require('nabla').popup()<CR>
-      " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
-      ]]
+      map('n', '<leader>p', [[<Cmd>lua require('nabla').popup()<CR>]])
+      -- Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
     end,
     event = 'VeryLazy',
   },
@@ -431,23 +419,28 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   group = group,
   pattern = 'vim-material',
   callback = function()
-    vim.cmd [[
-      hi Comment cterm=NONE gui=NONE
-      hi Search ctermfg=yellow guifg=yellow
-      hi CursorLine term=NONE cterm=NONE
-      hi CursorLineNr cterm=NONE
+    local function hi(name, opts)
+      local options = vim.api.nvim_get_hl(0, { name = name })
+      options = vim.tbl_extend('force', options, opts)
+      vim.api.nvim_set_hl(0, name, options)
+    end
 
-      " hi TabLineFill cterm=NONE gui=NONE
-      " hi TabLine ctermbg=NONE guibg=NONE cterm=NONE gui=NONE
-      " hi TabLineFill cterm=NONE gui=NONE
-      " hi TabLineSel guibg=#82aaff guifg=#263238
-    ]]
+    hi('Comment', { italic = false })
+    hi('Search', { fg = 'yellow' })
+
+    hi('GlyphPalette1', { fg = '#FF5370' }) -- red
+    hi('GlyphPalette2', { fg = '#C3E88D' }) -- green
+    hi('GlyphPalette3', { fg = '#FFCB6B' }) -- yellow
+    hi('GlyphPalette4', { fg = '#89DDFF' }) -- blue
+    -- hi('GlyphPalette5') -- magenta
+    hi('GlyphPalette6', { fg = '#82AAFF' }) -- cyan/purple
+    hi('GlyphPalette7', { fg = '#FFFFFF' }) -- white
+    -- tips: :call glyph_palette#tools#show_palette()
   end
 })
 
 vim.o.background = 'dark'
 vim.cmd.colorscheme [[vim-material]]
--- vim.cmd.colorscheme [[material]]
 
 vim.g.gcc_compile_flag =
     '-g -Dlocal -Ofast ' ..
