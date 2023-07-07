@@ -10,7 +10,8 @@ Some of my dotfiles.
     git clone https://github.com/OmeletWithoutEgg/dotfiles.git && cd dotfiles
     ./dot.sh install
     ```
-    If you don't want to install some of them please answer 'n' in the `[y/n]` part when `mkdir`.
+    If you don't want to install some of them please answer 'n' in the `[y/n]` part.
+    Ensure that you've checked the install script (`dot.sh`).
 3. Launch zsh to install zsh plugins via zinit.
     ```bash
     exec zsh

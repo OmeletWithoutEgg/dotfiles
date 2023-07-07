@@ -1,5 +1,6 @@
 #!/bin/bash
-cd "$(dirname "$0")"
+
+cd "$(dirname "$0")" || exit
 
 EXCLUDE_FILES=(
     dot.sh
@@ -10,30 +11,27 @@ EXCLUDE_FILES=(
     simple-vimrc
 )
 
-function exclude_opt {
-    for f in ${EXCLUDE_FILES[@]}; do
-        printf -- "-not -path ./$f "
-    done
+function get_find_opt {
+    printf -- "-not -path ./%s " "${EXCLUDE_FILES[@]}"
+    cat <<EOF
+-not -path '*/\.git*'
+-not -path '*/dconf\.d*'
+-printf '%P\n'
+EOF
 }
 
-FILES=(
-    $(find -type f \
-        -not -path '*/\.git*' \
-        -not -path '*/dconf\.d*' \
-        `exclude_opt` \
-        -printf '%P\n')
-)
+FILES=()
+while IFS='' read -r line; do
+    FILES+=("$line")
+done < <(get_find_opt | xargs find -type f)
 
-MKDIRS=(
-    $(find -depth -type d \
-        -not -path '*/\.git*' \
-        -not -path '*/dconf\.d*' \
-        `exclude_opt` \
-        -printf '%P\n')
-)
+MKDIRS=()
+while IFS='' read -r line; do
+    MKDIRS+=("$line")
+done < <(get_find_opt | xargs find -depth -type d)
 
-# echo ${FILES[@]}
-# echo ${MKDIRS[@]}
+# echo "${FILES[@]}"
+# echo "${MKDIRS[@]}"
 # exit
 
 DCONF_ENTRIES=(
@@ -48,19 +46,19 @@ CPDIRS=(
 
 function warn {
     printf "\033[33m"
-    printf "$@"
-    printf "\033[0m\n"
+    echo "$@"
+    printf "\033[0m"
 }
 
 function info {
     printf "\033[32m"
-    printf "$@"
-    printf "\033[0m\n"
+    echo "$@"
+    printf "\033[0m"
 }
 
 function confirm {
     while true; do
-        read -p "${@} ? [y/n]: " yn
+        read -r -p "${*} ? [y/n]: " yn
         case $yn in
             [Yy]* ) return 0;;
             [Nn]* ) return 1;;
@@ -70,7 +68,7 @@ function confirm {
 }
 
 function check_git_status() {
-    if [[ -n `git status -s -uall` ]]; then
+    if [[ -n $(git status -s -uall) ]]; then
         git status
         warn "**git status is not clean**"
         if ! confirm "continue"; then
@@ -91,6 +89,7 @@ function install {
     done
 
     if [[ ! -f "$HOME/.vim/autoload/plug.vim" ]]; then
+        echo "download vim-plug and install plugins"
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
         vim -es -u vimrc -i NONE -c "PlugInstall" -c "qa"
@@ -114,60 +113,65 @@ function install {
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     fi
 
-    for d in ${MKDIRS[@]}; do
-        if [ ! -d ~/.$d ]; then
+    for d in "${MKDIRS[@]}"; do
+        if [ ! -d "$HOME/.$d" ]; then
             if confirm "mkdir -p ~/.$d"; then
-                mkdir -p ~/.$d
+                mkdir -p "$HOME/.$d"
             fi
         fi
     done
 
-    for f in ${FILES[@]}; do
-        if [ ! -d $(dirname $HOME/.$f) ]; then
-            warn "Parent directory $(dirname $HOME/.$f) does not exist."
-        elif diff -q $f ~/.$f >/dev/null 2>/dev/null; then
+    for f in "${FILES[@]}"; do
+        local t="$HOME/.$f"
+        if [ ! -d "$(dirname "$t")" ]; then
+            warn "Parent directory $(dirname "$t") does not exist."
+        elif diff -q "$f" "$t" >/dev/null 2>/dev/null; then
             echo "File $f not changed"
-        else
-            if [ -r $HOME/.$f ]; then
-                cp --interactive --preserve=mode $f ~/.$f
-            else
-                info "cp $f ~/.$f"
-                cp --preserve=mode $f ~/.$f
+        elif [ -r "$t" ]; then
+            cp --interactive --preserve=mode "$f" "$t"
+        elif [ "$(basename "$f")" == "$f" ]; then
+            if confirm "cp $f ~/.$f"; then
+                cp --preserve=mode "$f" "$t"
             fi
+        else
+            info "cp $f ~/.$f"
+            cp --preserve=mode "$f" "$t"
         fi
     done
 
-    for e in ${DCONF_ENTRIES[@]}; do
-        cat dconf.d/$e
-        if confirm "dconf load /$e/ < dconf.d/$e"; then
-            dconf load /$e/ < dconf.d/$e
-        fi
-    done
+    # for e in ${DCONF_ENTRIES[@]}; do
+    #     cat dconf.d/$e
+    #     if confirm "dconf load /$e/ < dconf.d/$e"; then
+    #         dconf load /$e/ < dconf.d/$e
+    #     fi
+    # done
 }
 
 function update {
     info "UPDATE"
     check_git_status
-    for d in ${CPDIRS[@]}; do
+    for d in "${CPDIRS[@]}"; do
+        local t="$HOME/.$d"
         info "mkdir -p $d/"
-        mkdir -p $d/
+        mkdir -p "$d/"
         info "cp -r ~/.$d/* $d/"
-        cp -r --preserve=mode ~/.$d/* $d/
+        cp -r --preserve=mode "$t"/* "$d/"
     done
 
-    for f in ${FILES[@]}; do
-        if [ -r ~/.$f ]; then
+    for f in "${FILES[@]}"; do
+        local t="$HOME/.$f"
+        if [ -r "$t" ]; then
             info "cp ~/.$f $f"
-            cp --preserve=mode ~/.$f $f
+            cp --preserve=mode "$t" "$f"
         fi
     done
 
-    for e in ${DCONF_ENTRIES[@]}; do
-        local dir=`dirname dconf.d/$e`
+    for e in "${DCONF_ENTRIES[@]}"; do
+        local -r dir=$(dirname dconf.d/"$e")
         info "mkdir -p $dir"
-        mkdir -p $dir
+        mkdir -p "$dir"
         info "dconf dump /$e/ > dconf.d/$e"
-        dconf dump /$e/ > dconf.d/$e
+        dconf dump "/$e/" > "dconf.d/$e"
     done
 }
 
@@ -188,3 +192,4 @@ case "$@" in
 esac
 
 # cp reflector.conf /etc/xdg/reflector/reflector.conf
+# vim:ts=4:sts=4:sw=4
