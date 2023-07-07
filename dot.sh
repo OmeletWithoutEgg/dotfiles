@@ -167,7 +167,7 @@ function update {
     done
 
     for e in "${DCONF_ENTRIES[@]}"; do
-        local -r dir=$(dirname dconf.d/"$e")
+        local dir; dir=$(dirname dconf.d/"$e")
         info "mkdir -p $dir"
         mkdir -p "$dir"
         info "dconf dump /$e/ > dconf.d/$e"
