@@ -4,7 +4,7 @@
     email = 2qbingxuan@gmail.com
     name = OmeletWithoutEgg
 [init]
-    defaultBranch = master
+    defaultBranch = main
 [pull]
     rebase = false
 [filter "lfs"]
