@@ -141,10 +141,10 @@ let g:vim_markdown_math = 1
 """ <Plug> vim-tabular
 let g:tex_conceal='' " tabular
 """ <Plug> vimtex
-let g:vimtex_view_general_viewer = 'okular'
-let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+" let g:vimtex_view_general_viewer = 'okular'
+" let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 
-" let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_method = 'zathura'
 " let g:vimtex_view_automatic = 0
 " if empty(v:servername) && exists('*remote_startserver')
 "     call remote_startserver('VIM')
@@ -164,7 +164,7 @@ let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_url_maxsave = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
-" let g:vimwiki_folding = 'expr'
+let g:vimwiki_folding = 'expr'
 " just to override
 " let wiki = {}
 " let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
