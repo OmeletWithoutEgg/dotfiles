@@ -41,7 +41,7 @@ def make_sites_query(sites):
 c.url.searchengines = {
     # TODO nitter
     'DEFAULT':  'https://duckduckgo.com/?q={}',
-    'google':   'https://google.com/search?q={}',
+    'g':   'https://google.com/search?q={}',
     # 'searchyt': 'https://youtu.be/results?search_query={}',
     'toen':     'https://translate.google.com/?sl=auto&tl=en&&text={}',
     'tozh':     'https://translate.google.com/?sl=auto&tl=zh-tw&&text={}',
