@@ -16,7 +16,7 @@ return {
         {
             family = 'Symbols Nerd Font',
         },
-        -- 'Noto Sans Symbols2',
+        'Noto Sans Symbols 2',
         'Noto Sans CJK TC',
         'Noto Sans CJK JP',
         'Noto Sans Math',
