@@ -8,7 +8,7 @@ list_window() {
 }
 
 if [ -n $DISPLAY ]; then
-  while ! list_window | grep -w "$pid"; do
+  while ! list_window | grep -w "$pid" >/dev/null; do
     sleep 0.01
   done
   wid=$(list_window | grep -w "$pid" | cut -f 1 -d ' ')
