@@ -1,5 +1,5 @@
 # source /usr/share/peda/peda.py
 set debuginfod enabled on
-source /usr/share/pwndbg/gdbinit.py
+# source /usr/share/pwndbg/gdbinit.py
 
 set history filename ~/.config/gdb/.gdb_history
