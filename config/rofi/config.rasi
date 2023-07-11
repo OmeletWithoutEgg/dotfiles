@@ -4,3 +4,4 @@ configuration {
 }
 
 @theme "material"
+/* @theme "material-wayland" */
