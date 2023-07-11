@@ -7,6 +7,7 @@ export EDITOR=vim
 export PATH="$HOME"/.local/bin:"$XDG_CONFIG_HOME"/emacs/bin:$PATH
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'" # https://github.com/sharkdp/bat#man
+export MANROFFOPT="-c"
 
 # Configuration of fd & fzf
 # export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
