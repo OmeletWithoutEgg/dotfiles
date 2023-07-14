@@ -47,6 +47,7 @@ export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 export ANDROID_HOME="$XDG_DATA_HOME"/android
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 
 export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 
