@@ -8,17 +8,17 @@ function grab_connections() {
 }
 
 function choose() {
-    if [[ x"wayland" == x"$XDG_SESSION_TYPE" ]]; then
+    if [[ "wayland" == "$XDG_SESSION_TYPE" ]]; then
         GTK_IM_MODULE="" wofi --dmenu "$@"
     else
         rofi -dmenu "$@"
     fi
 }
 
-result=`grab_connections | choose -p "connections"`
+result=$(grab_connections | choose -p "connections")
 
-is_activated=`echo $result | cut -d ' ' -f 2 | grep activated`
-conn=`echo $result | cut -d ' ' -f 1`
+is_activated=$(echo "$result" | cut -d ' ' -f 2 | grep activated)
+conn=$(echo "$result" | cut -d ' ' -f 1)
 
 if [[ -z $conn ]]; then
   exit 1
@@ -26,8 +26,8 @@ fi
 
 if [[ -n $is_activated ]]; then
   echo "down $conn"
-  nmcli connection down $conn
+  nmcli connection down "$conn"
 else
   echo "up $conn"
-  nmcli connection up $conn
+  nmcli connection up "$conn"
 fi

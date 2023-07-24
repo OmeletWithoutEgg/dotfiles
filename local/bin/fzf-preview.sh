@@ -9,10 +9,10 @@ fi
 file=$1
 
 if [[ ! -r $file ]]; then
-    echo $file
-elif [[ $(file --mime $file) =~ binary ]]; then
+    echo "$file"
+elif [[ $(file --mime "$file") =~ binary ]]; then
     echo "$file is a binary file"
     # TODO imgcat or something like that
 else
-    bat --style=numbers -f $file
+    bat --style=numbers -f "$file"
 fi

@@ -16,9 +16,9 @@ while (( $# > 0 )); do
     shift
 done
 
-while read line; do
+while read -r line; do
     if [[ -n $is_history ]]; then
-        line=`echo $line | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); print cmd }'`
+        line=$(echo "$line" | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); print cmd }')
     fi
-    xclip -sel c <(echo $line) >/dev/null && echo "Copied $line"
+    xclip -sel c <(echo "$line") >/dev/null && echo "Copied $line"
 done

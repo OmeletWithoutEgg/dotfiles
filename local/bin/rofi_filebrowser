@@ -4,7 +4,7 @@ function sort_by_depth() {
     while IFS= read -r line; do
         local slashes=${line//[!\/]}
         local depth=${#slashes}
-        echo ${depth},$line
+        echo "${depth}","$line"
     done | sort -n -s | cut -d ',' -f 2-
 }
 
@@ -14,7 +14,7 @@ function fdfind() {
     fd --type f --max-depth=$max_depth | sort_by_depth
 }
 
-if [[ x"wayland" == x"$XDG_SESSION_TYPE" ]]; then
+if [[ "wayland" == "$XDG_SESSION_TYPE" ]]; then
     fdfind | GTK_IM_MODULE="" wofi --dmenu | xargs xdg-open
     exit
 fi
