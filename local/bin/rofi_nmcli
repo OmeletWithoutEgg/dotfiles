@@ -1,10 +1,10 @@
 #!/bin/bash
 
 function grab_connections() {
-  nmcli -f NAME,STATE connection show | \
+  nmcli -f NAME,STATE,TYPE connection show | \
     tail -n +2 | \
-    grep -v -w lo | \
-    sort -k 2 -r
+    grep -v -P "(loopback|bridge)" | \
+    sort -k 2
 }
 
 function choose() {
@@ -15,10 +15,8 @@ function choose() {
     fi
 }
 
-result=$(grab_connections | choose -p "connections")
-
-is_activated=$(echo "$result" | cut -d ' ' -f 2 | grep activated)
-conn=$(echo "$result" | cut -d ' ' -f 1)
+read -r conn is_activated conn_type <<<"$(grab_connections | choose -p "connections")"
+echo "$conn" "$is_activated" "$conn_type"
 
 if [[ -z $conn ]]; then
   exit 1
