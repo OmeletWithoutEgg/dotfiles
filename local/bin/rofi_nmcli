@@ -22,10 +22,10 @@ if [[ -z $conn ]]; then
   exit 1
 fi
 
-if [[ -n $is_activated ]]; then
-  echo "down $conn"
-  nmcli connection down "$conn"
-else
+if [[ "$is_activated" == "--" ]]; then
   echo "up $conn"
   nmcli connection up "$conn"
+else
+  echo "down $conn"
+  nmcli connection down "$conn"
 fi
