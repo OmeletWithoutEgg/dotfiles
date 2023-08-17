@@ -25,7 +25,7 @@ if [[ "$mounted" == "false" ]]; then
     echo "mount done!"
 fi
 
-MOUNT_POINT=$(query_dbus mountPoint)
+MOUNT_POINT=$(query_dbus getDirectories | choose -p mount_point | cut -f 1 -d ':')
 
 echo "rsync -av $MOUNT_POINT/KDEconnect/Obsidian/ $HOME/vimwiki/obsidian/"
 rsync -av "$MOUNT_POINT"/KDEconnect/Obsidian/ "$HOME"/vimwiki/obsidian/
