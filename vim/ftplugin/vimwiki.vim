@@ -1,4 +1,4 @@
-nmap <buffer> <leader>c <Plug>VimwikiToggleListItem
+nmap <buffer> <space>c <Plug>VimwikiToggleListItem
 nnoremap <buffer> = <nop>
 nnoremap <buffer> - <nop>
 nmap <buffer> # <Plug>VimwikiAddHeaderLevel
