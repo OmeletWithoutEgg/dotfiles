@@ -14,7 +14,7 @@ Plug 'mhinz/vim-startify'
 " Plug 'Yggdroot/indentLine'
 Plug 'tribela/vim-transparent'
 
-""" File browser & git tools
+""" File browser & icons & git tools
 Plug 'tpope/vim-fugitive'
 " Plug 'mhinz/vim-signify'
 " let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
@@ -25,27 +25,7 @@ Plug 'lambdalisue/fern-hijack.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'csch0/vim-startify-renderer-nerdfont'
-
 Plug 'lambdalisue/glyph-palette.vim'
-
-function s:custom_glyph_palette()
-    " hi GlyphPalette0 " black
-    hi GlyphPalette1 guifg=#FF5370 " red
-    hi GlyphPalette2 guifg=#C3E88D " green
-    hi GlyphPalette3 guifg=#FFCB6B " yellow
-    hi GlyphPalette4 guifg=#89DDFF " blue
-    " hi GlyphPalette5 " magenta
-    hi GlyphPalette6 guifg=#82AAFF " cyan
-    hi GlyphPalette7 guifg=#FFFFFF " white
-    " tips: :call glyph_palette#tools#show_palette()
-endfunction
-
-augroup my_glyph_palette
-  autocmd! *
-  autocmd ColorScheme * call <SID>custom_glyph_palette()
-  autocmd FileType fern,startify call glyph_palette#apply()
-augroup END
-let g:fern#renderer = 'nerdfont'
 
 """ Language-specific
 Plug 'kchmck/vim-coffee-script'
@@ -97,30 +77,48 @@ nnoremap <silent> <space>pp :PlugUpgrade<bar>PlugUpdate<CR>
 """ UI plugins {{{
 """ <Plug> vim-material
 au ColorScheme *
-            \ hi Comment cterm=NONE gui=NONE |
-            \ hi Search ctermfg=yellow guifg=yellow |
-            \ hi CursorLine term=NONE cterm=NONE |
-            \ hi CursorLineNr cterm=NONE |
-            \ hi VertSplit cterm=NONE " |
-            " \ hi Normal guibg=NONE " make transparent
+      \ hi Comment cterm=NONE gui=NONE |
+      \ hi Search ctermfg=yellow guifg=yellow |
+      \ hi CursorLine term=NONE cterm=NONE |
+      \ hi CursorLineNr cterm=NONE |
+      \ hi VertSplit cterm=NONE " |
+" \ hi Normal guibg=NONE " make transparent
 set background=dark
 color vim-material
 """ <Plug> lightline
 let g:lightline = {
-    \   'colorscheme': 'materia',
-    \   'active': {
-    \       'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'gitbranch' ], ],
-    \       'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ],
-    \   },
-    \   'component_function': {
-    \       'gitbranch': 'FugitiveHead',
-    \   },
-    \ }
+      \   'colorscheme': 'materia',
+      \   'active': {
+      \       'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified', 'gitbranch' ], ],
+      \       'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'fileformat', 'fileencoding', 'filetype' ] ],
+      \   },
+      \   'component_function': {
+      \       'gitbranch': 'FugitiveHead',
+      \   },
+      \ }
 """ <Plug> startify
 let g:startify_custom_header = startify#center(['VIM - Vi IMproved', 'JIZZZZZZZZZZZZZZZ', '@OmeletWithoutEgg'])
 let g:startify_bookmarks = [{ 'c': '~/.vimrc' }]
 """ <Plug> fern
 nnoremap <silent> <space>e :Fern . -drawer -toggle<CR>
+function s:custom_glyph_palette()
+  " hi GlyphPalette0 " black
+  hi GlyphPalette1 guifg=#FF5370 " red
+  hi GlyphPalette2 guifg=#C3E88D " green
+  hi GlyphPalette3 guifg=#FFCB6B " yellow
+  hi GlyphPalette4 guifg=#89DDFF " blue
+  " hi GlyphPalette5 " magenta
+  hi GlyphPalette6 guifg=#82AAFF " cyan
+  hi GlyphPalette7 guifg=#FFFFFF " white
+  " tips: :call glyph_palette#tools#show_palette()
+endfunction
+augroup my_glyph_palette
+  autocmd!
+  autocmd ColorScheme * call <SID>custom_glyph_palette()
+  autocmd FileType fern,startify call glyph_palette#apply()
+augroup END
+let g:fern#renderer = 'nerdfont'
+
 """ <Plug> indentLine
 let g:indentLine_fileTypeExclude = ['startify', 'vimwiki']
 let g:indentLine_leadingSpaceEnabled = 0
@@ -141,39 +139,23 @@ let g:vim_markdown_math = 1
 """ <Plug> vim-tabular
 let g:tex_conceal='' " tabular
 """ <Plug> vimtex
-" let g:vimtex_view_general_viewer = 'okular'
-" let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-
-let g:vimtex_view_method = 'zathura'
-" let g:vimtex_view_automatic = 0
-" if empty(v:servername) && exists('*remote_startserver')
-"     call remote_startserver('VIM')
-" endif
-" function! s:ZathuraHook() abort
-"     call b:vimtex.viewer.xdo_focus_viewer()
-" endfunction
-" augroup vimrc_vimtex
-"   autocmd!
-"   autocmd User VimtexEventView call <SID>ZathuraHook()
-"   " autocmd User VimtexEventCompileSuccess call ZathuraHook()
-" augroup END
+let g:vimtex_view_method = 'zathura' " ~/.local/bin/zathura
 
 """ <Plug> vimwiki
 let g:vimwiki_global_ext = 0
 let g:vimwiki_markdown_link_ext = 1
 let g:vimwiki_url_maxsave = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+      \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_folding = 'expr'
 " just to override
 " let wiki = {}
 " let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp'}
 
-""" <Plug> ultisnips
-let g:UltiSnipsExpandTrigger = '<space>'
-let g:UltiSnipsJumpForwardTrigger = '<C-j>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
-" let g:UltiSnipsListSnippets = '<C-H>'
+" """ <Plug> ultisnips
+" let g:UltiSnipsExpandTrigger = '<space>'
+" let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+" let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
 """ }}}
 
 """ Basic Option {{{
@@ -183,36 +165,32 @@ set belloff=all laststatus=2 mouse=a cino=j1
 set cursorline noshowmode lazyredraw termguicolors autochdir showcmd
 set ttimeoutlen=0
 set wildmenu wildoptions=pum
-" set listchars=trail:␣,eol:$,tab:►\ ,extends:⟩,precedes:⟨,space:·,trail:•
+set listchars=eol:$,tab:►\ ,space:␣,trail:•,extends:⟩,precedes:⟨
 set fillchars=vert:│,fold:-,eob:\ 
 set smartcase ignorecase incsearch
 set foldmethod=marker
-set colorcolumn=100
 """ }}}
 
 augroup rnutoggle
-    au!
-    au InsertEnter * set nornu
-    au InsertLeave * if expand('%') != '' | set rnu | endif
+  au!
+  au InsertEnter * set nornu
+  au InsertLeave * if expand('%') != '' | set rnu | endif
 augroup END
 
 inoremap {<CR> {<CR>}<C-o>O
-" nnoremap <silent> <C-n> :tabnew<CR>:Startify<CR>
 vnoremap <silent> J :m '>+1<CR>gv=gv
 vnoremap <silent> K :m '<-2<CR>gv=gv
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <C-g> 1<C-g>
 
-ca Hash w !cpp -dD -P -fpreprocessed \| tr -d '[:space:]' \| md5sum \| cut -c-6
-
 let g:gcc_compile_flag = '-g -Dlocal -Ofast ' .
-            \ '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' .
-            \ '-fsanitize=undefined,address'
+      \ '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' .
+      \ '-fsanitize=undefined,address'
 
 augroup formattingHandler
-    au!
-    au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
+  au!
+  au FileType vue,c,cpp,html,markdown,vimwiki,tex,plaintex syntax sync fromstart
 augroup END
 
 nmap <F9> <leader>b
@@ -229,6 +207,6 @@ noh
 " let &t_ut='' " kitty
 
 if (&term == "alacritty" || &term == "kitty")
-    let &term = "xterm-256color"
+  let &term = "xterm-256color"
 endif
 " }}}
