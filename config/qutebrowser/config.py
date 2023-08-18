@@ -15,12 +15,12 @@ c.qt.args = [
     'enable-zero-copy',
     # 'num-raster-threads=4',
     'enable-accelerated-video-decode',
-    'disable-accelerated-2d-canvas',
+    # 'disable-accelerated-2d-canvas',
 ]
 
 c.auto_save.session = True
 c.content.blocking.method = 'both'
-c.content.javascript.clipboard = 'access-paste'
+c.content.javascript.clipboard = 'access'
 c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}']
 c.fonts.default_size = '16pt'
 c.fonts.default_family = 'Source Code Pro Semi Bold'
@@ -29,8 +29,8 @@ c.fonts.web.family.fixed = 'Hack'
 c.window.hide_decoration = True
 # c.new_instance_open_target = 'tab-silent'
 
-c.url.default_page = 'https://google.com'
-c.url.start_pages = 'https://codeforces.com'
+c.url.default_page = 'qute://start'
+c.url.start_pages = 'https://mail.google.com'
 
 
 def make_sites_query(sites):
@@ -90,7 +90,7 @@ config.bind(';c', 'hint links spawn --detach google-chrome-stable {hint-url}')
 config.bind(';v', 'hint links spawn --detach mpv {hint-url}')
 config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
-config.bind('gs', 'greasemonkey-reload ;; later 500 reload --force')
+config.bind('gs', 'greasemonkey-reload ;; cmd-later 500 reload --force')
 config.bind('ge', 'edit-url')
 config.bind('gyd', 'spawn --userscript dl_audio')
 config.bind('ce', 'config-edit')
@@ -99,7 +99,7 @@ pass_menu = 'rofi -dmenu'
 qute_pass = f'spawn --userscript qute-pass -d "{pass_menu}"'
 
 config.bind('<Ctrl-Shift-l>', f'{qute_pass}', mode='insert')
-config.bind('zb', f'hint inputs tab-bg --first ;; later 1 {qute_pass}')
+config.bind('zb', f'hint inputs tab-bg --first ;; cmd-later 1 {qute_pass}')
 config.bind('zm', f'{qute_pass} --unfiltered')
 config.bind('zp', f'{qute_pass} --password-only')
 config.bind('zu', f'{qute_pass} --username-only')
