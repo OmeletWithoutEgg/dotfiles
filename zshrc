@@ -116,7 +116,7 @@ function ipinfo {
 
 function cpp-precompile {
     echo "Note: will need permission of header dirs"
-    local cppflags=(-std=c++17 -g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address)
+    local cppflags=(-std=gnu++20 -g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address)
     for header in "bits/stdc++.h" "bits/extc++.h"; do
         local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
         echo "precompile $p"
