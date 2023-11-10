@@ -15,7 +15,7 @@ c.qt.args = [
     'enable-zero-copy',
     # 'num-raster-threads=4',
     'enable-accelerated-video-decode',
-    # 'disable-accelerated-2d-canvas',
+    'disable-accelerated-2d-canvas',
 ]
 
 c.auto_save.session = True
