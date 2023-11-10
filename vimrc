@@ -41,6 +41,7 @@ Plug 'mxw/vim-jsx'
 Plug 'petRUShka/vim-sage'
 Plug 'isobit/vim-caddyfile'
 Plug 'posva/vim-vue'
+Plug 'philj56/vim-asm-indent'
 
 """ Functional
 Plug 'tpope/vim-surround'
