@@ -17,7 +17,7 @@ local lsps = {
   -- hls = {},
   -- gopls = {},
   bashls = {},
-  -- html = {},
+  html = {},
   -- clangd = {},
   -- ccls = {},
   tsserver = {},
@@ -52,6 +52,8 @@ vim.diagnostic.config {
 }
 
 local function on_attach(_, bufnr)
+  -- client.server_capabilities.semanticTokensProvider = nil
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 

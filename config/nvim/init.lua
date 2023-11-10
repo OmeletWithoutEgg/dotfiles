@@ -172,14 +172,12 @@ require('lazy').setup({
     -- 'editorconfig/editorconfig-vim', -- nvim 0.9 has builtin support
     {
       'lukas-reineke/indent-blankline.nvim',
+      main = 'ibl',
       opts = {
-        show_current_context = true,
-        show_current_context_start = true,
+        exclude = {
+          filetypes = { 'startify' }
+        }
       },
-      config = true,
-      init = function()
-        vim.g.indentLine_fileTypeExclude = { 'startify' }
-      end,
     },
     -- 'mbbill/undotree',
   },
@@ -265,7 +263,7 @@ require('lazy').setup({
   -- [[[ Telescope.nvim ]]] {{{
   {
     'nvim-telescope/telescope.nvim',
-    version = '0.1.1',
+    version = '0.1.4',
     dependencies = {
       {
         'nvim-telescope/telescope-fzf-native.nvim',
@@ -436,6 +434,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     hi('GlyphPalette6', { fg = '#82AAFF' }) -- cyan/purple
     hi('GlyphPalette7', { fg = '#FFFFFF' }) -- white
     -- tips: :call glyph_palette#tools#show_palette()
+    -- tips: :Inspect to find hlgroup under cursor
   end
 })
 
