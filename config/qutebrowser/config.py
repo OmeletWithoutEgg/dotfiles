@@ -32,6 +32,15 @@ c.window.hide_decoration = True
 c.url.default_page = 'qute://start'
 c.url.start_pages = 'https://mail.google.com'
 
+c.fileselect.handler = 'external'
+c.fileselect.folder.command = [
+    'wezterm', 'start', '--', 'ranger', '--choosedir={}',
+    '--cmd=set global_inode_type_filter d']
+c.fileselect.single_file.command = [
+    'wezterm', 'start', '--', 'ranger', '--choosefile={}']
+c.fileselect.multiple_files.command = [
+    'wezterm', 'start', '--', 'ranger', '--choosefiles={}']
+
 
 def make_sites_query(sites):
     query = '(' + ' OR '.join([f'site:{site}' for site in sites]) + ') '
@@ -87,7 +96,7 @@ config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Alt-f>', 'fake-key f')
 config.bind('cc', 'spawn --detach google-chrome-stable {url}')
 config.bind(';c', 'hint links spawn --detach google-chrome-stable {hint-url}')
-config.bind(';v', 'hint links spawn --detach mpv {hint-url}')
+config.bind(';v', 'hint links spawn --detach mpv {hint-url} --slang="tw,en"')
 config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 config.bind('gs', 'greasemonkey-reload ;; cmd-later 500 reload --force')
