@@ -5,6 +5,7 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 export EDITOR=vim
 export PATH="$HOME"/.local/bin:"$XDG_CONFIG_HOME"/emacs/bin:$PATH
+export TIME_STYLE='+%Y-%m-%d %H:%M:%S'
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'" # https://github.com/sharkdp/bat#man
 export MANROFFOPT="-c"
