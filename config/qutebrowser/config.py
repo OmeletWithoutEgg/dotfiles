@@ -112,6 +112,7 @@ config.bind('zb', f'hint inputs tab-bg --first ;; cmd-later 1 {qute_pass}')
 config.bind('zm', f'{qute_pass} --unfiltered')
 config.bind('zp', f'{qute_pass} --password-only')
 config.bind('zu', f'{qute_pass} --username-only')
+config.bind('zo', f'{qute_pass} --otp-only')
 
 hint_chars = {
     'DEFAULT': 'asdfghjkl',
