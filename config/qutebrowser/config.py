@@ -94,11 +94,14 @@ config.unbind('ss')
 config.bind('ZC', 'close')  # single hand `:q`
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Alt-f>', 'fake-key f')
-config.bind('cc', 'spawn --detach google-chrome-stable {url}')
-config.bind(';c', 'hint links spawn --detach google-chrome-stable {hint-url}')
+
+chrome = 'google-chrome-stable --profile-directory=Default'
+config.bind('cc', f'spawn --detach {chrome} {{url}}')
+config.bind(';c', f'hint links spawn --detach {chrome} {{hint-url}}')
 config.bind(';v', 'hint links spawn --detach mpv {hint-url} --slang="tw,en"')
 config.bind('yg', 'spawn --userscript yank-url-path')
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
+
 config.bind('gs', 'greasemonkey-reload ;; cmd-later 500 reload --force')
 config.bind('ge', 'edit-url')
 config.bind('gyd', 'spawn --userscript dl_audio')
