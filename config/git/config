@@ -3,6 +3,7 @@
 [user]
   email = 2qbingxuan@gmail.com
   name = OmeletWithoutEgg
+	signingkey = 3DDF9A9117ABE84150A41BDDF17CE2806D9121E4
 [init]
   defaultBranch = main
 [pull]
@@ -19,3 +20,7 @@
   side-by-side = true
 [merge]
   tool = vimdiff
+[commit]
+	gpgsign = true
+[tag]
+	gpgSign = true
