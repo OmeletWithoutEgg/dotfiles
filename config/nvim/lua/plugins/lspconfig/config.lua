@@ -16,7 +16,9 @@ local lsps = {
   -- texlab = {},
   -- hls = {},
   -- gopls = {},
-  bashls = {},
+  bashls = {
+    -- filetypes = {'bash', 'zsh'},
+  },
   html = {},
   -- clangd = {},
   -- ccls = {},
@@ -70,8 +72,8 @@ local function on_attach(_, bufnr)
     ['<leader>rn'] = { vim.lsp.buf.rename, 'lsp::rename_variable' },
     ['<leader>fm'] = { vim.lsp.buf.format, 'lsp::code_formatting' },
     ['<leader>ca'] = { vim.lsp.buf.code_action, 'lsp::code_action' },
-    ['[d']         = { vim.diagnostic.goto_next, 'lsp::next_diagnostic' },
-    [']d']         = { vim.diagnostic.goto_prev, 'lsp::prev_diagnostic' },
+    [']d']         = { vim.diagnostic.goto_next, 'lsp::next_diagnostic' },
+    ['[d']         = { vim.diagnostic.goto_prev, 'lsp::prev_diagnostic' },
     ['<C-k>']      = { vim.lsp.buf.signature_help, 'lsp::signature_help' },
     -- ['<leader>K']  = { vim.diagnostic.open_float, 'lsp::line_diagnostic' },
   }, { buffer = bufnr })
