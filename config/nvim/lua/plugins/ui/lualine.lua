@@ -143,7 +143,6 @@ local diagnostics = {
     color_warn = { fg = colors.yellow },
     color_info = { fg = colors.cyan },
   },
-  alwas_visible = true,
 }
 
 local filetype = {

@@ -18,10 +18,11 @@ local treesitter_opts = {
   sync_install = false,
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-  incremental_selection = {
-    enable = true
-  },
+  -- auto_install = true,
+  -- incremental_selection = {
+  --   enable = true
+  -- },
+
   highlight = {
     enable = true,
     disable = { 'latex' },
@@ -46,6 +47,7 @@ local treesitter_opts = {
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+
   textobjects = {
     select = {
       enable = true,
@@ -56,14 +58,12 @@ local treesitter_opts = {
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
-        -- You can optionally set descriptions to the mappings (used in the desc parameter of
-        -- nvim_buf_set_keymap) which plugins like which-key display
         ['ic'] = '@class.inner',
-        -- You can also use captures from other query groups like `locals.scm`
         ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
       },
     },
   },
+
   autotag = {
     enable = true,
   },
@@ -74,56 +74,25 @@ local treesitter_opts = {
 }
 
 return {
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'windwp/nvim-ts-autotag',
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      'numToStr/Comment.nvim',
-    },
-    config = function()
-      require('nvim-treesitter.configs').setup(treesitter_opts)
-      require('Comment').setup {
-        pre_hook =
-            require('ts_context_commentstring.integrations.comment_nvim')
-            .create_pre_hook(),
-      }
-    end,
-    init = function ()
-      vim.g.skip_ts_context_commentstring_module = true
-    end,
-    build = ':TSUpdate',
-    event = 'VeryLazy',
+  'nvim-treesitter/nvim-treesitter',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    'windwp/nvim-ts-autotag',
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    'numToStr/Comment.nvim',
   },
-
-  {
-    'kiyoon/treesitter-indent-object.nvim',
-    keys = {
-      {
-        "ai",
-        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer()<CR>",
-        mode = { "x", "o" },
-        desc = "Select context-aware indent (outer)",
-      },
-      {
-        "aI",
-        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_outer(true)<CR>",
-        mode = { "x", "o" },
-        desc = "Select context-aware indent (outer, line-wise)",
-      },
-      {
-        "ii",
-        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner()<CR>",
-        mode = { "x", "o" },
-        desc = "Select context-aware indent (inner, partial range)",
-      },
-      {
-        "iI",
-        "<Cmd>lua require'treesitter_indent_object.textobj'.select_indent_inner(true)<CR>",
-        mode = { "x", "o" },
-        desc = "Select context-aware indent (inner, entire range)",
-      },
-    },
-  }
+  opts = treesitter_opts,
+  config = function()
+    require('nvim-treesitter.configs').setup(treesitter_opts)
+    require('Comment').setup {
+      pre_hook =
+          require('ts_context_commentstring.integrations.comment_nvim')
+          .create_pre_hook(),
+    }
+  end,
+  init = function()
+    vim.g.skip_ts_context_commentstring_module = true
+  end,
+  build = ':TSUpdate',
+  event = 'VeryLazy',
 }

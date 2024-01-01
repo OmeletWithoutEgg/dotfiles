@@ -86,12 +86,6 @@ add_keymap_group('plugins', '<space>p', {
   s = { '<Cmd>Lazy<CR>', 'status' },
 })
 
-add_keymap_group('vcs_diffview', '<space>vd', {
-  o = { '<Cmd>DiffviewOpen<CR>', 'open' },
-  t = { '<Cmd>DiffviewToggleFiles<CR>', 'toggle files' },
-  c = { '<Cmd>DiffviewClose<CR>', 'close' }
-})
-
 add_keymap_group('vcs', '<space>v', {
   c = { '<Cmd>Telescope git_commits<CR>', 'git commits' },
   s = { '<Cmd>Telescope git_status<CR>', 'git status' }
@@ -105,17 +99,6 @@ add_keymap_group('treesitter', '<space>t', {
 add_keymap_group('appearance', '<space>a', {
   c = { '<Cmd>Telescope colorscheme<CR>', 'colorschemes' },
   t = { '<Cmd>TransparentToggle<CR>', 'toggle transparent' },
-})
-
-add_keymap_group('session', '<space>s', {
-  s = { '<Cmd>SessionManager save_current_session<CR>', 'save' },
-  l = { '<Cmd>SessionManager load_session<CR>', 'load' },
-  d = { '<Cmd>SessionManager delete_session<CR>', 'delete' },
-})
-
-add_keymap_group('quickfix', '<space>c', {
-  o = { '<Cmd>copen <CR>', 'open' },
-  c = { '<Cmd>cclose <CR>', 'close' },
 })
 -- }}}
 
@@ -138,6 +121,11 @@ local lazyopts = {
   ui = {
     border = 'single',
   },
+  performance = {
+    rtp = {
+      paths = { '~/.vim' }
+    }
+  }
 }
 -- }}}
 
@@ -155,7 +143,10 @@ end
 
 require('lazy').setup({
   'nvim-lua/plenary.nvim',
-  -- 'nvim-tree/nvim-web-devicons',
+
+  require('plugins.nvim-treesitter'),
+  require('plugins.lspconfig'),
+  require('plugins.nvim-cmp'),
 
   -- [[ Edit ]] {{{
   VeryLazy {
@@ -179,33 +170,24 @@ require('lazy').setup({
         }
       },
     },
-    -- 'mbbill/undotree',
   },
   -- }}}
 
   -- [[ Git ]] {{{
-  {
+  VeryLazy {
     'sindrets/diffview.nvim',
-    event = 'VeryLazy',
-  },
-  {
-    'lewis6991/gitsigns.nvim',
-    config = true,
-    event = 'VeryLazy',
+    {
+      'lewis6991/gitsigns.nvim',
+      config = true,
+    },
   },
   -- }}}
 
-  -- [[ LSP & Completion & Tree-Sitter ]]
-  require('plugins.nvim-treesitter'),
-  require('plugins.nvim-cmp'),
-  require('plugins.lspconfig'),
-
-  -- [[ UI ]]
+  -- [[ UI ]] {{{
   require('plugins.ui.lualine'),
   require('plugins.ui.startify'),
-  -- require('plugins.ui.alpha'),
-  -- require('plugins.ui.nvim-tree'),
-  -- {{{ [[[ glyph-palette.vim ]]]
+
+  -- [[[ glyph-palette.vim & fern.vim ]]] {{{
   {
     'lambdalisue/glyph-palette.vim',
     config = function()
@@ -219,8 +201,6 @@ require('lazy').setup({
       })
     end,
   },
-  -- }}}
-
   {
     'lambdalisue/fern.vim',
     dependencies = {
@@ -232,13 +212,16 @@ require('lazy').setup({
     init = function()
       vim.g['fern#renderer'] = 'nerdfont'
     end,
-    -- event = 'VeryLazy',
   },
+  -- }}}
 
   -- [[[ themes collection ]]] {{{
   {
     'hzchirs/vim-material',
     VeryLazy {
+      { 'catppuccin/nvim', name = 'catppuccin', },
+      'sainnhe/sonokai',
+      'Shatur/neovim-ayu',
       'kaicataldo/material.vim',
       'lifepillar/vim-solarized8',
       'cpea2506/one_monokai.nvim',
@@ -246,6 +229,7 @@ require('lazy').setup({
       'navarasu/onedark.nvim',
       'Mofiqul/vscode.nvim',
       'folke/tokyonight.nvim',
+      'morhetz/gruvbox',
     },
   },
   -- }}}
@@ -258,12 +242,14 @@ require('lazy').setup({
     opts = { 'css', 'javascript', 'html', 'lua', 'rasi' },
     event = 'VeryLazy',
   },
+  --- }}}
+
 
   -- [[ Tool ]]
-  -- [[[ Telescope.nvim ]]] {{{
+  -- [[[ telescope.nvim ]]] {{{
   {
     'nvim-telescope/telescope.nvim',
-    version = '0.1.4',
+    branch = '0.1.x',
     dependencies = {
       {
         'nvim-telescope/telescope-fzf-native.nvim',
@@ -321,27 +307,16 @@ require('lazy').setup({
   },
   -- }}}
 
-  {
-    'Shatur/neovim-session-manager',
-    config = function()
-      require('session_manager').setup {
-        autoload_mode =
-            require('session_manager.config').AutoloadMode.Disabled,
-        autosave_last_session = false,
-      }
-    end,
-    event = 'VeryLazy',
+  VeryLazy {
+    {
+      'kevinhwang91/vim-ibus-sw',
+      name = 'ibus-sw',
+      config = true,
+    },
+    'lambdalisue/suda.vim',
   },
 
-  {
-    'kevinhwang91/vim-ibus-sw',
-    name = 'ibus-sw',
-    config = true,
-    event = 'VeryLazy',
-  },
-  'lambdalisue/suda.vim',
-
-  -- [[ Filetype Plugins ]]
+  -- [[ Filetype Plugins ]] {{{
   {
     'vimwiki/vimwiki',
     init = function()
@@ -377,18 +352,10 @@ require('lazy').setup({
       end
     },
   },
+  -- }}}
 
   -- [[ Misc ]]
-  {
-    'jbyuki/nabla.nvim',
-    config = function()
-      map('n', '<leader>p', [[<Cmd>lua require('nabla').popup()<CR>]])
-      -- Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
-    end,
-    event = 'VeryLazy',
-  },
-  -- 'jubnzv/mdeval.nvim',
-
+  -- [[[ nvim-ufo ]]] {{{
   {
     -- https://github.com/neovim/neovim/pull/12515
     -- https://github.com/neovim/neovim/issues/12649
@@ -406,7 +373,26 @@ require('lazy').setup({
       }
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-    end
+      vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+      vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+    end,
+    event = 'VeryLazy'
+  },
+  -- }}}
+
+  {
+    'jbyuki/nabla.nvim',
+    config = function()
+      map('n', '<leader>p', [[<Cmd>lua require('nabla').popup()<CR>]])
+      -- Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
+    end,
+    event = 'VeryLazy',
+  },
+  -- 'jubnzv/mdeval.nvim',
+  {
+    'lukas-reineke/headlines.nvim',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = true, -- or `opts = {}`
   },
 
   {
@@ -419,9 +405,9 @@ require('lazy').setup({
     },
     -- see details below for full configuration options
     opts = {
-      -- lsp = {
-      --   on_attach = on_attach,
-      -- },
+      lsp = {
+        on_attach = require('plugins.lspconfig').opts.on_attach,
+      },
       mappings = true,
     }
   },
@@ -431,9 +417,10 @@ require('lazy').setup({
     init = function()
       vim.g.vimtex_view_method = 'zathura'
     end
-  }
+  },
 
-}, lazyopts)
+}, lazyopts);
+
 -- }}}
 
 local group = vim.api.nvim_create_augroup('CustomVimMaterial', {})
