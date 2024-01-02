@@ -32,18 +32,18 @@ c.window.hide_decoration = True
 c.url.default_page = 'qute://start'
 c.url.start_pages = 'https://mail.google.com'
 
-c.fileselect.handler = 'external'
-c.fileselect.folder.command = [
-    'wezterm', 'start', '--', 'ranger', '--choosedir={}',
-    '--cmd=set global_inode_type_filter d']
-c.fileselect.single_file.command = [
-    'wezterm', 'start', '--', 'ranger', '--choosefile={}']
-c.fileselect.multiple_files.command = [
-    'wezterm', 'start', '--', 'ranger', '--choosefiles={}']
+# c.fileselect.handler = 'external'
+# c.fileselect.folder.command = [
+#     'wezterm', 'start', '--', 'ranger', '--choosedir={}',
+#     '--cmd=set global_inode_type_filter d']
+# c.fileselect.single_file.command = [
+#     'wezterm', 'start', '--', 'ranger', '--choosefile={}']
+# c.fileselect.multiple_files.command = [
+#     'wezterm', 'start', '--', 'ranger', '--choosefiles={}']
 
 
 def make_sites_query(sites):
-    query = '(' + ' OR '.join([f'site:{site}' for site in sites]) + ') '
+    query = '(' + ' OR '.join([f'site:{site}' for site in sites]) + ')'
     return urllib.parse.quote_plus(query)
 
 
@@ -98,9 +98,10 @@ config.bind('<Alt-f>', 'fake-key f')
 chrome = 'google-chrome-stable --profile-directory=Default'
 config.bind('cc', f'spawn --detach {chrome} {{url}}')
 config.bind(';c', f'hint links spawn --detach {chrome} {{hint-url}}')
+# config.bind('cp', 'spawn google-chrome-stable {clipboard}')
+
 config.bind(';v', 'hint links spawn --detach mpv {hint-url} --slang="tw,en"')
 config.bind('yg', 'spawn --userscript yank-url-path')
-# config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 
 config.bind('gs', 'greasemonkey-reload ;; cmd-later 500 reload --force')
 config.bind('ge', 'edit-url')
