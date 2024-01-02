@@ -7,6 +7,7 @@ return {
   check_for_updates = true,
   window_background_opacity = 0.95,
   font = wezterm.font_with_fallback({
+    -- { family = 'UbuntuMono Nerd Font', },
     {
       -- family = 'Monocraft',
       -- family = 'Source Code Pro Medium',
