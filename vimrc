@@ -7,7 +7,7 @@ set fileformat=unix
 
 call plug#begin()
 
-Plug 'whonore/Coqtail'
+" Plug 'whonore/Coqtail'
 
 """ Appearance
 Plug 'hzchirs/vim-material'
