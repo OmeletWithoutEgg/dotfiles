@@ -47,7 +47,6 @@ zi load "romkatv/powerlevel10k"
 
 zi lucid for \
   "zpm-zsh/ls" \
-  "le0me55i/zsh-extract" \
   "agkozak/zsh-z"
 
 zi wait lucid for \
@@ -62,6 +61,7 @@ zi wait lucid for \
 
 zi snippet OMZ::lib/history.zsh
 zi snippet OMZP::command-not-found # to update: pkgfile -u
+zi snippet OMZP::extract
 
 if command -v elan >/dev/null 2>/dev/null; then
   eval $(elan completions zsh)
@@ -93,6 +93,7 @@ bindkey -r -M viins '\ec'
 alias regmount="sudo mount -t ntfs3 -o gid=users,fmask=113,dmask=002"
 alias gst="git status"
 alias gdf="git diff"
+alias pgrep="pgrep -a"
 alias v=nvim
 
 @replace rm "trash" "rm -i"
@@ -127,7 +128,7 @@ function ipinfo {
 
 function cpp-precompile {
   echo "Note: will need permission of header dirs"
-  local cppflags=(-std=gnu++20 -g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address)
+  local cppflags=(-std=gnu++20 -g -Dlocal -Ofast -Wall -Wextra -Wshadow -Wconversion -Wfatal-errors -fsanitize=undefined,address -DCKISEKI)
   for header in "bits/stdc++.h" "bits/extc++.h"; do
     local p=$(echo "#include <$header>" | g++ -x c++ -H - 2>&1 | grep "$header" | tail -1)
     echo "precompile $p"

@@ -1,11 +1,17 @@
 local wezterm = require('wezterm')
 local act = wezterm.action
+local mux = wezterm.mux
+
+-- wezterm.on('gui-startup', function(cmd)
+--   local tab, pane, window = mux.spawn_window(cmd or {})
+--   window:gui_window():maximize()
+-- end)
 
 return {
   color_scheme = 'Breeze',
   -- color_scheme = 'tokyonight_moon',
   check_for_updates = true,
-  window_background_opacity = 0.95,
+  -- window_background_opacity = 0.95,
   font = wezterm.font_with_fallback({
     -- { family = 'UbuntuMono Nerd Font', },
     {
@@ -41,7 +47,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
 
   use_ime = true,
-  xim_im_name = 'ibus',
+  -- xim_im_name = 'ibus',
 
   default_gui_startup_args = { 'start', '--always-new-process' },
 

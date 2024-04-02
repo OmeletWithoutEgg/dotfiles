@@ -56,9 +56,10 @@ Plug 'suy/vim-context-commentstring'
 " Plug 'mbbill/undotree'
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'kevinhwang91/vim-ibus-sw', { 'commit': '83bcdce5cd5c0ef7b129916ea4fb3be27194230b' }
-" Plug 'lilydjwg/fcitx.vim'
-" let g:fcitx5_remote = 'fcitx5-remote'
+" Plug 'kevinhwang91/vim-ibus-sw', { 'commit': '83bcdce5cd5c0ef7b129916ea4fb3be27194230b' }
+Plug 'lilydjwg/fcitx.vim'
+let g:fcitx5_remote = 'fcitx5-remote'
+Plug 'jasonccox/vim-wayland-clipboard'
 
 Plug 'vimwiki/vimwiki', { 'branch': 'master' }
 " Plug 'vim-latex/vim-latex'
@@ -82,6 +83,7 @@ nnoremap <silent> <space>pp :PlugUpgrade<bar>PlugUpdate<CR>
 """ UI plugins {{{
 """ <Plug> vim-material
 au ColorScheme *
+      \ hi Visual guifg=NONE |
       \ hi Comment cterm=NONE gui=NONE |
       \ hi Search ctermfg=yellow guifg=yellow |
       \ hi CursorLine term=NONE cterm=NONE |
@@ -191,7 +193,7 @@ nnoremap <C-g> 1<C-g>
 
 let g:gcc_compile_flag = '-g -Dlocal -Ofast ' .
       \ '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' .
-      \ '-fsanitize=undefined,address'
+      \ '-fsanitize=undefined,address -DCKISEKI'
 
 augroup formattingHandler
   au!
