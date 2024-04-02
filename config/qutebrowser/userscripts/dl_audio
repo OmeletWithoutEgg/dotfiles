@@ -2,7 +2,8 @@
 
 set -e
 
-cd ~/yt-dlp/
+mkdir -p ~/Music/yt-dlp/
+cd ~/Music/yt-dlp/
 
 function main() {
   echo "message-info 'Downloading $QUTE_URL'" > $QUTE_FIFO

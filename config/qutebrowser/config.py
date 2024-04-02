@@ -94,6 +94,10 @@ config.unbind('ss')
 config.bind('ZC', 'close')  # single hand `:q`
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
 config.bind('<Alt-f>', 'fake-key f')
+config.bind('<Alt-9>', 'tab-focus -1')
+
+config.bind('<Alt-.>', 'fake-key <Shift-.>')  # speed up
+config.bind('<Alt-,>', 'fake-key <Shift-,>')  # speed down
 
 chrome = 'google-chrome-stable --profile-directory=Default'
 config.bind('cc', f'spawn --detach {chrome} {{url}}')
