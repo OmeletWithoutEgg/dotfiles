@@ -7,13 +7,16 @@
 // ==/UserScript==
 const removeAds = () => {
   // Get skip button and click it
-  for (let btn of [...document.getElementsByClassName("ytp-ad-skip-button ytp-button")]) {
-    btn.click();
-    console.log("classical button clicked");
-  }
-  for (let btn of [...document.getElementsByClassName("ytp-ad-skip-button-modern ytp-button")]) {
-    btn.click();
-    console.log("modern button clicked");
+  const classes = [
+    "ytp-ad-skip-button ytp-button",
+    "ytp-ad-skip-button-modern ytp-button",
+    "ytp-skip-ad-button"
+  ];
+  for (const className of classes) {
+    for (let btn of [...document.getElementsByClassName(className)]) {
+      btn.click();
+      console.log(className, "button clicked");
+    }
   }
 
   // (unskipable ads) If skip button didn't exist / was not clicked speed up video
