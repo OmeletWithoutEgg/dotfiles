@@ -2,6 +2,18 @@ local wezterm = require('wezterm')
 local act = wezterm.action
 local mux = wezterm.mux
 
+
+function toggle_transparent()
+  local overrides = window:get_config_overrides() or {}
+  if not overrides.window_background_opacity or
+    overrides.window_background_opacity == 1 then
+    overrides.window_background_opacity = 0.95
+  else
+    overrides.window_background_opacity = 1
+  end
+  window:set_config_overrides(overrides)
+end
+
 -- wezterm.on('gui-startup', function(cmd)
 --   local tab, pane, window = mux.spawn_window(cmd or {})
 --   window:gui_window():maximize()
@@ -11,7 +23,7 @@ return {
   color_scheme = 'Breeze',
   -- color_scheme = 'tokyonight_moon',
   check_for_updates = true,
-  -- window_background_opacity = 0.95,
+  window_background_opacity = 0.95,
   font = wezterm.font_with_fallback({
     -- { family = 'UbuntuMono Nerd Font', },
     {
