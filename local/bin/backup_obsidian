@@ -2,30 +2,7 @@
 
 set -e
 
-echo "kdeconnect-cli listing devices..."
-echo
-
-function choose() {
-    rofi -dmenu -sync "$@"
-}
-
-PHONE_ID=$(kdeconnect-cli --list-devices --id-only | choose -p phone_id)
-echo "$PHONE_ID"
-
-
-function query_dbus() {
-    qdbus-qt5 org.kde.kdeconnect /modules/kdeconnect/devices/"$PHONE_ID"/sftp "$@"
-}
-
-mounted=$(query_dbus isMounted)
-
-if [[ "$mounted" == "false" ]]; then
-    echo "mounting..."
-    query_dbus mountAndWait >/dev/null
-    echo "mount done!"
-fi
-
-MOUNT_POINT=$(query_dbus getDirectories | choose -p mount_point | cut -f 1 -d ':')
+MOUNT_POINT=$(kdeconnect-mount.sh)
 
 echo "rsync -av $MOUNT_POINT/KDEconnect/Obsidian/ $HOME/vimwiki/obsidian/"
 rsync -av "$MOUNT_POINT"/KDEconnect/Obsidian/ "$HOME"/vimwiki/obsidian/
