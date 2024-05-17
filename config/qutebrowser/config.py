@@ -8,15 +8,17 @@ def dummy(): global c, config  # disable pyflakes error
 config.load_autoconfig()
 
 c.qt.args = [
-    'use-gl=desktop',
+    # 'use-gl=desktop',
     'ignore-gpu-blocklist',
     'enable-gpu-rasterization',
+    # 'enable-unsafe-webgpu',
     'enable-native-gpu-memory-buffers',
     'enable-zero-copy',
     # 'num-raster-threads=4',
-    'enable-accelerated-video-decode',
-    'disable-accelerated-2d-canvas',
+    # 'enable-accelerated-video-decode',
+    # 'disable-accelerated-2d-canvas',
 ]
+c.qt.workarounds.disable_accelerated_2d_canvas = 'never'
 
 c.auto_save.session = True
 c.content.blocking.method = 'both'
