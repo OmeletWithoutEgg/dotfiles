@@ -3,5 +3,5 @@ configuration {
   modi: "drun,ssh,window";
 }
 
-@theme "material"
-/* @theme "material-wayland" */
+/* @theme "material" */
+@theme "material-wayland"

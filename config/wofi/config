@@ -1,0 +1,15 @@
+/* stylesheet=style.css */
+show=drun
+/* matching=fuzzy */
+no_actions=true
+/* width=1280 */
+/* height=1024 */
+always_parse_args=true
+/* layer=overlay */
+insensitive=true
+prompt=Search...
+/* allow_markup=true */
+allow_images=true
+
+key_backward=Ctrl-p
+key_forward=Ctrl-n

@@ -8,11 +8,11 @@ function grab_connections() {
 }
 
 function choose() {
-    if [[ "wayland" == "$XDG_SESSION_TYPE" ]]; then
-        GTK_IM_MODULE="" wofi --dmenu "$@"
-    else
-        rofi -dmenu "$@"
-    fi
+  if [[ "wayland" == "$XDG_SESSION_TYPE" ]]; then
+    GTK_IM_MODULE="" wofi --dmenu "$@"
+  else
+    rofi -dmenu "$@"
+  fi
 }
 
 read -r conn is_activated conn_type <<<"$(grab_connections | choose -p "connections")"
