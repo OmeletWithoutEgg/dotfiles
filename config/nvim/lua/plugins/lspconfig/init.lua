@@ -20,13 +20,14 @@ local lsps = {
     -- filetypes = {'bash', 'zsh'},
   },
   html = {},
-  -- clangd = {},
+  clangd = {},
   -- ccls = {},
   tsserver = {},
   pylsp = {},
   -- ~/.local/share/nvim/mason/packages/python-lsp-server/venv/pyvenv.cfg
   -- include-system-site-packages = true
 
+  -- ruby_ls = {},
   -- solargraph = {}, -- ruby
   -- vuels = {},
   -- volar = {},
@@ -100,7 +101,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     -- 'hrsh7th/cmp-nvim-lsp',
   },
-  event = { 'BufReadPre' },
+  event = { 'BufReadPre', 'VeryLazy' },
   opts = lspconfig_opts,
   config = function()
     local capabilities = require('cmp_nvim_lsp').default_capabilities()

@@ -221,6 +221,7 @@ require('lazy').setup({
     VeryLazy {
       { 'catppuccin/nvim', name = 'catppuccin', },
       'sainnhe/sonokai',
+      'Mofiqul/dracula.nvim',
       'Shatur/neovim-ayu',
       'kaicataldo/material.vim',
       'lifepillar/vim-solarized8',
@@ -230,6 +231,7 @@ require('lazy').setup({
       'Mofiqul/vscode.nvim',
       'folke/tokyonight.nvim',
       'morhetz/gruvbox',
+      'AlexvZyl/nordic.nvim',
     },
   },
   -- }}}
@@ -308,11 +310,11 @@ require('lazy').setup({
   -- }}}
 
   VeryLazy {
-    {
-      'kevinhwang91/vim-ibus-sw',
-      name = 'ibus-sw',
-      config = true,
-    },
+    -- {
+    --   'kevinhwang91/vim-ibus-sw',
+    --   name = 'ibus-sw',
+    --   config = true,
+    -- },
     'lambdalisue/suda.vim',
   },
 
