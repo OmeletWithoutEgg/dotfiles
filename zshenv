@@ -57,6 +57,8 @@ export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
 export MYSQL_HISTFILE="$XDG_STATE_HOME"/mariadb_history
 
+export DOT_SAGE="$XDG_CONFIG_HOME"/sage
+
 # export IRBRC="$XDG_CONFIG_HOME"/irb/irbrc
 
 export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
@@ -67,10 +69,10 @@ export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 # export XMODIFIERS="@im=ibus"
 
 # export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
+# export QT_IM_MODULE=fcitx
 # export XMODIFIERS=@im=fcitx
 
-# export QT_QPA_PLATFORM="wayland"
+export QT_QPA_PLATFORM="wayland"
 # export QT_QPA_PLATFORM="wayland;xcb"
 
 export TPS_TASK_TEMPLATES_PATH="$XDG_DATA_HOME"/tps/task-templates
