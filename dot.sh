@@ -108,9 +108,9 @@ function install {
     #         --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin"
     # fi
 
-    if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
-        mkdir -p "$HOME/.tmux/plugins/"
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    if [[ ! -d "$HOME/.local/share/tmux/plugins/tpm" ]]; then
+        mkdir -p "$HOME/.local/share/tmux/plugins/"
+        git clone https://github.com/tmux-plugins/tpm ~/.local/share/tmux/plugins/tpm
     fi
 
     for d in "${MKDIRS[@]}"; do
