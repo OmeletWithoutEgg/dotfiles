@@ -191,6 +191,8 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap <C-g> 1<C-g>
 
+nnoremap <C-]> <nop>
+
 let g:gcc_compile_flag = '-g -Dlocal -Ofast ' .
       \ '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' .
       \ '-fsanitize=undefined,address -DCKISEKI'
