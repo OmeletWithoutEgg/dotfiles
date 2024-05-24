@@ -13,3 +13,5 @@ allow_images=true
 
 key_backward=Ctrl-p
 key_forward=Ctrl-n
+
+key_exit=Ctrl-g,Ctrl-bracketleft
