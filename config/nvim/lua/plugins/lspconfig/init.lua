@@ -8,7 +8,10 @@ local lsps = {
           version = 'LuaJIT',
         },
         diagnostics = {
-          globals = { 'vim' }
+          globals = {
+            'vim', -- neovim config
+            'window', -- wezterm config
+          }
         }
       },
     },
