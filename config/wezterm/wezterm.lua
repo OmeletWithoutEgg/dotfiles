@@ -1,34 +1,26 @@
 local wezterm = require('wezterm')
 local act = wezterm.action
-local mux = wezterm.mux
 
 
-function toggle_transparent()
+function ToggleTransparent()
   local overrides = window:get_config_overrides() or {}
   if not overrides.window_background_opacity or
-    overrides.window_background_opacity == 1 then
-    overrides.window_background_opacity = 0.95
-  else
+    overrides.window_background_opacity == 0.95 then
     overrides.window_background_opacity = 1
+  else
+    overrides.window_background_opacity = 0.95
   end
   window:set_config_overrides(overrides)
 end
 
 -- https://github.com/wez/wezterm/issues/3173
-wezterm.on('window-config-reloaded', function(window, pane)
-  -- approximately identify this gui window, by using the associated mux id
-  local id = tostring(window:window_id())
-
-  -- maintain a mapping of windows that we have previously seen before in this event handler
-  local seen = wezterm.GLOBAL.seen_windows or {}
-  -- set a flag if we haven't seen this window before
-  local is_new_window = not seen[id]
-  -- and update the mapping
-  seen[id] = true
-  wezterm.GLOBAL.seen_windows = seen
-
-  -- now act upon the flag
-  if is_new_window then
+wezterm.on('window-config-reloaded', function(window, _)
+  window:maximize()
+  local dimensions = window:get_dimensions()
+  -- print(dimensions.pixel_height, wezterm.gui.screens().virtual_height)
+  if dimensions.pixel_height ~= 1800 then -- hacky way?
+    print('restore and maximize')
+    window:restore()
     window:maximize()
   end
 end)
@@ -57,7 +49,7 @@ return {
   }),
   font_size = 14,
 
-  window_decorations = 'NONE',
+  window_decorations = 'RESIZE',
   window_padding = {
     left = 0,
     right = 0,
@@ -75,7 +67,7 @@ return {
   use_ime = true,
   -- xim_im_name = 'ibus',
 
-  default_gui_startup_args = { 'start', '--always-new-process' },
+  -- default_gui_startup_args = { 'start', '--always-new-process' },
 
   visual_bell = {
     fade_in_function = 'EaseIn',
