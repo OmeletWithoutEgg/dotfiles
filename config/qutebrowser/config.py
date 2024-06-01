@@ -24,6 +24,7 @@ c.qt.workarounds.disable_accelerated_2d_canvas = 'never'
 
 c.auto_save.session = True
 c.content.blocking.method = 'both'
+c.content.blocking.enabled = True
 c.content.javascript.clipboard = 'access'
 c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}']
 c.fonts.default_size = '16pt'
@@ -157,5 +158,10 @@ c.content.blocking.adblock.lists = [
     f"{ublockOrigin}/unbreak.txt",
     f"{ublockOrigin}/resource-abuse.txt",
     f"{ublockOrigin}/privacy.txt",
-    f"{ublockOrigin}/filters.txt"
+    f"{ublockOrigin}/filters.txt",
+    f"{ublockOrigin}/filters-2021.txt",
+    f"{ublockOrigin}/filters-2022.txt",
+    f"{ublockOrigin}/filters-2023.txt",
+    f"{ublockOrigin}/filters-2024.txt",
+    f"{ublockOrigin}/quick-fixes.txt",
 ]
