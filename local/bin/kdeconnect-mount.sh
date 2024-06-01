@@ -7,7 +7,11 @@ function echoerr() { echo "$@" 1>&2; }
 echoerr "kdeconnect-cli listing devices..."
 
 function choose() {
-  rofi -dmenu -sync "$@"
+  if [[ "wayland" == "$XDG_SESSION_TYPE" ]]; then
+    wofi --dmenu "$@"
+  else
+    rofi -dmenu -sync "$@"
+  fi
 }
 
 function query_dbus() {

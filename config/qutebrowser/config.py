@@ -1,5 +1,6 @@
 # ~/.config/qutebrowser/config.py
 import urllib
+import os
 
 
 def dummy(): global c, config  # disable pyflakes error
@@ -17,6 +18,7 @@ c.qt.args = [
     # 'num-raster-threads=4',
     # 'enable-accelerated-video-decode',
     # 'disable-accelerated-2d-canvas',
+    # 'ozone-platform=wayland',
 ]
 c.qt.workarounds.disable_accelerated_2d_canvas = 'never'
 
@@ -114,7 +116,10 @@ config.bind('ge', 'edit-url')
 config.bind('gyd', 'spawn --userscript dl_audio')
 config.bind('ce', 'config-edit')
 
-pass_menu = 'rofi -dmenu'
+if os.environ['XDG_SESSION_TYPE'] == "wayland":
+    pass_menu = 'wofi --dmenu'
+else:
+    pass_menu = 'rofi -dmenu'
 qute_pass = f'spawn --userscript qute-pass -d "{pass_menu}"'
 
 config.bind('<Ctrl-Shift-l>', f'{qute_pass}', mode='insert')
