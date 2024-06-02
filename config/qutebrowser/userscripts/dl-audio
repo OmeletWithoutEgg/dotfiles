@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p ~/Music/yt-dlp/
+cd ~/Music/yt-dlp/
+
+function main() {
+  echo "message-info 'Downloading $QUTE_URL'" > "$QUTE_FIFO"
+
+  local file_m4a file_mp3
+  file_m4a=$(yt-dlp -f m4a --cookies-from-browser chrome --get-filename "$QUTE_URL")
+  yt-dlp -f m4a --cookies-from-browser chrome "$QUTE_URL"
+  echo "message-info 'Download to $PWD done'" > "$QUTE_FIFO"
+
+  file_mp3=${file_m4a%.m4a}.mp3
+  ffmpeg -i "$file_m4a" -b:a 192K -vn "$file_mp3"
+  echo "message-info 'Convert to mp3 done'" > "$QUTE_FIFO"
+}
+
+regex='https://www.youtube.com/watch\?v=.*'
+
+if [[ "$QUTE_URL" =~ $regex ]]; then
+  main
+else
+  echo "message-info 'Bad URL $QUTE_URL'" > "$QUTE_FIFO"
+fi

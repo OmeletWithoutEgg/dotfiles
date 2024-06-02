@@ -27,9 +27,11 @@ c.content.blocking.method = 'both'
 c.content.blocking.enabled = True
 c.content.javascript.clipboard = 'access'
 c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}']
+
 c.fonts.default_size = '16pt'
 c.fonts.default_family = 'Source Code Pro Semi Bold'
-c.fonts.web.family.fixed = 'Hack'
+c.fonts.web.family.fixed = 'Hack'  # source code pro?
+c.fonts.debug_console = '[20,Hack]'
 
 c.window.hide_decoration = True
 # c.new_instance_open_target = 'tab-silent'
@@ -114,7 +116,7 @@ config.bind('yg', 'spawn --userscript yank-url-path')
 
 config.bind('gs', 'greasemonkey-reload ;; cmd-later 500 reload --force')
 config.bind('ge', 'edit-url')
-config.bind('gyd', 'spawn --userscript dl_audio')
+config.bind('gyd', 'spawn --userscript dl-audio')
 config.bind('ce', 'config-edit')
 
 if os.environ['XDG_SESSION_TYPE'] == "wayland":
