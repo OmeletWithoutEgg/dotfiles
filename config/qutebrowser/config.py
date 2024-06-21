@@ -26,7 +26,8 @@ c.auto_save.session = True
 c.content.blocking.method = 'both'
 c.content.blocking.enabled = True
 c.content.javascript.clipboard = 'access'
-c.editor.command = ['wezterm', 'start', '--', 'nvim', '{}']
+c.editor.command = ['wezterm', 'start',
+                    '--always-new-process', '--', 'nvim', '{}']
 
 c.fonts.default_size = '16pt'
 c.fonts.default_family = 'Source Code Pro Semi Bold'
@@ -77,12 +78,14 @@ c.url.searchengines = {
 
 c.zoom.default = '125%'
 c.colors.webpage.preferred_color_scheme = 'dark'
-# c.content.headers.accept_language = 'en-US,en'
+c.content.headers.accept_language = 'en,zh-TW,ja-JP'
 
-with config.pattern('*://*.wikipedia.org/**') as p:
-    p.content.headers.accept_language = 'en-US,zh-TW,ja-JP,ja,en'
-with config.pattern('*://ani.gamer.com.tw/**') as p:
-    p.content.blocking.enabled = False
+# with config.pattern('*://*.wikipedia.org/**') as p:
+#     p.content.headers.accept_language = 'en-US,zh-TW,ja-JP,ja,en'
+#
+for url in ['*://ani.gamer.com.tw/**', '*://www.youtube.com/**']:
+    with config.pattern(url) as p:
+        p.content.blocking.enabled = False
 
 # config.set('colors.webpage.darkmode.enabled', True)
 # config.set('colors.webpage.darkmode.enabled', False, '*://youtube.com/**')
