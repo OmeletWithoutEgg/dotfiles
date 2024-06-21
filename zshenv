@@ -72,8 +72,8 @@ export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 # export QT_IM_MODULE=fcitx
 # export XMODIFIERS=@im=fcitx
 
-export QT_QPA_PLATFORM="wayland"
-# export QT_QPA_PLATFORM="wayland;xcb"
+export QT_QPA_PLATFORM="wayland;xcb"
+# export ELECTRON_OZONE_PLATFORM_HINT="auto"
 
 export TPS_TASK_TEMPLATES_PATH="$XDG_DATA_HOME"/tps/task-templates
 
