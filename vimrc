@@ -7,6 +7,7 @@ set fileformat=unix
 
 call plug#begin()
 
+Plug 'junegunn/goyo.vim'
 " Plug 'whonore/Coqtail'
 
 """ Appearance
@@ -42,7 +43,7 @@ Plug 'mxw/vim-jsx'
 " Plug 'zirrostig/vim-jack-syntax'
 Plug 'petRUShka/vim-sage'
 Plug 'isobit/vim-caddyfile'
-Plug 'posva/vim-vue'
+Plug 'leafOfTree/vim-vue-plugin'
 Plug 'philj56/vim-asm-indent'
 
 """ Functional
@@ -192,6 +193,7 @@ vnoremap > >gv
 nnoremap <C-g> 1<C-g>
 
 nnoremap <C-]> <nop>
+nnoremap <C-LeftMouse> <nop>
 
 let g:gcc_compile_flag = '-g -Dlocal -Ofast ' .
       \ '-Wall -Wextra -Wshadow -Wconversion -Wfatal-errors ' .
