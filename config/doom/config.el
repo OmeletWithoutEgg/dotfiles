@@ -15,7 +15,7 @@
 ;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
 ;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
+;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
@@ -33,7 +33,6 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-solarized-light)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -77,18 +76,20 @@
 ;; they are implemented.
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-;; (toggle-full-screen)
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 28))
+; ;; setup agda mode
+; (setq auto-mode-alist
+;    (append
+;      '(("\\.agda\\'" . agda2-mode)
+;        ("\\.lagda.md\\'" . agda2-mode))
+;      auto-mode-alist))
 
+; (autoload 'agda2-mode "agda2-mode" "Agda2 mode." t)
+
+; ;; make sure poly-markdown is installed
+; (unless (package-installed-p 'polymode) (package-install 'poly-markdown))
+
+;; load markdown-agda-mode
 (add-load-path! "~/.config/doom/lisp/")
 (load "markdown-agda-mode")
-
-;;; (setq evil-normal-state-cursor '(box "orange")
-;;;  evil-insert-state-cursor '(box "orange")
-;;;  evil-visual-state-cursor '(box "orange"))
-
-(custom-set-faces
- '(highlight ((t (:background "violet"))))
-)
