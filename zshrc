@@ -63,9 +63,9 @@ zi snippet OMZ::lib/history.zsh
 zi snippet OMZP::command-not-found # to update: pkgfile -u
 zi snippet OMZP::extract
 
-if command -v elan >/dev/null 2>/dev/null; then
-  eval $(elan completions zsh)
-fi
+# if command -v elan >/dev/null 2>/dev/null; then
+#   eval $(elan completions zsh)
+# fi
 
 # https://github.com/ThiefMaster/zsh-config/blob/master/zshrc.d/completion.zsh
 # Use ls-colors for path completions
@@ -85,8 +85,8 @@ unset LS_COLORS
 bindkey -r -M viins '\ec'
 
 # # History config
-# HISTSIZE=10000
-# SAVEHIST=10000
+HISTSIZE=1000000
+SAVEHIST=1000000
 # HISTFILE=~/.zsh_history
 
 # Aliases & functions
@@ -95,6 +95,7 @@ alias gst="git status"
 alias gdf="git diff"
 alias pgrep="pgrep -a"
 alias v=nvim
+alias t=task
 
 @replace rm "trash" "rm -i"
 @replace mv "mv -i"
@@ -156,6 +157,7 @@ function pacman-history {
 }
 
 set -o vi
+export KEYTIMEOUT=1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 @include ~/.p10k.zsh
