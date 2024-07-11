@@ -33,12 +33,12 @@ local lsps = {
   -- ruby_ls = {},
   -- solargraph = {}, -- ruby
   -- vuels = {},
-  -- volar = {},
+  volar = {},
   -- marksman = { filetypes = { 'markdown', 'vimwiki' } },
   cssls = {},
-  typos_lsp = {
-    -- filetypes = { 'markdown', 'vimwiki' }
-  },
+  -- typos_lsp = {
+  --   -- filetypes = { 'markdown', 'vimwiki' }
+  -- },
 }
 
 local border = 'single'
@@ -107,7 +107,7 @@ return {
   event = { 'BufReadPre', 'VeryLazy' },
   opts = lspconfig_opts,
   config = function()
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     require('mason').setup {
       ui = { border = border },
@@ -128,7 +128,7 @@ return {
 
     local default_lsp_opts = {
       on_attach = on_attach,
-      capabilities = capabilities,
+      -- capabilities = capabilities,
       handlers = handlers,
     }
 
