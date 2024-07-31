@@ -58,7 +58,6 @@ return {
     require('mason').setup {
       ui = { border = border },
     }
-
     require('mason-lspconfig').setup {
       ensure_installed = vim.tbl_keys(language_servers)
     }
@@ -73,8 +72,6 @@ return {
     require('lspconfig.ui.windows').default_options = { border = border }
 
     local lspconfig = require('lspconfig')
-    lspconfig.lua_ls.setup {}
-
     local default_opts = {
       on_attach = function(client, bufnr)
         client.server_capabilities.semanticTokensProvider = nil

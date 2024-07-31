@@ -6,7 +6,7 @@ return {
   dependencies = {
     "kana/vim-textobj-user",
     "neovimhaskell/nvim-hs.vim",
-    "folke/which-key.nvim",
+    -- "folke/which-key.nvim",
   },
 
   init = function()

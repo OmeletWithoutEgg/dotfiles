@@ -1,19 +1,25 @@
 return {
-  'sainnhe/gruvbox-material',
-  'ellisonleao/gruvbox.nvim',
-
+  -- [[[ themes collection ]]] {{{
   {
-    'echasnovski/mini.statusline',
-    version = '*',
-    opts = { set_vim_settings = false },
+    'hzchirs/vim-material',
+    'sainnhe/gruvbox-material',
+    { 'catppuccin/nvim', name = 'catppuccin', },
+    {
+      'sainnhe/sonokai',
+      'Mofiqul/dracula.nvim',
+      'Shatur/neovim-ayu',
+      'kaicataldo/material.vim',
+      'lifepillar/vim-solarized8',
+      'cpea2506/one_monokai.nvim',
+      'shaunsingh/nord.nvim',
+      'navarasu/onedark.nvim',
+      'Mofiqul/vscode.nvim',
+      'folke/tokyonight.nvim',
+      'ellisonleao/gruvbox.nvim',
+      'AlexvZyl/nordic.nvim',
+    },
   },
-
-  -- {
-  --   'nvim-lualine/lualine.nvim',
-  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
-  --   config = true,
-  -- },
-
+  -- }}}
 
   -- [[[ glyph-palette.vim & fern.vim ]]] {{{
   {
@@ -39,31 +45,77 @@ return {
     },
     init = function()
       vim.g['fern#renderer'] = 'nerdfont'
-      vim.cmd [[ nnoremap <space>e <Cmd>Fern . -drawer -toggle<CR> ]]
+      vim.cmd [[
+        augroup FernCustom
+          autocmd!
+          autocmd FileType fern setlocal nonumber norelativenumber
+        augroup END
+        nnoremap <space>e <Cmd>Fern . -drawer -toggle<CR>
+      ]]
     end,
   },
   -- }}}
 
-    -- [[[ themes collection ]]] {{{
+  -- -- [[ startify ]] {{{
+  -- {
+  --   'mhinz/vim-startify',
+  --   dependencies = {
+  --     'lambdalisue/nerdfont.vim',
+  --     'csch0/vim-startify-renderer-nerdfont',
+  --     'lambdalisue/glyph-palette.vim',
+  --   },
+  --   init = function()
+  --     vim.g.startify_bookmarks = { { c = '~/.config/nvim/init.lua' } }
+  --     vim.g.startify_fortune_use_unicode = 1
+  --   end,
+  --   config = function()
+  --     local function info_text()
+  --       local total_plugins = #vim.tbl_keys(require('lazy').plugins())
+  --       local datetime = os.date '%Y-%m-%d %A'
+  --       local version = vim.version()
+  --       return string.format(
+  --       [[Nvim v%d.%d.%d | %s | %d plugins <- lazy.nvim]],
+  --       version.major, version.minor, version.patch,
+  --       datetime,
+  --       total_plugins
+  --       )
+  --     end
+  --     local header = vim.api.nvim_call_function('startify#fortune#boxed', {});
+  --     table.insert(header, 1, info_text())
+  --     local padded_header = vim.api.nvim_call_function('startify#pad', { header });
+  --     vim.api.nvim_set_var('startify_custom_header', padded_header)
+  --   end
+  -- },
+  -- -- }}}
+
   {
-    'hzchirs/vim-material',
-    {
-      { 'catppuccin/nvim', name = 'catppuccin', },
-      'sainnhe/sonokai',
-      'Mofiqul/dracula.nvim',
-      'Shatur/neovim-ayu',
-      'kaicataldo/material.vim',
-      'lifepillar/vim-solarized8',
-      'cpea2506/one_monokai.nvim',
-      'shaunsingh/nord.nvim',
-      'navarasu/onedark.nvim',
-      'Mofiqul/vscode.nvim',
-      'folke/tokyonight.nvim',
-      -- 'morhetz/gruvbox',
-      'AlexvZyl/nordic.nvim',
-    },
+    'echasnovski/mini.statusline',
+    version = false,
+    opts = { set_vim_settings = false },
   },
-  -- }}}
+
+  {
+    'echasnovski/mini.starter',
+    version = false,
+    config = function()
+      local function info_text()
+        local total_plugins = #vim.tbl_keys(require('lazy').plugins())
+        local datetime = os.date '%Y-%m-%d %a %k:%M'
+        local version = vim.version()
+        return string.format(
+          [[Nvim v%d.%d.%d | %d plugins <- lazy.nvim]] .. '\n' ..
+          [[%s]],
+          version.major, version.minor, version.patch, total_plugins,
+          datetime
+        )
+      end
+      local starter = require('mini.starter')
+      starter.setup {
+        header = info_text,
+        -- TODO change footer to a function
+      }
+    end
+  },
 
   'xiyaowong/transparent.nvim',
   -- 'ap/vim-css-color',
@@ -73,36 +125,4 @@ return {
     opts = { 'css', 'javascript', 'html', 'lua', 'rasi' },
     event = 'VeryLazy',
   },
-
-  -- [[ startify ]] {{{
-  {
-    'mhinz/vim-startify',
-    dependencies = {
-      'lambdalisue/nerdfont.vim',
-      'csch0/vim-startify-renderer-nerdfont',
-      'lambdalisue/glyph-palette.vim',
-    },
-    init = function()
-      vim.g.startify_bookmarks = { { c = '~/.config/nvim/init.lua' } }
-      vim.g.startify_fortune_use_unicode = 1
-    end,
-    config = function()
-      local function info_text()
-        local total_plugins = #vim.tbl_keys(require('lazy').plugins())
-        local datetime = os.date '%Y-%m-%d %A'
-        local version = vim.version()
-        return string.format(
-        [[Nvim v%d.%d.%d | %s | %d plugins <- lazy.nvim]],
-        version.major, version.minor, version.patch,
-        datetime,
-        total_plugins
-        )
-      end
-      local header = vim.api.nvim_call_function('startify#fortune#boxed', {});
-      table.insert(header, 1, info_text())
-      local padded_header = vim.api.nvim_call_function('startify#pad', { header });
-      vim.api.nvim_set_var('startify_custom_header', padded_header)
-    end
-  },
-  -- }}}
 }

@@ -51,8 +51,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup {
   spec = {
     { import = "plugins" },
+    -- [ misc plugins ] {{{
     -- add your plugins here
-
     {
       'vimwiki/vimwiki',
       init = function()
@@ -72,7 +72,6 @@ require("lazy").setup {
           lua = true,
           python = true,
         }
-
         -- map('i', '<C-X><C-P>', '<Plug>(copilot-previous)')
         -- map('i', '<C-X><C-N>', '<Plug>(copilot-next)')
       end
@@ -89,25 +88,24 @@ require("lazy").setup {
     -- 'jbyuki/nabla.nvim',
     -- 'lukas-reineke/headlines.nvim',
     -- 'Julian/lean.nvim',
+
+    -- }}}
   },
 
   -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  -- install = { colorscheme = { "habamax" } },
+  -- colorscheme that will be used when installing NEW plugins.
+  -- install = { colorscheme = { "catppuccin" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  -- checker = { enabled = true },
 
   rocks = { hererocks = false },
-  ui = {
-    border = 'single',
-  },
+  ui = { border = 'single', },
   performance = {
-    rtp = {
-      paths = { '~/.vim' }
-    }
+    rtp = { paths = { '~/.vim' } }
   }
 }
 
+-- [ keymaps ] {{{
 vim.keymap.set('v', '>', '>gv', {})
 vim.keymap.set('v', '<', '<gv', {})
 
@@ -121,6 +119,7 @@ vim.keymap.set('n', '<space>ps', '<Cmd>Lazy<CR>', {}) -- status
 
 vim.keymap.set('n', '<space>ac', '<Cmd>Telescope colorscheme<CR>', {})
 vim.keymap.set('n', '<space>at', '<Cmd>TransparentToggle<CR>', {})
+-- }}}
 
-vim.cmd [[colorscheme gruvbox]]
+vim.cmd [[colorscheme catppuccin-mocha]]
 -- vim.cmd [[colorscheme vim-material]]

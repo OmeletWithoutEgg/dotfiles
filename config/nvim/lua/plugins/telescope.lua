@@ -3,14 +3,13 @@ return {
   branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
-        {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make'
-      },
-      'nvim-telescope/telescope-ui-select.nvim',
-      'debugloop/telescope-undo.nvim',
-
-},
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'make'
+    },
+    'nvim-telescope/telescope-ui-select.nvim',
+    'debugloop/telescope-undo.nvim',
+  },
 
   config = function()
     local telescope = require('telescope')
@@ -31,14 +30,12 @@ return {
     telescope.load_extension('ui-select')
     telescope.load_extension('undo')
 
-
-
     local builtin = require('telescope.builtin')
     vim.keymap.set('n', '<space>fr', builtin.oldfiles, {})
     vim.keymap.set('n', '<space>ff', builtin.find_files, {})
     vim.keymap.set('n', '<space>fg', builtin.live_grep, {})
     vim.keymap.set('n', '<space>fb', builtin.buffers, {})
-    vim.keymap.set('n', '<space>fh', builtin.help_tags, {})
+    -- vim.keymap.set('n', '<space>fh', builtin.help_tags, {})
 
     vim.keymap.set('n', '<space>fc', function()
       return builtin.find_files { cwd = vim.fn.stdpath('config') }
