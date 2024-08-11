@@ -56,10 +56,12 @@ export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
 export MYSQL_HISTFILE="$XDG_STATE_HOME"/mariadb_history
-
 export DOT_SAGE="$XDG_CONFIG_HOME"/sage
 
-# export IRBRC="$XDG_CONFIG_HOME"/irb/irbrc
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+
+export RBENV_ROOT="$XDG_DATA_HOME"/rbenv
+export IRBRC="$XDG_CONFIG_HOME"/irb/irbrc
 
 export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 
