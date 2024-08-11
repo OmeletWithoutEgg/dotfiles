@@ -7,7 +7,7 @@ no_actions=true
 always_parse_args=true
 /* layer=overlay */
 insensitive=true
-prompt=Search...
+/* prompt=Search... */
 /* allow_markup=true */
 allow_images=true
 
