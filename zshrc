@@ -100,7 +100,7 @@ alias t=task
 @replace rm "trash" "rm -i"
 @replace mv "mv -i"
 @replace du "dust"
-@replace df "duf"
+@replace df "duf -hide-fs tmpfs"
 
 function open {
   xdg-open $@ 2>/dev/null && sleep 1
