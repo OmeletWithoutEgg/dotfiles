@@ -1,0 +1,5 @@
+[Desktop Entry]
+GenericName=pix2tex
+Name=pix2tex
+Type=Application
+Exec=/home/omelet/.local/share/pyenv/versions/3.10.10/bin/pix2tex --gui

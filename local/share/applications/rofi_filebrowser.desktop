@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/home/omelet/.local/bin/rofi_filebrowser || true
+Name=/home/omelet/.local/bin/rofi_filebrowser
+NoDisplay=true
+StartupNotify=false
+Type=Application
+X-KDE-GlobalAccel-CommandShortcut=true
