@@ -25,7 +25,7 @@ local language_servers = {
   html = {},
   clangd = {},
   -- ccls = {},
-  tsserver = {},
+  ts_ls = {},
   pylsp = {},
   -- ~/.local/share/nvim/mason/packages/python-lsp-server/venv/pyvenv.cfg
   -- include-system-site-packages = true
