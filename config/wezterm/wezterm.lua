@@ -13,17 +13,47 @@ function ToggleTransparent()
   window:set_config_overrides(overrides)
 end
 
--- https://github.com/wez/wezterm/issues/3173
-wezterm.on('window-config-reloaded', function(window, _)
-  window:maximize()
-  local dimensions = window:get_dimensions()
-  -- print(dimensions.pixel_height, wezterm.gui.screens().virtual_height)
-  if dimensions.pixel_height ~= 1800 then -- hacky way?
-    print('restore and maximize')
-    window:restore()
-    window:maximize()
-  end
+wezterm.on('gui-startup', function(cmd)
+  local options = cmd or {}
+  options.pixel_width = 1800
+  options.pixel_height = 2880
+  options.position = {
+    x = 0,
+    y = 0,
+    origin = "MainScreen"
+  }
+  local _, _, window = wezterm.mux.spawn_window(options)
+  window:gui_window():maximize()
 end)
+
+-- https://github.com/wez/wezterm/issues/3173
+-- wezterm.on('window-config-reloaded', function(window, _)
+--   print('just maximize')
+--   -- window:restore()
+--   window:maximize()
+--   local dimensions = window:get_dimensions()
+--   if dimensions.pixel_height ~= 1800 then -- hacky way?
+--     local dim = { dimensions.pixel_height, dimensions.pixel_width }
+--     local vir = {
+--       wezterm.gui.screens().virtual_height,
+--       wezterm.gui.screens().virtual_width
+--     }
+--     print('restore and maximize', dim, vir)
+--     window:restore()
+--     window:maximize()
+--     wezterm.sleep_ms(100)
+--   end
+-- end)
+
+-- wezterm.on('window-resized', function(window, _)
+--   local dimensions = window:get_dimensions()
+--   local dim = { dimensions.pixel_height, dimensions.pixel_width }
+--   local vir = {
+--     wezterm.gui.screens().virtual_height,
+--     wezterm.gui.screens().virtual_width
+--   }
+--   print('window-resized event', dim, vir)
+-- end)
 
 return {
   color_scheme = 'Breeze',
@@ -36,6 +66,7 @@ return {
       -- family = 'Monocraft',
       -- family = 'Source Code Pro Medium',
       -- family = 'FiraCode Nerd Font',
+      -- family = 'Iosevka NFM',
       family = 'JetBrains Mono',
       harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
     },
@@ -49,12 +80,12 @@ return {
   }),
   font_size = 14,
 
-  window_decorations = 'RESIZE',
+  window_decorations = 'NONE',
   window_padding = {
     left = 0,
     right = 0,
     top = 0,
-    bottom = 0
+    bottom = 0,
   },
   -- enable_kitty_graphics = true,
 
@@ -67,7 +98,7 @@ return {
   use_ime = true,
   -- xim_im_name = 'ibus',
 
-  -- default_gui_startup_args = { 'start', '--always-new-process' },
+  default_gui_startup_args = { 'start', '--always-new-process' },
 
   visual_bell = {
     fade_in_function = 'EaseIn',
