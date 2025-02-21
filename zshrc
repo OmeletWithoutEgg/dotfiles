@@ -143,7 +143,7 @@ function tls-check {
     echo "$u"
     echo \
       | openssl s_client -connect "$u:443" 2>/dev/null \
-      | openssl x509 -noout -dates 2>/dev/null
+      | openssl x509 -noout -dates -dateopt iso_8601 2>/dev/null
   done
 }
 
