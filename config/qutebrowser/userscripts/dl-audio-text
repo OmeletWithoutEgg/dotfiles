@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -e
+
+mkdir -p ~/Music/yt-dlp/tmp/
+cd ~/Music/yt-dlp/tmp/
+
+# do not use ' in message
+function qute-echo() {
+  echo "message-info '$@'" > "$QUTE_FIFO"
+}
+function qute-echo-error() {
+  echo "message-error '$@'" > "$QUTE_FIFO"
+}
+
+# source: https://github.com/wiwikuan/myScripts/blob/main/yt-tldr.sh
+# 但沒有 GPU 跑不動 whisper 跟 ollama QQ
+
+function main() {
+  qute-echo "Fetching $QUTE_URL"
+
+  local file_m4a file_mp3 file_txt file_lang_vtt
+  local languages subs_found
+  file_m4a=$(yt-dlp -f m4a --get-filename "$QUTE_URL")
+  file_mp3=${file_m4a%.m4a}.mp3
+  file_txt=${file_m4a%.m4a}.txt
+
+  languages=("zh-TW" "en" "zh")
+  subs_found=false
+  for lang in "${languages[@]}"; do
+    qute-echo "Trying to download subtitle $lang"
+    yt-dlp --write-subs --skip-download --sub-lang "$lang" "$QUTE_URL"
+    file_lang_vtt="${file_m4a%.m4a}.${lang}.vtt"
+    if [ -f "$file_lang_vtt" ]; then
+      subs_found=true
+      break
+    fi
+  done
+  if [ ! -f "$file_lang_vtt" ]; then
+    qute-error "no subtitles downloaded"
+    exit 1
+  fi
+
+  sed '/^[0-9]/d' "$file_lang_vtt" | sed '/^$/d' > "$file_txt"
+  qute-echo "Saving text file to $file_txt"
+  xdg-open "$file_txt"
+}
+
+regex='https://www.youtube.com/watch\?v=.*'
+
+if [[ "$QUTE_URL" =~ $regex ]]; then
+  main
+else
+  qute-error "Bad URL $QUTE_URL"
+fi

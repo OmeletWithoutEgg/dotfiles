@@ -120,6 +120,8 @@ config.bind('yg', 'spawn --userscript yank-url-path')
 config.bind('gs', 'greasemonkey-reload ;; cmd-later 500 reload --force')
 config.bind('ge', 'edit-url')
 config.bind('gyd', 'spawn --userscript dl-audio')
+config.bind(';ad', 'hint links userscript dl-audio')
+config.bind(';at', 'hint links userscript dl-audio-text')
 config.bind('ce', 'config-edit')
 
 if os.environ['XDG_SESSION_TYPE'] == "wayland":
