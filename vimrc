@@ -55,7 +55,7 @@ Plug 'suy/vim-context-commentstring'
 " Plug 'inkarkat/vim-ReplaceWithRegister' " gr for replace
 " Plug 'terryma/vim-expand-region' " +/_ for expand/shrink visual select region
 " Plug 'jiangmiao/auto-pairs'
-" Plug 'mbbill/undotree'
+Plug 'mbbill/undotree'
 Plug 'editorconfig/editorconfig-vim'
 
 " Plug 'kevinhwang91/vim-ibus-sw', { 'commit': '83bcdce5cd5c0ef7b129916ea4fb3be27194230b' }
