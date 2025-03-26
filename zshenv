@@ -57,6 +57,8 @@ export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
 export MYSQL_HISTFILE="$XDG_STATE_HOME"/mariadb_history
 export DOT_SAGE="$XDG_CONFIG_HOME"/sage
+export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
+export STACK_XDG=1
 
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 
@@ -74,6 +76,7 @@ export XCURSOR_PATH=${XCURSOR_PATH}:"$XDG_DATA_HOME"/icons:/usr/share/icons
 # export QT_IM_MODULE=fcitx
 # export XMODIFIERS=@im=fcitx
 
+export COMPOSE_BAKE=true
 export QT_QPA_PLATFORM="wayland;xcb"
 # export ELECTRON_OZONE_PLATFORM_HINT="auto"
 
