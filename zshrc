@@ -156,6 +156,13 @@ function pacman-history {
   history -i | grep -P "(pacman|yay) (-S|-Rs)" | sed "s/sudo //g" | vim - +
 }
 
+function mysql-docker {
+  docker run --name mysql --detach --rm \
+    -v /srv/tiojv3/db:/var/lib/mysql \
+    -v /var/run/mysqld/:/var/run/mysqld/ \
+    mysql:8.0
+}
+
 set -o vi
 export KEYTIMEOUT=1
 
