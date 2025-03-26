@@ -103,7 +103,7 @@ config.unbind('ss')
 
 config.bind('ZC', 'close')  # single hand `:q`
 config.bind('<Alt-Esc>', 'fake-key <Esc>')
-config.bind('<Alt-f>', 'fake-key f')
+config.bind('<Alt-f>', 'fake-key f ;; cmd-later 5000 click-element id container')
 config.bind('<Alt-9>', 'tab-focus -1')
 
 config.bind('<Alt-.>', 'fake-key <Shift-.>')  # speed up

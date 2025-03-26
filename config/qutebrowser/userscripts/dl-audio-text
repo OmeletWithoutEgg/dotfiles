@@ -3,14 +3,20 @@
 set -e
 
 mkdir -p ~/Music/yt-dlp/tmp/
+mkdir -p ~/Music/yt-dlp/tmp/auto/
 cd ~/Music/yt-dlp/tmp/
 
-# do not use ' in message
 function qute-echo() {
-  echo "message-info '$@'" > "$QUTE_FIFO"
+  # escape single quote
+  local message="$1"
+  local message="${message//\'/\'\"\'\"\'}"
+  echo "message-info '$message'" > "$QUTE_FIFO"
 }
 function qute-echo-error() {
-  echo "message-error '$@'" > "$QUTE_FIFO"
+  # escape single quote
+  local message="$1"
+  local message="${message//\'/\'\"\'\"\'}"
+  echo "message-error '$message'" > "$QUTE_FIFO"
 }
 
 # source: https://github.com/wiwikuan/myScripts/blob/main/yt-tldr.sh
@@ -19,31 +25,52 @@ function qute-echo-error() {
 function main() {
   qute-echo "Fetching $QUTE_URL"
 
-  local file_m4a file_mp3 file_txt file_lang_vtt
+  local file_m4a file_txt file_lang_vtt
   local languages subs_found
   file_m4a=$(yt-dlp -f m4a --get-filename "$QUTE_URL")
-  file_mp3=${file_m4a%.m4a}.mp3
   file_txt=${file_m4a%.m4a}.txt
 
   languages=("zh-TW" "en" "zh")
   subs_found=false
+
+  qute-echo "Trying to download subtitle"
+  yt-dlp --write-subs --skip-download --sub-lang "zh-TW,en,zh" "$QUTE_URL"
   for lang in "${languages[@]}"; do
-    qute-echo "Trying to download subtitle $lang"
-    yt-dlp --write-subs --skip-download --sub-lang "$lang" "$QUTE_URL"
     file_lang_vtt="${file_m4a%.m4a}.${lang}.vtt"
     if [ -f "$file_lang_vtt" ]; then
+      qute-echo "Subtitle $lang found"
       subs_found=true
       break
     fi
   done
-  if [ ! -f "$file_lang_vtt" ]; then
-    qute-error "no subtitles downloaded"
-    exit 1
+  if [ "$subs_found" = "true" ]; then
+    sed '/^[0-9]/d' "$file_lang_vtt" | sed '/^$/d' > "$file_txt"
+    qute-echo "Saving text file to $file_txt"
+    xdg-open "$file_txt"
+    exit
   fi
 
-  sed '/^[0-9]/d' "$file_lang_vtt" | sed '/^$/d' > "$file_txt"
-  qute-echo "Saving text file to $file_txt"
-  xdg-open "$file_txt"
+  cd auto/
+  qute-echo "Trying to download auto subtitle"
+  yt-dlp --write-auto-subs --skip-download --sub-lang "zh-TW,en,zh" "$QUTE_URL"
+  for lang in "${languages[@]}"; do
+    file_lang_vtt="${file_m4a%.m4a}.${lang}.vtt"
+    if [ -f "$file_lang_vtt" ]; then
+      qute-echo "Auto subtitle $lang found"
+      subs_found=true
+      break
+    fi
+  done
+  if [ "$subs_found" = "true" ]; then
+    # sed '/^[0-9]/d' "$file_lang_vtt" | sed '/^$/d' > "$file_txt"
+    awk 'FNR<=4 || ($0 ~ /^$|-->|\[|\]|</){next} !a[$0]++' "$file_lang_vtt" > "$file_txt"
+    qute-echo "Saving text file to $file_txt"
+    xdg-open "$file_txt"
+    # xdg-open "$file_lang_vtt"
+    exit
+  fi
+
+  qute-echo-error "No subtitle found"
 }
 
 regex='https://www.youtube.com/watch\?v=.*'
