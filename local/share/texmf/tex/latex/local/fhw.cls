@@ -85,6 +85,7 @@
 \makeatother% }}}
 
 %%% [ theorem style ] % {{{
+\usepackage{cleveref}
 \newtheoremstyle{theoremstyle}
   {10pt}{16pt}      % 上下間距
   {}                % 內文字體
@@ -113,7 +114,10 @@
 \newtheorem{dfn}{Definition}
 \newtheorem{lem}{Lemma}
 \newtheorem{recall}{Recall}
+\newtheorem{prop}{Proposition}
 \newtheorem*{sol}{Solution}
+
+\crefname{lem}{Lemma}{Lemmas}
 % }}}
 
 %%% [ misc ]
