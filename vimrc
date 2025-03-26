@@ -66,7 +66,7 @@ Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'vimwiki/vimwiki', { 'branch': 'master' }
 " Plug 'vim-latex/vim-latex'
 Plug 'preservim/vim-markdown'
-Plug 'godlygeek/tabular'
+Plug 'shirosaki/tabular', { 'branch': 'fix_leading_spaces' }
 " Plug 'joker1007/vim-markdown-quote-syntax'
 Plug 'lervag/vimtex'
 " Plug 'sirver/ultisnips', { 'for': [ 'tex', 'plaintex', 'snippets' ] }
