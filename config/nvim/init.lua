@@ -72,8 +72,9 @@ require("lazy").setup {
           lua = true,
           python = true,
         }
-        -- map('i', '<C-X><C-P>', '<Plug>(copilot-previous)')
-        -- map('i', '<C-X><C-N>', '<Plug>(copilot-next)')
+        vim.keymap.set('i', '<C-X><C-P>', '<Plug>(copilot-previous)', {})
+        vim.keymap.set('i', '<C-X><C-N>', '<Plug>(copilot-next)', {})
+        vim.keymap.set('n', '<space>cpe', '<Cmd>Copilot enable<CR>', {})
       end
     },
 
