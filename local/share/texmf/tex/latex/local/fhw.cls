@@ -85,7 +85,8 @@
 \makeatother% }}}
 
 %%% [ theorem style ] % {{{
-\usepackage{cleveref}
+\RequirePackage[colorlinks]{hyperref}
+\RequirePackage[nameinlink]{cleveref}
 \newtheoremstyle{theoremstyle}
   {10pt}{16pt}      % 上下間距
   {}                % 內文字體
