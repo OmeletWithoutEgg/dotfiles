@@ -46,6 +46,7 @@ Plug 'isobit/vim-caddyfile'
 Plug 'leafOfTree/vim-vue-plugin'
 Plug 'philj56/vim-asm-indent'
 Plug 'rodjek/vim-puppet'
+Plug 'gootorov/q-sharp.vim'
 
 """ Functional
 Plug 'tpope/vim-surround'
