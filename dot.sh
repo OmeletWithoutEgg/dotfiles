@@ -15,7 +15,6 @@ function get_find_opt {
     printf -- "-not -path ./%s " "${EXCLUDE_FILES[@]}"
     cat <<EOF
 -not -path '*/\.git*'
--not -path '*/dconf\.d*'
 -printf '%P\n'
 EOF
 }
@@ -33,11 +32,6 @@ done < <(get_find_opt | xargs find -depth -type d)
 # echo "${FILES[@]}"
 # echo "${MKDIRS[@]}"
 # exit
-
-DCONF_ENTRIES=(
-    desktop/ibus
-    org/freedesktop/ibus/engine/anthy/common
-)
 
 CPDIRS=(
     config/nvim
@@ -138,13 +132,6 @@ function install {
             cp --preserve=mode "$f" "$t"
         fi
     done
-
-    # for e in ${DCONF_ENTRIES[@]}; do
-    #     cat dconf.d/$e
-    #     if confirm "dconf load /$e/ < dconf.d/$e"; then
-    #         dconf load /$e/ < dconf.d/$e
-    #     fi
-    # done
 }
 
 function update {
@@ -164,14 +151,6 @@ function update {
             info "cp ~/.$f $f"
             cp --preserve=mode "$t" "$f"
         fi
-    done
-
-    for e in "${DCONF_ENTRIES[@]}"; do
-        local dir; dir=$(dirname dconf.d/"$e")
-        info "mkdir -p $dir"
-        mkdir -p "$dir"
-        info "dconf dump /$e/ > dconf.d/$e"
-        dconf dump "/$e/" > "dconf.d/$e"
     done
 }
 
