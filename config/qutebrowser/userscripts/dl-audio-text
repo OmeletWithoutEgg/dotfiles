@@ -30,7 +30,7 @@ function main() {
   file_m4a=$(yt-dlp -f m4a --get-filename "$QUTE_URL")
   file_txt=${file_m4a%.m4a}.txt
 
-  languages=("zh-TW" "en" "zh")
+  languages=("zh-TW" "zh" "en")
   subs_found=false
 
   qute-echo "Trying to download subtitle"

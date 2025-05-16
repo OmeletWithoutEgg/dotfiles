@@ -12,11 +12,11 @@ c.qt.args = [
     # 'use-gl=desktop',
     'ignore-gpu-blocklist',
     'enable-gpu-rasterization',
-    # 'enable-unsafe-webgpu',
     'enable-native-gpu-memory-buffers',
     'enable-zero-copy',
-    # 'num-raster-threads=4',
     # 'enable-accelerated-video-decode',
+    # 'enable-unsafe-webgpu',
+    # 'num-raster-threads=4',
     # 'disable-accelerated-2d-canvas',
     # 'ozone-platform=wayland',
 ]
