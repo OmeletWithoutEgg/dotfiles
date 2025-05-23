@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/opt/discord/Discord --start-minimized
+Exec=/opt/discord/Discord --start-minimized --ozone-platform-hint=auto --enable-features=WebRTCPipeWireCapturer --enable-wayland-ime
 NoDisplay=false
 Name=Discord
 Icon=/opt/discord/discord.png
