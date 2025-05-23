@@ -99,7 +99,7 @@ require("lazy").setup {
   -- automatically check for plugin updates
   -- checker = { enabled = true },
 
-  rocks = { hererocks = false },
+  rocks = { hererocks = false, enabled = false },
   ui = { border = 'single', },
   performance = {
     rtp = { paths = { '~/.vim' } }

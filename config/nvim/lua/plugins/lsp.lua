@@ -78,7 +78,6 @@ return {
       float = { border = border },
     }
 
-    -- local lspconfig = require('lspconfig')
     local default_opts = {
       on_attach = function(client, bufnr)
         client.server_capabilities.semanticTokensProvider = nil
@@ -100,7 +99,9 @@ return {
         map('<leader>rn', vim.lsp.buf.rename)
         map('<leader>fm', vim.lsp.buf.format)
         map('<leader>ca', vim.lsp.buf.code_action)
-        map('<C-k>', vim.lsp.buf.signature_help)
+        map('<C-k>', function()
+          vim.lsp.buf.signature_help { border = border }
+        end)
 
         -- 'K', '[d', ']d', '<C-W>d' are all mapped by default
         map('K', function()
@@ -121,8 +122,6 @@ return {
     -- end
 
     vim.lsp.config('*', default_opts)
-    vim.lsp.config('lua_ls',
-      vim.tbl_extend('force', default_opts, language_servers.lua_ls)
-    )
+    vim.lsp.config('lua_ls', language_servers.lua_ls)
   end
 }

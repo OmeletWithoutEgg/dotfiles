@@ -13,47 +13,25 @@ function ToggleTransparent()
   window:set_config_overrides(overrides)
 end
 
-wezterm.on('gui-startup', function(cmd)
-  local options = cmd or {}
-  options.pixel_width = 1800
-  options.pixel_height = 2880
-  options.position = {
-    x = 0,
-    y = 0,
-    origin = "MainScreen"
-  }
-  local _, _, window = wezterm.mux.spawn_window(options)
-  window:gui_window():maximize()
+-- In KDE plasma (wayland), set special window property "window size" to proper size
+-- https://github.com/wezterm/wezterm/issues/3173
+wezterm.on('window-config-reloaded', function(window, pane)
+  -- approximately identify this gui window, by using the associated mux id
+  local id = tostring(window:window_id())
+
+  -- maintain a mapping of windows that we have previously seen before in this event handler
+  local seen = wezterm.GLOBAL.seen_windows or {}
+  -- set a flag if we haven't seen this window before
+  local is_new_window = not seen[id]
+  -- and update the mapping
+  seen[id] = true
+  wezterm.GLOBAL.seen_windows = seen
+
+  -- now act upon the flag
+  if is_new_window then
+    window:maximize()
+  end
 end)
-
--- https://github.com/wez/wezterm/issues/3173
--- wezterm.on('window-config-reloaded', function(window, _)
---   print('just maximize')
---   -- window:restore()
---   window:maximize()
---   local dimensions = window:get_dimensions()
---   if dimensions.pixel_height ~= 1800 then -- hacky way?
---     local dim = { dimensions.pixel_height, dimensions.pixel_width }
---     local vir = {
---       wezterm.gui.screens().virtual_height,
---       wezterm.gui.screens().virtual_width
---     }
---     print('restore and maximize', dim, vir)
---     window:restore()
---     window:maximize()
---     wezterm.sleep_ms(100)
---   end
--- end)
-
--- wezterm.on('window-resized', function(window, _)
---   local dimensions = window:get_dimensions()
---   local dim = { dimensions.pixel_height, dimensions.pixel_width }
---   local vir = {
---     wezterm.gui.screens().virtual_height,
---     wezterm.gui.screens().virtual_width
---   }
---   print('window-resized event', dim, vir)
--- end)
 
 return {
   color_scheme = 'Breeze',
