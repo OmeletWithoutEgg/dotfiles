@@ -9,10 +9,22 @@ local language_servers = {
         },
         diagnostics = {
           globals = {
-            'vim',    -- neovim config
+            -- https://www.reddit.com/r/wezterm/comments/16wuyhh/lua_autocomplete_in_neovim/
+            -- https://github.com/wezterm/wezterm/issues/3132
             'window', -- wezterm config
           }
-        }
+        },
+        workspace = {
+          -- https://github.com/neovim/neovim/discussions/24119
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME
+            -- Depending on the usage, you might want to add additional paths
+            -- here.
+            -- '${3rd}/luv/library'
+            -- '${3rd}/busted/library'
+          },
+        },
       },
     },
   },
@@ -32,8 +44,7 @@ local language_servers = {
 
   -- ruby_ls = {},
   -- solargraph = {}, -- ruby
-  -- vuels = {},
-  volar = {},
+  vue_ls = {},
   -- marksman = { filetypes = { 'markdown', 'vimwiki' } },
   cssls = {},
   -- typos_lsp = {
@@ -44,14 +55,13 @@ local language_servers = {
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
+    'williamboman/mason-lspconfig.nvim',
     {
       'williamboman/mason.nvim',
       build = ':MasonUpdate',
     },
-    'williamboman/mason-lspconfig.nvim',
-    -- 'hrsh7th/cmp-nvim-lsp',
   },
-  event = { 'BufReadPre', 'VeryLazy' },
+  event = { 'BufReadPre', 'BufNewFile', 'VeryLazy' },
 
   config = function()
     local border = 'single'
@@ -63,21 +73,18 @@ return {
     }
 
     vim.diagnostic.config {
-      severity_sort = true,
-      float = {
-        border = border,
-        header = false
-      },
+      virtual_text = true,
+      signs = false,
+      float = { border = border },
     }
-    require('lspconfig.ui.windows').default_options = { border = border }
 
-    local lspconfig = require('lspconfig')
+    -- local lspconfig = require('lspconfig')
     local default_opts = {
       on_attach = function(client, bufnr)
         client.server_capabilities.semanticTokensProvider = nil
 
         -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 
         local function map(lhs, rhs)
           vim.keymap.set('n', lhs, rhs, { buffer = bufnr })
@@ -94,19 +101,28 @@ return {
         map('<leader>fm', vim.lsp.buf.format)
         map('<leader>ca', vim.lsp.buf.code_action)
         map('<C-k>', vim.lsp.buf.signature_help)
-        -- 'K', '[d', ']d', '<C-W>d' are all mapped by default
-      end,
 
-      handlers = {
-        ["textDocument/hover"] =
-            vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-        ["textDocument/signatureHelp"] =
-            vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-      }
+        -- 'K', '[d', ']d', '<C-W>d' are all mapped by default
+        map('K', function()
+          vim.lsp.buf.hover { border = border }
+        end)
+        map('[d', function()
+          vim.diagnostic.jump { count = -1, float = true }
+        end)
+        map(']d', function()
+          vim.diagnostic.jump { count = 1, float = true }
+        end)
+      end,
     }
 
-    for server_name, opts in pairs(language_servers) do
-      lspconfig[server_name].setup(vim.tbl_extend('force', default_opts, opts))
-    end
+    -- for server_name, opts in pairs(language_servers) do
+    --   vim.lsp.config(server_name, vim.tbl_extend('force', default_opts, opts))
+    --   vim.lsp.enable(server_name)
+    -- end
+
+    vim.lsp.config('*', default_opts)
+    vim.lsp.config('lua_ls',
+      vim.tbl_extend('force', default_opts, language_servers.lua_ls)
+    )
   end
 }
