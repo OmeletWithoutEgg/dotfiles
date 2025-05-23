@@ -9,7 +9,7 @@ set statusbar-home-tilde true
 set statusbar-page-percent true
 
 # set font "Monocraft regular 15"
-set font "JetBrains Mono 15"
+set font "JetBrainsMono Nerd Font Mono 15"
 # set font "Source Code Pro 15"
 
 map [normal] ZZ quit
