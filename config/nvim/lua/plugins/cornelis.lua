@@ -2,6 +2,7 @@ return {
   -- https://www.reddit.com/r/agda/comments/15h2pwu/isovectorcornelis_agdamode_for_neovim/
   "isovector/cornelis",
   ft = { "agda" },
+  enabled = false,
   build = "stack build",
   dependencies = {
     "kana/vim-textobj-user",

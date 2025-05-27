@@ -5,7 +5,7 @@ return {
   },
   {
     'smoka7/hop.nvim',
-    version = "*",
+    version = '*',
     config = true,
     init = function()
       vim.keymap.set('n', '<space>j', '<Cmd>HopWord<CR>', {})
