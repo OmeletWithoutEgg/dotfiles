@@ -117,6 +117,12 @@ return {
     end
   },
 
+  {
+    'echasnovski/mini.notify',
+    version = false,
+    config = true,
+  },
+
   'xiyaowong/transparent.nvim',
   -- 'ap/vim-css-color',
   {
