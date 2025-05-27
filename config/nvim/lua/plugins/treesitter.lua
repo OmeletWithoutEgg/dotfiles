@@ -42,5 +42,7 @@ return {
       },
     }
   end,
+  lazy = false,
+  branch = 'master', -- TODO change to main when it's stable enough(?)
   version = '*', -- https://www.reddit.com/r/neovim/comments/1bhpf5r/treesitter_invalid_node_type_modeline/
 }
