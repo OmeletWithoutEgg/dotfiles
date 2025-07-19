@@ -32,7 +32,7 @@ local language_servers = {
   -- hls = {},
   -- gopls = {},
   bashls = {
-    -- filetypes = {'bash', 'zsh'},
+    -- filetypes = {'bash', 'zsh', 'sh'},
   },
   html = {},
   clangd = {},
@@ -116,12 +116,9 @@ return {
       end,
     }
 
-    -- for server_name, opts in pairs(language_servers) do
-    --   vim.lsp.config(server_name, vim.tbl_extend('force', default_opts, opts))
-    --   vim.lsp.enable(server_name)
-    -- end
-
     vim.lsp.config('*', default_opts)
-    vim.lsp.config('lua_ls', language_servers.lua_ls)
+    for server_name, opts in pairs(language_servers) do
+      vim.lsp.config(server_name, opts)
+    end
   end
 }

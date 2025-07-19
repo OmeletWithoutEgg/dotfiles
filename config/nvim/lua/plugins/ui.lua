@@ -9,7 +9,8 @@ return {
       'Mofiqul/dracula.nvim',
       'Shatur/neovim-ayu',
       'kaicataldo/material.vim',
-      'lifepillar/vim-solarized8',
+      'maxmx03/solarized.nvim',
+      { 'Tsuzat/NeoSolarized.nvim', opts = { transparent = false } },
       'cpea2506/one_monokai.nvim',
       'shaunsingh/nord.nvim',
       'navarasu/onedark.nvim',
@@ -21,9 +22,9 @@ return {
   },
   -- }}}
 
-  -- [[[ glyph-palette.vim & fern.vim ]]] {{{
+  -- [[[ vim-glyph-palette & vim-fern ]]] {{{
   {
-    'lambdalisue/glyph-palette.vim',
+    'lambdalisue/vim-glyph-palette',
     config = function()
       local group = vim.api.nvim_create_augroup('ApplyPalette', {})
       vim.api.nvim_create_autocmd('FileType', {
@@ -36,12 +37,12 @@ return {
     end,
   },
   {
-    'lambdalisue/fern.vim',
+    'lambdalisue/vim-fern',
     dependencies = {
-      'lambdalisue/fern-git-status.vim',
-      'lambdalisue/fern-hijack.vim',
-      'lambdalisue/fern-renderer-nerdfont.vim',
-      'lambdalisue/nerdfont.vim',
+      'lambdalisue/vim-fern-git-status',
+      'lambdalisue/vim-fern-hijack',
+      'lambdalisue/vim-fern-renderer-nerdfont',
+      'lambdalisue/vim-nerdfont',
     },
     init = function()
       vim.g['fern#renderer'] = 'nerdfont'
@@ -120,10 +121,20 @@ return {
   {
     'echasnovski/mini.notify',
     version = false,
-    config = true,
+    config = {
+      lsp_progress = {
+        enable = false,
+      },
+    },
   },
 
-  'xiyaowong/transparent.nvim',
+  {
+    'xiyaowong/transparent.nvim',
+    opts = {
+      extra_groups = { 'NormalFloat' },
+    },
+  },
+
   -- 'ap/vim-css-color',
   {
     'norcalli/nvim-colorizer.lua',

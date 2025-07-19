@@ -8,6 +8,7 @@ set fileformat=unix
 call plug#begin()
 
 Plug 'junegunn/goyo.vim'
+Plug 'phelipetls/vim-hugo'
 " Plug 'whonore/Coqtail'
 
 """ Appearance
@@ -22,13 +23,13 @@ Plug 'tpope/vim-fugitive'
 " Plug 'mhinz/vim-signify'
 " let g:signify_skip_filetype = { 'vim': 1, 'c': 1 , 'cpp': 1 }
 
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/fern-git-status.vim'
-Plug 'lambdalisue/fern-hijack.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/vim-fern'
+Plug 'lambdalisue/vim-fern-git-status'
+Plug 'lambdalisue/vim-fern-hijack'
+Plug 'lambdalisue/vim-fern-renderer-nerdfont'
+Plug 'lambdalisue/vim-nerdfont'
 Plug 'csch0/vim-startify-renderer-nerdfont'
-Plug 'lambdalisue/glyph-palette.vim'
+Plug 'lambdalisue/vim-glyph-palette'
 
 """ Language-specific
 Plug 'kchmck/vim-coffee-script'
