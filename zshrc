@@ -101,6 +101,8 @@ alias t=task
 @replace mv "mv -i"
 @replace du "dust"
 @replace df "duf -hide-fs tmpfs"
+@replace sudo "sudo-rs"
+@replace su "su-rs"
 
 function open {
   xdg-open $@ 2>/dev/null && sleep 1
