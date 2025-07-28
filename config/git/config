@@ -3,7 +3,7 @@
 [user]
   email = 2qbingxuan@gmail.com
   name = OmeletWithoutEgg
-  signingkey = 3DDF9A9117ABE84150A41BDDF17CE2806D9121E4
+  signingkey = 9ADC32011E4BCC4ADAACE8883596F1BE5872C7A9
 [init]
   defaultBranch = main
 [pull]
