@@ -29,8 +29,6 @@ fi
 typeset -A ZINIT=(ZCOMPDUMP_PATH "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zcompdump")
 
 source "$ZINIT_HOME/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
 # ZI cheatsheet:
@@ -52,10 +50,12 @@ zi lucid for \
 zi wait lucid for \
   atinit:"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     "zdharma-continuum/fast-syntax-highlighting" \
-  blockf atpull:"zi creinstall zsh-users/zsh-completions"\
+  blockf atpull:"zi creinstall zsh-users/zsh-completions" \
     "zsh-users/zsh-completions" \
   atload:"!_zsh_autosuggest_start" \
     "zsh-users/zsh-autosuggestions"
+
+zicompdef _sudo sudo-rs # workaround
 
 # zi wait lucid for z-shell/zui z-shell/zi-console
 
@@ -103,6 +103,8 @@ alias t=task
 @replace df "duf -hide-fs tmpfs"
 @replace sudo "sudo-rs"
 @replace su "su-rs"
+@replace sudoedit "sudoedit-rs"
+
 
 function open {
   xdg-open $@ 2>/dev/null && sleep 1
