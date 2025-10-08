@@ -1,0 +1,23 @@
+[Custom Commands][net.local.rofi_nmcli.desktop]
+Exec=rofi_nmcli || true
+Name=rofi_nmcli
+
+[Custom Commands][net.local.rofi_pass.desktop]
+Exec=rofi_pass || true
+Name=rofi_pass
+
+[Custom Commands][rofi_drun.desktop]
+Exec=rofi_drun || true
+Name=rofi_drun
+
+[net.local.rofi_nmcli.desktop][Global Shortcuts]
+_launch=Ctrl+Alt+C
+
+[net.local.rofi_pass.desktop][Global Shortcuts]
+_launch=Ctrl+Alt+Z
+
+[org.wezfurlong.wezterm.desktop][Global Shortcuts]
+_launch=Ctrl+Alt+T
+
+[rofi_drun.desktop][Global Shortcuts]
+_launch=Ctrl+Alt+R

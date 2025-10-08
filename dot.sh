@@ -9,6 +9,7 @@ EXCLUDE_FILES=(
     screenshot.png
     bashrc
     simple-vimrc
+    shortcuts.kksrc
 )
 
 function get_find_opt {
