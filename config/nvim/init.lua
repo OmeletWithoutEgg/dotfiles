@@ -76,6 +76,7 @@ require("lazy").setup {
           ['*'] = false,
           lua = true,
           python = true,
+          ruby = true,
         }
         vim.keymap.set('i', '<C-X><C-P>', '<Plug>(copilot-previous)', {})
         vim.keymap.set('i', '<C-X><C-N>', '<Plug>(copilot-next)', {})
