@@ -67,7 +67,7 @@ return {
   },
   -- enable_kitty_graphics = true,
 
-  -- front_end = 'WebGpu',
+  front_end = 'WebGpu',
 
   use_fancy_tab_bar = false,
   adjust_window_size_when_changing_font_size = false,
