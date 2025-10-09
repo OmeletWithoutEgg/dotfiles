@@ -3,42 +3,46 @@ import urllib
 import os
 
 
-def dummy(): global c, config  # disable pyflakes error
+def dummy():
+    global c, config  # disable pyflakes error
 
 
 config.load_autoconfig()
 
 c.qt.args = [
     # 'use-gl=desktop',
-    'ignore-gpu-blocklist',
-    'enable-gpu-rasterization',
-    'enable-native-gpu-memory-buffers',
-    'enable-zero-copy',
+    "ignore-gpu-blocklist",
+    "enable-gpu-rasterization",
+    "enable-native-gpu-memory-buffers",
+    "enable-zero-copy",
     # 'enable-accelerated-video-decode',
     # 'enable-unsafe-webgpu',
     # 'num-raster-threads=4',
     # 'disable-accelerated-2d-canvas',
-    # 'ozone-platform=wayland',
+    "enable-quic",
+    # 'disable-frame-rate-limit',
+    # 'show-fps-counter',
 ]
-c.qt.workarounds.disable_accelerated_2d_canvas = 'never'
+c.qt.chromium.experimental_web_platform_features = "always"
+c.qt.workarounds.disable_accelerated_2d_canvas = "never"
 
 c.auto_save.session = True
-c.content.blocking.method = 'both'
+c.content.blocking.method = "both"
 c.content.blocking.enabled = True
-c.content.javascript.clipboard = 'access'
-c.editor.command = ['wezterm', 'start',
-                    '--always-new-process', '--', 'nvim', '{}']
+c.content.javascript.clipboard = "access"
+c.editor.command = ["wezterm", "start", "--always-new-process", "--", "nvim", "{}"]
 
-c.fonts.default_size = '16pt'
-c.fonts.default_family = 'Source Code Pro Semi Bold'
-c.fonts.web.family.fixed = 'Hack'  # source code pro?
-c.fonts.debug_console = '[20,Hack]'
+c.fonts.default_size = "16pt"
+c.fonts.default_family = "JetBrains Mono NL"  # no ligature
+# c.fonts.web.family.standard = # should be the same as in fontconfig
+c.fonts.web.family.fixed = "Hack"
+c.fonts.debug_console = "[20,Hack]"
 
 c.window.hide_decoration = True
 # c.new_instance_open_target = 'tab-silent'
 
-c.url.default_page = 'qute://start'
-c.url.start_pages = 'https://mail.google.com'
+c.url.default_page = "qute://start"
+c.url.start_pages = "https://mail.google.com"
 
 # c.fileselect.handler = 'external'
 # c.fileselect.folder.command = [
@@ -51,39 +55,45 @@ c.url.start_pages = 'https://mail.google.com'
 
 
 def make_sites_query(sites):
-    query = '(' + ' OR '.join([f'site:{site}' for site in sites]) + ')'
+    query = "(" + " OR ".join([f"site:{site}" for site in sites]) + ")"
     return urllib.parse.quote_plus(query)
 
 
 c.url.searchengines = {
     # TODO nitter
-    'DEFAULT':  'https://duckduckgo.com/?q={}',
-    'g':   'https://google.com/search?q={}',
+    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "g": "https://google.com/search?q={}",
     # 'searchyt': 'https://youtu.be/results?search_query={}',
-    'toen':     'https://translate.google.com/?sl=auto&tl=en&&text={}',
-    'tozh':     'https://translate.google.com/?sl=auto&tl=zh-tw&&text={}',
-    'archwiki': 'https://wiki.archlinux.org/index.php?search={}',
-    'archpkg':  'https://archlinux.org/packages/?q={}',
-    'aurpkg':   'https://aur.archlinux.org/packages?O=0&K={}',
-    'pkg':
-        'https://duckduckgo.com/?q={}%20' + make_sites_query([
-            'repology.org',
-            'pkgs.org',
-            'aur.archlinux.org',
-            'archlinux.org/packages',
-            'hub.docker.com',
-            'pypi.org',
-        ]),
+    "toen": "https://translate.google.com/?sl=auto&tl=en&&text={}",
+    "tozh": "https://translate.google.com/?sl=auto&tl=zh-tw&&text={}",
+    "archwiki": "https://wiki.archlinux.org/index.php?search={}",
+    "archpkg": "https://archlinux.org/packages/?q={}",
+    "aurpkg": "https://aur.archlinux.org/packages?O=0&K={}",
+    "pkg": "https://duckduckgo.com/?q={}%20"
+    + make_sites_query(
+        [
+            "repology.org",
+            "pkgs.org",
+            "aur.archlinux.org",
+            "archlinux.org/packages",
+            "hub.docker.com",
+            "pypi.org",
+        ]
+    ),
 }
 
-c.zoom.default = '125%'
-c.colors.webpage.preferred_color_scheme = 'dark'
-c.content.headers.accept_language = 'en,zh-TW,ja-JP'
+c.zoom.default = "125%"
+c.colors.webpage.preferred_color_scheme = "dark"
+c.content.headers.accept_language = "en,zh-TW,ja-JP"
 
 # with config.pattern('*://*.wikipedia.org/**') as p:
 #     p.content.headers.accept_language = 'en-US,zh-TW,ja-JP,ja,en'
 #
-for url in ['*://ani.gamer.com.tw/**', '*://www.youtube.com/**']:
+for url in [
+    "*://ani.gamer.com.tw/**",
+    "*://www.youtube.com/**",
+    "*://www.nicovideo.jp/**",
+]:
     with config.pattern(url) as p:
         p.content.blocking.enabled = False
 
@@ -94,66 +104,66 @@ for url in ['*://ani.gamer.com.tw/**', '*://www.youtube.com/**']:
 # - [ ] set dark mode to all sites except youtube?
 # - [x] set a hotkey to auto focus on certain field and run qute-pass
 
-config.unbind('ZQ')
-config.unbind('co')
-config.unbind('sf')
-config.unbind('sk')
-config.unbind('sl')
-config.unbind('ss')
+config.unbind("ZQ")
+config.unbind("co")
+config.unbind("sf")
+config.unbind("sk")
+config.unbind("sl")
+config.unbind("ss")
 
-config.bind('ZC', 'close')  # single hand `:q`
-config.bind('<Alt-Esc>', 'fake-key <Esc>')
-config.bind('<Alt-f>', 'fake-key f ;; cmd-later 5000 click-element id center')
+config.bind("ZC", "close")  # single hand `:q`
+config.bind("<Alt-Esc>", "fake-key <Esc>")
+config.bind("<Alt-f>", "fake-key f ;; cmd-later 5000 click-element id center")
 # config.bind('<Alt-f>', 'cmd-later 1 fake-key -g if<Esc>')
-config.bind('<Alt-9>', 'tab-focus -1')
+config.bind("<Alt-9>", "tab-focus -1")
 
-config.bind('<Alt-.>', 'fake-key <Shift-.>')  # speed up
-config.bind('<Alt-,>', 'fake-key <Shift-,>')  # speed down
+config.bind("<Alt-.>", "fake-key <Shift-.>")  # speed up
+config.bind("<Alt-,>", "fake-key <Shift-,>")  # speed down
 
-chrome = 'google-chrome-stable --profile-directory=Default'
-config.bind('cc', f'spawn --detach {chrome} {{url}}')
-config.bind(';c', f'hint links spawn --detach {chrome} {{hint-url}}')
+chrome = "google-chrome-stable --profile-directory=Default"
+config.bind("cc", f"spawn --detach {chrome} {{url}}")
+config.bind(";c", f"hint links spawn --detach {chrome} {{hint-url}}")
 # config.bind('cp', 'spawn google-chrome-stable {clipboard}')
 
-config.bind(';v', 'hint links spawn --detach mpv {hint-url} --slang="tw,en"')
-config.bind('yg', 'spawn --userscript yank-url-path')
+config.bind(";v", 'hint links spawn --detach mpv {hint-url} --slang="tw,en"')
+config.bind("yg", "spawn --userscript yank-url-path")
 
-config.bind('gs', 'greasemonkey-reload ;; cmd-later 500 reload --force')
-config.bind('ge', 'edit-url')
-config.bind('gyd', 'spawn --userscript dl-audio')
-config.bind(';ad', 'hint links userscript dl-audio')
-config.bind(';at', 'hint links userscript dl-audio-text')
-config.bind('ce', 'config-edit')
+config.bind("gs", "greasemonkey-reload ;; cmd-later 500 reload --force")
+config.bind("ge", "edit-url")
+config.bind("gyd", "spawn --userscript dl-audio")
+config.bind(";ad", "hint links userscript dl-audio")
+config.bind(";at", "hint links userscript dl-audio-text")
+config.bind("ce", "config-edit")
 
-if os.environ['XDG_SESSION_TYPE'] == "wayland":
-    pass_menu = 'wofi --dmenu'
+if os.environ["XDG_SESSION_TYPE"] == "wayland":
+    pass_menu = "wofi --dmenu"
 else:
-    pass_menu = 'rofi -dmenu'
+    pass_menu = "rofi -dmenu"
 qute_pass = f'spawn --userscript qute-pass -d "{pass_menu}"'
 
-config.bind('<Ctrl-Shift-l>', f'{qute_pass}', mode='insert')
-config.bind('zb', f'hint inputs tab-bg --first ;; cmd-later 1 {qute_pass}')
-config.bind('zm', f'{qute_pass} --unfiltered')
-config.bind('zp', f'{qute_pass} --password-only')
-config.bind('zu', f'{qute_pass} --username-only')
-config.bind('zo', f'{qute_pass} --otp-only')
+config.bind("<Ctrl-Shift-l>", f"{qute_pass}", mode="insert")
+config.bind("zb", f"hint inputs tab-bg --first ;; cmd-later 1 {qute_pass}")
+config.bind("zm", f"{qute_pass} --unfiltered")
+config.bind("zp", f"{qute_pass} --password-only")
+config.bind("zu", f"{qute_pass} --username-only")
+config.bind("zo", f"{qute_pass} --otp-only")
 
 hint_chars = {
-    'DEFAULT': 'asdfghjkl',
-    'left': 'zxcv' + 'qwer' + 'asdf',
-    'right': 'uiophjklbnm',
+    "DEFAULT": "asdfghjkl",
+    "left": "zxcv" + "qwer" + "asdf",
+    "right": "uiophjklbnm",
 }
 c.hints.chars = hint_chars["DEFAULT"]
-config.unbind('ga')
-config.bind('gaa', f'set hints.chars {hint_chars["left"]}')
-config.bind('gll', f'set hints.chars {hint_chars["right"]}')
-config.bind('ghh', f'set hints.chars {hint_chars["DEFAULT"]}')
+config.unbind("ga")
+config.bind("gaa", f"set hints.chars {hint_chars['left']}")
+config.bind("gll", f"set hints.chars {hint_chars['right']}")
+config.bind("ghh", f"set hints.chars {hint_chars['DEFAULT']}")
 
 # config.source('qutebrowser-themes/themes/onedark.py')
 # config.source('qutebrowser-themes/themes/gruvbox.py')
 # config.source('/home/omelet/Downloads/qb-breath.py')
 
-ublockOrigin = 'https://github.com/uBlockOrigin/uAssets/raw/master/filters'
+ublockOrigin = "https://github.com/uBlockOrigin/uAssets/raw/master/filters"
 
 c.content.blocking.adblock.lists = [
     "https://easylist.to/easylist/easylist.txt",
