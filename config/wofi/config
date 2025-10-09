@@ -4,12 +4,14 @@ show=drun
 no_actions=true
 /* width=1280 */
 /* height=1024 */
-always_parse_args=true
+lines=6
 /* layer=overlay */
+
 insensitive=true
 /* prompt=Search... */
 /* allow_markup=true */
 allow_images=true
+image_size=40
 
 key_backward=Ctrl-p
 key_forward=Ctrl-n
