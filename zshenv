@@ -80,6 +80,9 @@ export GDK_SCALE=2
 
 export TPS_TASK_TEMPLATES_PATH="$XDG_DATA_HOME"/tps/task-templates
 
+# https://discuss.kde.org/t/how-to-force-enable-hdr-on-plasma-6-3-4/32458
+export KWIN_FORCE_ASSUME_HDR_SUPPORT=1
+
 SSH_AGENT_PID=$(pgrep -U "$USER" -o 'ssh-agent')
 if [ -z "$SSH_AGENT_PID" ]; then
     eval "$(ssh-agent -s)"
