@@ -90,13 +90,13 @@ return {
   -- -- }}}
 
   {
-    'echasnovski/mini.statusline',
+    'nvim-mini/mini.statusline',
     version = false,
     opts = { set_vim_settings = false },
   },
 
   {
-    'echasnovski/mini.starter',
+    'nvim-mini/mini.starter',
     version = false,
     config = function()
       local function info_text()
@@ -119,7 +119,7 @@ return {
   },
 
   {
-    'echasnovski/mini.notify',
+    'nvim-mini/mini.notify',
     version = false,
     config = {
       lsp_progress = {
