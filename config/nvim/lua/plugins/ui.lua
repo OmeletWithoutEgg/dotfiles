@@ -121,7 +121,7 @@ return {
   {
     'nvim-mini/mini.notify',
     version = false,
-    config = {
+    opts = {
       lsp_progress = {
         enable = false,
       },
@@ -137,7 +137,7 @@ return {
 
   -- 'ap/vim-css-color',
   {
-    'norcalli/nvim-colorizer.lua',
+    'catgoose/nvim-colorizer.lua',
     config = true,
     opts = { 'css', 'javascript', 'html', 'lua', 'rasi' },
     event = 'VeryLazy',
