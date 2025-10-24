@@ -38,7 +38,8 @@ c.fonts.default_family = "JetBrains Mono NL"  # no ligature
 c.fonts.web.family.fixed = "Hack"
 c.fonts.debug_console = "[20,Hack]"
 
-c.window.hide_decoration = True
+c.window.hide_decoration = False
+c.window.transparent = False
 # c.new_instance_open_target = 'tab-silent'
 
 c.url.default_page = "qute://start"
@@ -113,8 +114,9 @@ config.unbind("ss")
 
 config.bind("ZC", "close")  # single hand `:q`
 config.bind("<Alt-Esc>", "fake-key <Esc>")
-config.bind("<Alt-f>", "fake-key f ;; cmd-later 5000 click-element id center")
-# config.bind('<Alt-f>', 'cmd-later 1 fake-key -g if<Esc>')
+config.bind(
+    "<Alt-f>", "fake-key f ;; cmd-later 5000 jseval -q document.activeElement.blur()"
+)
 config.bind("<Alt-9>", "tab-focus -1")
 
 config.bind("<Alt-.>", "fake-key <Shift-.>")  # speed up
@@ -182,4 +184,5 @@ c.content.blocking.adblock.lists = [
     f"{ublockOrigin}/filters-2023.txt",
     f"{ublockOrigin}/filters-2024.txt",
     f"{ublockOrigin}/quick-fixes.txt",
+    f"{ublockOrigin}/filters-2025.txt",
 ]
