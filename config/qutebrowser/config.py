@@ -40,6 +40,7 @@ c.fonts.debug_console = "[20,Hack]"
 
 c.window.hide_decoration = False
 c.window.transparent = False
+# c.content.fullscreen.window = True
 # c.new_instance_open_target = 'tab-silent'
 
 c.url.default_page = "qute://start"

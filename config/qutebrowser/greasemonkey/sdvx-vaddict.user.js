@@ -3,7 +3,7 @@
 // @version      0.1
 // @description  Add a button on playdata page to register playdata to Vaddict
 // @author       OmeletWithoutEgg
-// @match        *://p.eagate.573.jp/game/sdvx/vi/playdata/profile/index.html
+// @match        *://p.eagate.573.jp/game/sdvx/vii/playdata/profile/index.html
 // ==/UserScript==
 
 function main() {
@@ -31,11 +31,11 @@ function main() {
   const grade_section = document.getElementById('Effect_Level');
   grade_section.appendChild(make_button(
     'Vaddict に通常スコア登録・更新',
-    'https://vaddict.b35.jp/regist.js'
+    'https://vaddict.b35.jp/regist_nabla.js'
   ));
-  grade_section.appendChild(make_button(
-    'Vaddict に EX スコア登録・更新',
-    'https://vaddict.b35.jp/regist2.js'
-  ));
+  // grade_section.appendChild(make_button(
+  //   'Vaddict に EX スコア登録・更新',
+  //   'https://vaddict.b35.jp/regist2.js'
+  // ));
 }
 main();
