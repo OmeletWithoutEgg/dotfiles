@@ -34,6 +34,7 @@ Plug 'lambdalisue/vim-glyph-palette'
 """ Language-specific
 Plug 'kchmck/vim-coffee-script'
 Plug 'ap/vim-css-color'
+" Plug 'gko/vim-coloresque'
 " Plug 'dense-analysis/ale'
 " Plug 'maximbaz/lightline-ale'
 " Plug 'sheerun/vim-polyglot'
