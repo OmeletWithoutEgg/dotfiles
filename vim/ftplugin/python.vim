@@ -1,4 +1,7 @@
-nnoremap <buffer> <leader>r :w<bar>!python3 %<CR>
+if &filetype != 'sage'
+  nnoremap <buffer> <leader>r :w<bar>!python3 %<CR>
+  nnoremap <buffer> <leader>fm :w<bar>!ruff format %<CR>
+  nnoremap <buffer> <leader>l :w<bar>!ruff check %<CR>
+  setlocal maxmempattern=5000
+endif
 
-nnoremap <buffer> <leader>fm :w<bar>!ruff format %<CR>
-nnoremap <buffer> <leader>l :w<bar>!ruff check %<CR>
