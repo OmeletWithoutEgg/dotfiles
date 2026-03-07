@@ -12,5 +12,6 @@
   "chromiumSwitches": {},
   "offloadAdmControls": true,
   "enableHardwareAcceleration": true,
-  "asyncVideoInputDeviceInit": false
+  "asyncVideoInputDeviceInit": false,
+  "enableLibOpenH264Electron": false
 }
