@@ -165,3 +165,5 @@ export KEYTIMEOUT=1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 @include ~/.p10k.zsh
+
+@replace tmt "python ~/Repos/tmt-cli/tmt.py"

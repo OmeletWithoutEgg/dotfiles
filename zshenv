@@ -54,6 +54,8 @@ export MYSQL_HISTFILE="$XDG_STATE_HOME"/mariadb_history
 export DOT_SAGE="$XDG_CONFIG_HOME"/sage
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export STACK_XDG=1
+export RUFF_CACHE_DIR="$XDG_CACHE_HOME/ruff"
+export MAXIMA_USERDIR="$XDG_CONFIG_HOME"/maxima
 
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 
