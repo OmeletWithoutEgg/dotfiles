@@ -139,7 +139,18 @@ return {
   {
     'catgoose/nvim-colorizer.lua',
     config = true,
-    opts = { 'css', 'javascript', 'html', 'lua', 'rasi' },
+    opts = {
+      options = {
+        parsers = {
+          css = true,
+          javascript = true,
+          html = true,
+          lua = true,
+          rasi = true,
+        },
+      },
+    },
+    -- opts = { 'css', 'javascript', 'html', 'lua', 'rasi' },
     event = 'VeryLazy',
   },
 }
