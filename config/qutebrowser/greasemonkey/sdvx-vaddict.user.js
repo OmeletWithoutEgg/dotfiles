@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Vaddict button
-// @version      0.2.0
+// @version      0.3.0
 // @description  Helper buttons on playdata page to register playdata to Vaddict
 // @author       OmeletWithoutEgg
 // @match        *://p.eagate.573.jp/game/sdvx/vii/playdata/profile/index.html
 // ==/UserScript==
 
-async function downloadScoreCsv() {
+async function fetchScoreText() {
   const url = "/game/sdvx/vii/playdata/download/index.html";
   const form = new URLSearchParams({ method: "display" });
 
@@ -32,6 +32,12 @@ async function downloadScoreCsv() {
     throw new Error("score_data not found");
   }
 
+  return scoreText;
+}
+
+async function downloadScoreCsv() {
+  const scoreText = await fetchScoreText();
+
   const d = new Date();
   const ymd =
     d.getFullYear().toString() +
@@ -53,46 +59,86 @@ async function downloadScoreCsv() {
   return filename;
 }
 
-function main() {
+function execBookmarklet(url) {
+  return function () {
+    const element = document.createElement("script");
+    element.src = url;
+    document.getElementsByTagName("head")[0].appendChild(element);
+  };
+}
 
-  function scriptCallback(url) {
-    return function () {
-      const element = document.createElement('script');
-      element.src = url;
-      document.getElementsByTagName('head')[0].appendChild(element);
-    };
-  }
-
-  function makeButton(text, callback) {
-    const button = document.createElement('button');
-    button.textContent = text;
-    button.onclick = callback;
-    button.style = `
+function makeButton(text, onclock) {
+  const button = document.createElement("button");
+  button.textContent = text;
+  button.onclick = onclock;
+  button.style = `
     color: white;
-    border: 1px solid #00ffff;
+    border: 1px solid #8AD004;
     background: linear-gradient(#220022, #555555);
-    box-shadow: inset 0 0 5px 0px #00ffff; // , 0 0 0 5px #220022, 0 0 0 6px #555555;
+    box-shadow: inset 0 0 5px 0px #8AD004;
     border-radius: 5px;
     padding: 5px;
-    margin: 20px;
-    `;
+    margin: 3px;
+  `;
+  return button;
+}
 
-    return button;
-  }
+function makeCopyButton() {
+  const span = document.createElement("span");
+  span.style = `
+    position: relative;
+    display: inline-block;
+  `;
+  const status = document.createElement("span");
+  status.style = `
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translate(6px, -50%);
+    white-space: nowrap;
+  `;
 
-  const grade_section = document.getElementById('Effect_Level');
-  grade_section.appendChild(makeButton(
-    'Vaddict に通常スコア登録・更新',
-    scriptCallback('https://vaddict.b35.jp/regist_nabla.js')
+  const button = makeButton("CSV スコアデータをコピー", async () => {
+    try {
+      const scoreText = await fetchScoreText();
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        throw new Error("clipboard unavailable");
+      }
+      await navigator.clipboard.writeText(scoreText);
+      status.textContent = "コピーしました";
+    } catch (err) {
+      status.textContent = "ERROR";
+    } finally {
+      setTimeout(() => {
+        status.textContent = "";
+      }, 1000);
+    }
+  });
+  span.appendChild(button);
+  span.appendChild(status);
+  return span;
+}
+
+function main() {
+  const div = document.createElement("div");
+  div.style = "text-align: center;";
+  div.appendChild(makeButton(
+    "Vaddict に通常スコア登録・更新",
+    execBookmarklet("https://vaddict.b35.jp/regist_nabla.js")
   ));
-  grade_section.appendChild(makeButton(
-    'Vaddict に EX スコア登録・更新',
-    scriptCallback('https://vaddict.b35.jp/regist_nabla2.js')
+  div.appendChild(makeButton(
+    "Vaddict に EX スコア登録・更新",
+    execBookmarklet("https://vaddict.b35.jp/regist_nabla2.js")
   ));
-  grade_section.appendChild(makeButton(
-    'CSV スコアデータをダウンロード',
+  div.appendChild(makeButton(
+    "CSV スコアデータをダウンロード",
     downloadScoreCsv
   ));
+  div.appendChild(makeCopyButton());
+
+  const playdata = document.getElementById("playdata");
+  const profile = playdata.querySelector("#profile");
+  profile.insertAdjacentElement("afterend", div);
 }
 
 main();
