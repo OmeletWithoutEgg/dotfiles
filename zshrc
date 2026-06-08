@@ -40,7 +40,7 @@ source "$ZINIT_HOME/zinit.zsh"
 #     pick'bin/exa' atclone'cp -vf completions/exa.zsh _exa' \
 #     light-mode for @ogham/exa
 
-zi ice as:theme depth:1
+zi ice depth:1
 zi load "romkatv/powerlevel10k"
 
 zi lucid for \
