@@ -11,7 +11,7 @@ local language_servers = {
           globals = {
             -- https://www.reddit.com/r/wezterm/comments/16wuyhh/lua_autocomplete_in_neovim/
             -- https://github.com/wezterm/wezterm/issues/3132
-            'window', -- wezterm config
+            'window',     -- wezterm config
           }
         },
         workspace = {
@@ -50,43 +50,44 @@ local language_servers = {
   -- typos_lsp = {
   --   -- filetypes = { 'markdown', 'vimwiki' }
   -- },
+  rust_analyzer = {},
 }
 
 return {
   'neovim/nvim-lspconfig',
-  dependencies = {
-    'williamboman/mason-lspconfig.nvim',
-    {
-      'williamboman/mason.nvim',
-      build = ':MasonUpdate',
-    },
-  },
+  -- dependencies = {
+  --   'williamboman/mason-lspconfig.nvim',
+  --   {
+  --     'williamboman/mason.nvim',
+  --     build = ':MasonUpdate',
+  --   },
+  -- },
   event = { 'BufReadPre', 'BufNewFile', 'VeryLazy' },
 
   config = function()
-    local border = 'single'
-    require('mason').setup {
-      ui = { border = border },
-    }
-    require('mason-lspconfig').setup {
-      ensure_installed = vim.tbl_keys(language_servers)
-    }
+
+    -- local border = 'single'
+    -- require('mason').setup {
+    --   ui = { border = border },
+    -- }
+    -- require('mason-lspconfig').setup {
+    --   ensure_installed = vim.tbl_keys(language_servers)
+    -- }
 
     vim.diagnostic.config {
       virtual_text = true,
       signs = false,
-      float = { border = border },
     }
 
-    local default_opts = {
-      on_attach = function(client, bufnr)
-        client.server_capabilities.semanticTokensProvider = nil
+    vim.api.nvim_create_autocmd('LspAttach', {
+      callback = function(args)
+        local buf = args.buf
 
         -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
+        vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = buf })
 
         local function map(lhs, rhs)
-          vim.keymap.set('n', lhs, rhs, { buffer = bufnr })
+          vim.keymap.set('n', lhs, rhs, { buffer = buf })
         end
 
         map('gd', vim.lsp.buf.definition)
@@ -99,26 +100,15 @@ return {
         map('<leader>rn', vim.lsp.buf.rename)
         map('<leader>fm', vim.lsp.buf.format)
         map('<leader>ca', vim.lsp.buf.code_action)
-        map('<C-k>', function()
-          vim.lsp.buf.signature_help { border = border }
-        end)
+        map('<C-k>', vim.lsp.buf.signature_help)
 
         -- 'K', '[d', ']d', '<C-W>d' are all mapped by default
-        map('K', function()
-          vim.lsp.buf.hover { border = border }
-        end)
-        map('[d', function()
-          vim.diagnostic.jump { count = -1, float = true }
-        end)
-        map(']d', function()
-          vim.diagnostic.jump { count = 1, float = true }
-        end)
       end,
-    }
+    })
 
-    vim.lsp.config('*', default_opts)
     for server_name, opts in pairs(language_servers) do
       vim.lsp.config(server_name, opts)
+      vim.lsp.enable(server_name)
     end
   end
 }

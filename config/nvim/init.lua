@@ -29,6 +29,8 @@ o.ruler = false
 o.foldmethod = 'marker'
 o.laststatus = 3 -- experimental?
 
+o.winborder = 'single'
+
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_python3_provider = 0
@@ -69,20 +71,20 @@ require("lazy").setup {
       end,
     },
 
-    {
-      'github/copilot.vim',
-      init = function()
-        vim.g.copilot_filetypes = {
-          ['*'] = false,
-          lua = true,
-          python = true,
-          ruby = true,
-        }
-        vim.keymap.set('i', '<C-X><C-P>', '<Plug>(copilot-previous)', {})
-        vim.keymap.set('i', '<C-X><C-N>', '<Plug>(copilot-next)', {})
-        vim.keymap.set('n', '<space>cpe', '<Cmd>Copilot enable<CR>', {})
-      end
-    },
+    -- {
+    --   'github/copilot.vim',
+    --   init = function()
+    --     vim.g.copilot_filetypes = {
+    --       ['*'] = false,
+    --       lua = true,
+    --       python = true,
+    --       ruby = true,
+    --     }
+    --     vim.keymap.set('i', '<C-X><C-P>', '<Plug>(copilot-previous)', {})
+    --     vim.keymap.set('i', '<C-X><C-N>', '<Plug>(copilot-next)', {})
+    --     vim.keymap.set('n', '<space>cpe', '<Cmd>Copilot enable<CR>', {})
+    --   end
+    -- },
 
     {
       'lervag/vimtex',
@@ -128,5 +130,6 @@ vim.keymap.set('n', '<space>ac', '<Cmd>Telescope colorscheme<CR>', {})
 vim.keymap.set('n', '<space>at', '<Cmd>TransparentToggle<CR>', {})
 -- }}}
 
-vim.cmd [[colorscheme catppuccin-mocha]]
+vim.cmd [[colorscheme gruvbox]]
+-- vim.cmd [[colorscheme catppuccin-mocha]]
 -- vim.cmd [[colorscheme vim-material]]
