@@ -11,7 +11,7 @@ local language_servers = {
           globals = {
             -- https://www.reddit.com/r/wezterm/comments/16wuyhh/lua_autocomplete_in_neovim/
             -- https://github.com/wezterm/wezterm/issues/3132
-            'window',     -- wezterm config
+            'window', -- wezterm config
           }
         },
         workspace = {
@@ -65,11 +65,7 @@ return {
   event = { 'BufReadPre', 'BufNewFile', 'VeryLazy' },
 
   config = function()
-
-    -- local border = 'single'
-    -- require('mason').setup {
-    --   ui = { border = border },
-    -- }
+    -- require('mason').setup { }
     -- require('mason-lspconfig').setup {
     --   ensure_installed = vim.tbl_keys(language_servers)
     -- }
