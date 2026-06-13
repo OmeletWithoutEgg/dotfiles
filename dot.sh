@@ -62,6 +62,26 @@ function confirm {
     done
 }
 
+function show_diff {
+    if command -v delta >/dev/null 2>/dev/null; then
+        delta ${@}
+    else
+        diff --color=always ${@}
+    fi
+}
+
+function confirm_copy {
+    while true; do
+        read -r -p "${1} ? [y/n/d]: " yn
+        case $yn in
+            [Yy]* ) return 0;;
+            [Nn]* ) return 1;;
+            [Dd]* ) show_diff "${2}" "${3}";;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+}
+
 function check_git_status() {
     if [[ -n $(git status -s -uall) ]]; then
         git status
@@ -119,12 +139,18 @@ function install {
     for f in "${FILES[@]}"; do
         local t="$HOME/.$f"
         if [ ! -d "$(dirname "$t")" ]; then
+            # Users decided not to mkdir in last step
             warn "Parent directory $(dirname "$t") does not exist."
         elif diff -q "$f" "$t" >/dev/null 2>/dev/null; then
             echo "File $f not changed"
         elif [ -r "$t" ]; then
-            cp --interactive --preserve=mode "$f" "$t"
+            if confirm_copy "cp $f ~/.$f" "$f" "$t"; then
+                cp --preserve=mode "$f" "$t"
+            fi
         elif [ "$(basename "$f")" == "$f" ]; then
+            # This is the case like ~/.vimrc or ~/.zshrc
+            # Since there is no parent directory,
+            # users didn't make decision yet.
             if confirm "cp $f ~/.$f"; then
                 cp --preserve=mode "$f" "$t"
             fi
