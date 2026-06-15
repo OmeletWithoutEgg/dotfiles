@@ -17,4 +17,4 @@ if [[ -z $password ]]; then
   exit 1
 fi
 
-pass -c "$password"
+gopass -c "$password"

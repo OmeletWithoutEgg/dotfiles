@@ -140,7 +140,7 @@ if os.environ["XDG_SESSION_TYPE"] == "wayland":
     pass_menu = "wofi --dmenu"
 else:
     pass_menu = "rofi -dmenu"
-qute_pass = f'spawn --userscript qute-pass -d "{pass_menu}"'
+qute_pass = f'spawn --userscript qute-pass --mode gopass -d "{pass_menu}"'
 
 config.bind("<Ctrl-Shift-l>", f"{qute_pass}", mode="insert")
 config.bind("zb", f"hint inputs tab-bg --first ;; cmd-later 1 {qute_pass}")
@@ -184,4 +184,5 @@ c.content.blocking.adblock.lists = [
     f"{ublockOrigin}/filters-2024.txt",
     f"{ublockOrigin}/quick-fixes.txt",
     f"{ublockOrigin}/filters-2025.txt",
+    f"{ublockOrigin}/filters-2026.txt",
 ]
