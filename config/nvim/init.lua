@@ -131,6 +131,8 @@ vim.keymap.set('n', '<space>ac', '<Cmd>Telescope colorscheme<CR>', {})
 vim.keymap.set('n', '<space>at', '<Cmd>TransparentToggle<CR>', {})
 -- }}}
 
+-- require("vim._core.ui2").enable()
+
 vim.cmd [[colorscheme gruvbox]]
 -- vim.cmd [[colorscheme catppuccin-mocha]]
 -- vim.cmd [[colorscheme vim-material]]
