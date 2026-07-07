@@ -36,7 +36,6 @@ export GHCUP_USE_XDG_DIRS=true
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
-export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
 export TEXMFHOME="$XDG_DATA_HOME"/texmf
 export PYTHON_HISTORY="$XDG_STATE_HOME"/python_history
@@ -56,6 +55,10 @@ export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export STACK_XDG=1
 export RUFF_CACHE_DIR="$XDG_CACHE_HOME/ruff"
 export MAXIMA_USERDIR="$XDG_CONFIG_HOME"/maxima
+# export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
+export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
+# export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 
@@ -75,6 +78,7 @@ export SDL_VIDEODRIVER=wayland # https://github.com/ppy/osu/issues/33918
 # export QT_IM_MODULE=fcitx
 # export XMODIFIERS=@im=fcitx
 
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
 export COMPOSE_BAKE=true
 export QT_QPA_PLATFORM="wayland;xcb"
 # export ELECTRON_OZONE_PLATFORM_HINT="auto"
