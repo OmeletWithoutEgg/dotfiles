@@ -36,6 +36,7 @@ window {
 
 #entry:selected {
   background-color: @selected-transparent;
+  border-radius: 8px;
 }
 
 /*#text:selected {}*/
