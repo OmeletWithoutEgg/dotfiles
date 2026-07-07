@@ -5,7 +5,7 @@ local act = wezterm.action
 function ToggleTransparent()
   local overrides = window:get_config_overrides() or {}
   if not overrides.window_background_opacity or
-    overrides.window_background_opacity == 0.95 then
+      overrides.window_background_opacity == 0.95 then
     overrides.window_background_opacity = 1
   else
     overrides.window_background_opacity = 0.95
@@ -98,5 +98,18 @@ return {
     { key = '6', mods = 'ALT', action = act.ActivateTab(5), },
     { key = '7', mods = 'ALT', action = act.ActivateTab(6), },
     { key = '8', mods = 'ALT', action = act.ActivateTab(7), },
+
+    -- Open URLs with Ctrl+Shift+O
+    {
+      key = 'O',
+      mods = 'CTRL|SHIFT',
+      action = act.QuickSelectArgs {
+        patterns = { 'https?://\\S+' },
+        action = wezterm.action_callback(function(window, pane)
+          local url = window:get_selection_text_for_pane(pane)
+          wezterm.open_with(url)
+        end),
+      },
+    },
   },
 }
