@@ -20,6 +20,7 @@
   pager = delta
 [delta]
   side-by-side = true
+  wrap-max-lines = unlimited
 [merge]
   tool = vimdiff
 [commit]
