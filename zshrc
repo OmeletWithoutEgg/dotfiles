@@ -157,7 +157,7 @@ function nvm-enable {
 }
 
 function pacman-history {
-  history -i | grep -P "(pacman|yay) (-S|-Rs)" | sed "s/sudo //g" | vim - +
+  history -i | grep -P "(pacman|yay|paru) (-S|-Rs)" | sed "s/sudo //g" | vim - +
 }
 
 set -o vi
