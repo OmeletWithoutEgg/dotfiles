@@ -1,0 +1,9 @@
+--ansi
+--reverse
+--multi
+--preview='fzf-preview.sh {}'
+--preview-window='right:hidden:60%:wrap'
+--bind='ctrl-a:toggle-preview'
+--bind='ctrl-y:execute-silent(echo {+} | wl-copy)+abort'
+--bind='ctrl-f:page-down,ctrl-b:page-up'
+--bind='ctrl-d:preview-page-down,ctrl-u:preview-page-up'

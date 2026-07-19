@@ -8,23 +8,26 @@ export EDITOR=vim
 export PATH="$HOME"/.local/bin:"$XDG_CONFIG_HOME"/emacs/bin:$PATH
 export TIME_STYLE='+%Y-%m-%d %H:%M:%S'
 
-export MANPAGER="sh -c 'col -bx | bat -l man -p'" # https://github.com/sharkdp/bat#man
+if command -v bat >/dev/null 2>&1; then
+    BATCAT=bat
+else
+    BATCAT=batcat
+fi
+export MANPAGER="sh -c 'col -bx | $BATCAT -l man -p'" # https://github.com/sharkdp/bat#man
 export MANROFFOPT="-c"
 
-export COPY_CMD="xclip -sel c"
-
 # Configuration of fd & fzf
-# export FD_OPTIONS="--follow --hidden --exclude .git --exclude node_modules --strip-cwd-prefix --color=always"
+if command -v fd >/dev/null 2>&1; then
+    FDFIND=fd
+else
+    FDFIND=fdfind
+fi
 export FD_OPTIONS="--color=always"
-export FZF_DEFAULT_OPTS="--ansi --reverse --multi --preview='fzf-preview.sh {}' \
-    --preview-window='right:hidden:60%:wrap' \
-    --bind='ctrl-a:toggle-preview,ctrl-y:execute-silent(echo {+} | $COPY_CMD)+abort' \
-    --bind='ctrl-f:page-down,ctrl-b:page-up' \
-    --bind='ctrl-d:preview-page-down,ctrl-u:preview-page-up'"
-export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
+export FZF_DEFAULT_OPTS_FILE="$XDG_CONFIG_HOME"/fzf/config
+export FZF_DEFAULT_COMMAND="$FDFIND --type f --type l --color=always"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type d $FD_OPTIONS"
-export FZF_CTRL_R_OPTS="--bind='ctrl-y:execute-silent(echo -n {2..} | $COPY_CMD)+abort'"
+export FZF_ALT_C_COMMAND="$FDFIND --type d --color=always"
+export FZF_CTRL_R_OPTS="--bind='ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort'"
 
 export ZSHZ_DATA="$XDG_DATA_HOME/z"
 
