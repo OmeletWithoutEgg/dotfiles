@@ -144,7 +144,7 @@ function install {
         elif diff -q "$f" "$t" >/dev/null 2>/dev/null; then
             echo "File $f not changed"
         elif [ -r "$t" ]; then
-            if confirm_copy "cp $f ~/.$f" "$f" "$t"; then
+            if confirm_copy "cp $f ~/.$f" "$t" "$f"; then
                 cp --preserve=mode "$f" "$t"
             fi
         elif [ "$(basename "$f")" == "$f" ]; then
