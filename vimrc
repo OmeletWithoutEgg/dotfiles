@@ -64,7 +64,7 @@ Plug 'editorconfig/editorconfig-vim'
 " Plug 'kevinhwang91/vim-ibus-sw', { 'commit': '83bcdce5cd5c0ef7b129916ea4fb3be27194230b' }
 Plug 'lilydjwg/fcitx.vim'
 let g:fcitx5_remote = 'fcitx5-remote'
-Plug 'jasonccox/vim-wayland-clipboard'
+" Plug 'jasonccox/vim-wayland-clipboard'
 
 Plug 'vimwiki/vimwiki', { 'branch': 'master' }
 " Plug 'vim-latex/vim-latex'
